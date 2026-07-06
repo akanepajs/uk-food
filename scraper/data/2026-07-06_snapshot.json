@@ -1,0 +1,678 @@
+[
+  {
+    "pair_id": "tesco-saus",
+    "category": "sausages",
+    "chain": "Tesco",
+    "side": "plant",
+    "slug": "/product/tesco-plant-chef-6-cumberland-style-meat-free-bangers/ZDO772",
+    "title": "Tesco Plant Chef 6 Cumberland Style Meat-Free Bangers (300g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£2.30",
+        "per_unit_text": "£0.77 per 100g",
+        "offer": "3 FOR 2"
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-saus",
+    "category": "sausages",
+    "chain": "Tesco",
+    "side": "meat",
+    "slug": "/product/tesco-8-brtish-pork-sausages/ZWA592",
+    "title": "Tesco British Pork Sausages (8 x 454g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£1.79",
+        "per_unit_text": "£0.05 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-saus",
+    "category": "sausages",
+    "chain": "Sainsbury's",
+    "side": "plant",
+    "slug": "/product/plant-pioneers-cumberland-shroomdogs/AOQ715",
+    "title": "Plant Pioneers Cumberland Shroomdogs (6 x 300g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£2.30",
+        "per_unit_text": "£0.13 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-saus",
+    "category": "sausages",
+    "chain": "Sainsbury's",
+    "side": "meat",
+    "slug": "/product/sainsburys-butchers-choice-cumberland-british-pork-sausage/IEQ033",
+    "title": "Sainsbury's Butcher's choice Cumberland British Pork Sausage (8 x 454g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£1.79",
+        "per_unit_text": "£0.05 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-saus",
+    "category": "sausages",
+    "chain": "Waitrose",
+    "side": "plant",
+    "slug": "/product/waitrose-plant-living-no-chorizo-sausages/EHQ919",
+    "title": "Waitrose Plant Living No Chorizo Sausages (280g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£3.00",
+        "per_unit_text": "£1.07 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-saus",
+    "category": "sausages",
+    "chain": "Waitrose",
+    "side": "meat",
+    "slug": "/product/waitrose-6-chorizo-sausages/FMK179",
+    "title": "Waitrose 6 Chorizo Style Pork Sausages (400g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£4.00",
+        "per_unit_text": "£1.00 per 100g",
+        "offer": "2 FOR £6"
+      }
+    ]
+  },
+  {
+    "pair_id": "coop-saus",
+    "category": "sausages",
+    "chain": "Co-op",
+    "side": "plant",
+    "slug": "/product/co-op-gro-sizzlin-sausages/TGQ766",
+    "title": "Co-op Plant Based Sizzlin' Sausages (300g)",
+    "stores": [
+      {
+        "store": "Co-op",
+        "price_text": "£2.80",
+        "per_unit_text": "£0.93 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "coop-saus",
+    "category": "sausages",
+    "chain": "Co-op",
+    "side": "meat",
+    "slug": "/product/co-op-outdoor-bred-8-butchers-choice-pork-sausages/UWM179",
+    "title": "Co-op Butchers Choice 8 British Pork Sausages (454g)",
+    "stores": [
+      {
+        "store": "Co-op",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.44 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-burg",
+    "category": "burgers",
+    "chain": "Tesco",
+    "side": "plant",
+    "slug": "/product/tesco-plant-chef-2-meat-free-burgers/VGZ971",
+    "title": "Tesco Plant Chef 2 Meat Free Burgers (226g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.88 per 100g",
+        "offer": "3 FOR 2"
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-burg",
+    "category": "burgers",
+    "chain": "Tesco",
+    "side": "meat",
+    "slug": "/product/tesco-8-beef-burgers/URQ780",
+    "title": "Tesco Beef Burgers (8 x 454g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£4.00",
+        "per_unit_text": "£0.11 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "asda-burg",
+    "category": "burgers",
+    "chain": "Asda",
+    "side": "plant",
+    "slug": "/product/plant-based-by-asda-4-veggie-burgers/GAG509",
+    "title": "Plant Based by ASDA 4 Veggie Burgers",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£1.45",
+        "per_unit_text": "£0.30 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "asda-burg",
+    "category": "burgers",
+    "chain": "Asda",
+    "side": "meat",
+    "slug": "/product/asda-succulent-4-quarter-pounder-beef-burgers/MOA632",
+    "title": "Summer Grill by ASDA 4 Quarter Pounder Beef Burgers (454g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£3.77",
+        "per_unit_text": "£0.83 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-burg",
+    "category": "burgers",
+    "chain": "Sainsbury's",
+    "side": "plant",
+    "slug": "/product/plant-pioneers-meat-free-burgers/AZY903",
+    "title": "Plant Pioneers Meat Free Burgers (226g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.88 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-burg",
+    "category": "burgers",
+    "chain": "Sainsbury's",
+    "side": "meat",
+    "slug": "/product/sainsburys-quarter-pounder-british-beef-burgers/DUP261",
+    "title": "Sainsbury's 2 Quarter Pounder Beef Burgers (227g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.00",
+        "per_unit_text": "£1.32 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-burg",
+    "category": "burgers",
+    "chain": "Waitrose",
+    "side": "plant",
+    "slug": "/product/waitrose-plantliving-2-ultimate-no-meat-vegetarian-burgers/ACR154",
+    "title": "Waitrose PlantLiving 2 Ultimate No Meat Burgers (210g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£2.25",
+        "per_unit_text": "£1.07 per 100g",
+        "offer": "3 FOR 2"
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-burg",
+    "category": "burgers",
+    "chain": "Waitrose",
+    "side": "meat",
+    "slug": "/product/waitrose-bbq-4-oak-smoked-beef-burgers/KHQ589",
+    "title": "Waitrose BBQ 4 Oak Smoked Beef Burgers (454g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£5.50",
+        "per_unit_text": "£1.21 per 100g",
+        "offer": "3 FOR £12"
+      }
+    ]
+  },
+  {
+    "pair_id": "coop-burg",
+    "category": "burgers",
+    "chain": "Co-op",
+    "side": "plant",
+    "slug": "/product/co-op-gro-the-incredible-burger/JIA309",
+    "title": "Co-op Plant Based The Incredible Burger (210g)",
+    "stores": [
+      {
+        "store": "Co-op",
+        "price_text": "£2.40",
+        "per_unit_text": "£1.14 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "coop-burg",
+    "category": "burgers",
+    "chain": "Co-op",
+    "side": "meat",
+    "slug": "/product/co-op-british-4-beef-quarter-pounder-burgers/QLC428",
+    "title": "Co-op British Quarter Pounder Burgers (4 x 454g)",
+    "stores": [
+      {
+        "store": "Co-op",
+        "price_text": "£4.25",
+        "per_unit_text": "£0.23 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-mayo",
+    "category": "mayonnaise",
+    "chain": "Sainsbury's",
+    "side": "plant",
+    "slug": "/product/plant-pioneers-vegan-mayo/KHD660",
+    "title": "Plant Pioneers Vegan Mayo (250ml)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£1.40",
+        "per_unit_text": "£0.56 per 100ml",
+        "offer": "£1.25 NECTAR"
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-mayo",
+    "category": "mayonnaise",
+    "chain": "Sainsbury's",
+    "side": "meat",
+    "slug": "/product/sainsburys-mayonnaise-squeezy/RYF474",
+    "title": "Sainsbury's Mayonnaise Squeezy (500ml)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£1.00",
+        "per_unit_text": "£0.20 per 100ml",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "hellmanns-mayo",
+    "category": "mayonnaise",
+    "chain": "Hellmann's (branded)",
+    "side": "plant",
+    "slug": "/product/hellmanns-plant-based-mayo/GCM325",
+    "title": "Hellmann's Plant Based Mayo (750ml)",
+    "stores": [
+      {
+        "store": "Morrisons",
+        "price_text": "£4.50",
+        "per_unit_text": "£0.60 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Asda",
+        "price_text": "£4.73",
+        "per_unit_text": "£0.63 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£4.75",
+        "per_unit_text": "£0.63 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£4.75",
+        "per_unit_text": "£0.63 per 100ml",
+        "offer": "£3.50 NECTAR"
+      },
+      {
+        "store": "Waitrose",
+        "price_text": "£5.00",
+        "per_unit_text": "£0.67 per 100ml",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "hellmanns-mayo",
+    "category": "mayonnaise",
+    "chain": "Hellmann's (branded)",
+    "side": "meat",
+    "slug": "/product/hellmanns-real-mayonnaise/FOQ118",
+    "title": "Hellmann's Real Mayonnaise (580ml)",
+    "stores": [
+      {
+        "store": "Morrisons",
+        "price_text": "£2.50",
+        "per_unit_text": "£0.43 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Asda",
+        "price_text": "£3.24",
+        "per_unit_text": "£0.56 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.56 per 100ml",
+        "offer": "2 FOR £5"
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.56 per 100ml",
+        "offer": "£2.80 NECTAR"
+      },
+      {
+        "store": "Iceland",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.56 per 100ml",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "heinz-mayo",
+    "category": "mayonnaise",
+    "chain": "Heinz (branded)",
+    "side": "plant",
+    "slug": "/product/heinz-seriously-good-vegan-mayonnaise/OGD694",
+    "title": "Heinz Seriously Good Vegan Mayo (775g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£3.88",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Morrisons",
+        "price_text": "£3.90",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.90",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": "£3.50 NECTAR"
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£3.95",
+        "per_unit_text": "£0.51 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "heinz-mayo",
+    "category": "mayonnaise",
+    "chain": "Heinz (branded)",
+    "side": "meat",
+    "slug": "/product/heinz-seriously-good-mayonnaise/SFX180",
+    "title": "Heinz Seriously Good Mayonnaise Squeeze Bottle (775g) | Starting from £3.88 | Where To Buy",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.26 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Asda",
+        "price_text": "£3.88",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Amazon",
+        "price_text": "£3.88",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Morrisons",
+        "price_text": "£3.90",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.90",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": "£3.50 NECTAR"
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£3.90",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": "2 FOR £6"
+      },
+      {
+        "store": "Ocado",
+        "price_text": "£3.95",
+        "per_unit_text": "£0.51 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Iceland",
+        "price_text": "£4.00",
+        "per_unit_text": "£0.52 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Ebay",
+        "price_text": "£5.93",
+        "per_unit_text": "£0.77 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "richmond-saus",
+    "category": "branded",
+    "chain": "Richmond (branded)",
+    "side": "plant",
+    "slug": "/product/richmond-8-vegan-meat-free-sausages/ULY095",
+    "title": "Richmond 8 Meat Free Vegan Sausages (8 x 304g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£1.87",
+        "per_unit_text": "£0.08 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Morrisons",
+        "price_text": "£2.40",
+        "per_unit_text": "£0.10 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£2.40",
+        "per_unit_text": "£0.10 per 100g",
+        "offer": "3 FOR 2"
+      },
+      {
+        "store": "Waitrose",
+        "price_text": "£2.50",
+        "per_unit_text": "£0.10 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Co-op",
+        "price_text": "£3.00",
+        "per_unit_text": "£0.12 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "richmond-saus",
+    "category": "branded",
+    "chain": "Richmond (branded)",
+    "side": "meat",
+    "slug": "/product/richmond-8-thick-pork-sausages/KAT162",
+    "title": "Richmond 8 Thick Pork Sausages (410g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£2.17",
+        "per_unit_text": "£0.53 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£2.20",
+        "per_unit_text": "£0.54 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Morrisons",
+        "price_text": "£2.30",
+        "per_unit_text": "£0.56 per 100g",
+        "offer": null
+      },
+      {
+        "store": "Co-op",
+        "price_text": "£3.00",
+        "per_unit_text": "£0.73 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "magnum-ice",
+    "category": "branded",
+    "chain": "Magnum (branded)",
+    "side": "plant",
+    "slug": "/product/magnum-vegan-classic-3mp/PAN815",
+    "title": "Magnum Collection Vegan Classic Ice Cream Sticks (3 x 90ml)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£3.25",
+        "per_unit_text": "£1.20 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Morrisons",
+        "price_text": "£4.25",
+        "per_unit_text": "£1.57 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Ocado",
+        "price_text": "£4.25",
+        "per_unit_text": "£1.57 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£4.25",
+        "per_unit_text": "£1.57 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£4.25",
+        "per_unit_text": "£1.57 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Waitrose",
+        "price_text": "£4.45",
+        "per_unit_text": "£1.65 per 100ml",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "magnum-ice",
+    "category": "branded",
+    "chain": "Magnum (branded)",
+    "side": "meat",
+    "slug": "/product/magnum-ice-cream-sticks-classic-3x100/VIT009",
+    "title": "Magnum Classic Chocolate Ice Cream Sticks 3x100 (3 x 100ml)",
+    "stores": [
+      {
+        "store": "Morrisons",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.67 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Iceland",
+        "price_text": "£2.00",
+        "per_unit_text": "£0.67 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Co-op",
+        "price_text": "£3.20",
+        "per_unit_text": "£1.07 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Asda",
+        "price_text": "£3.48",
+        "per_unit_text": "£1.16 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Waitrose",
+        "price_text": "£3.50",
+        "per_unit_text": "£1.17 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Ocado",
+        "price_text": "£3.50",
+        "per_unit_text": "£1.17 per 100ml",
+        "offer": null
+      },
+      {
+        "store": "Tesco",
+        "price_text": "£3.50",
+        "per_unit_text": "£1.17 per 100ml",
+        "offer": "£2.50 CLUBCARD"
+      },
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.50",
+        "per_unit_text": "£1.17 per 100ml",
+        "offer": null
+      }
+    ]
+  }
+]
