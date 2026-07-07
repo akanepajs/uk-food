@@ -374,9 +374,7 @@ ${distTable("Brakes")}
 }
 
 // ---- shared page chrome ----
-// Research is the landing page (Art, 07-07): index.html = research, retail.html = retail;
-// research.html is kept as a redirect stub so earlier links do not break.
-const tabs = active => `<div class="tabs"><a href="./" class="tab${active === "research" ? " active" : ""}">Research</a><a href="retail.html" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a></div>`;
+const tabs = active => `<div class="tabs"><a href="research.html" class="tab${active === "research" ? " active" : ""}">Research</a><a href="./" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a></div>`;
 
 const STYLE = `
   :root {
@@ -539,7 +537,7 @@ ${trendTable()}
 
 // ---- wholesale page ----
 const wbody = wLatest.length ? wholesaleSection()
-  : `<p>No wholesale data yet: the first daily scrape has not landed. The retail comparison is on the <a href="retail.html">retail page</a>.</p>`;
+  : `<p>No wholesale data yet: the first daily scrape has not landed. The retail comparison is on the <a href="./">main page</a>.</p>`;
 const whtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -567,7 +565,7 @@ ${wbody}
 <ul>
   <li>Wholesale daily history: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.json">history_wholesale.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.csv">history_wholesale.csv</a> (one row per product, distributor and date, with price basis, branch range, stock and promo fields).</li>
   <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_wholesale.json">pairs_wholesale.json</a>.</li>
-  <li>Retail comparison: <a href="retail.html">retail page</a>; code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
+  <li>Retail comparison: <a href="./">main page</a>; code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
 </ul>
 
 <div class="disclosure">
@@ -666,32 +664,15 @@ branding-mix artefact, since branded-versus-branded the gap is 16% and branded p
 </html>
 `;
 
-// Redirect stub: the research content moved from research.html to the site root.
-const redirectHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=./">
-<link rel="canonical" href="https://uk-food.kanepajs.eu/">
-<title>UK plant-based vs meat costs: research figures</title>
-</head>
-<body>
-<p>This page moved to the <a href="./">site home page</a>.</p>
-</body>
-</html>
-`;
-
 // Hard rule: no em dashes in outward-facing files.
-for (const [name, doc] of [["retail.html", html], ["wholesale.html", whtml], ["index.html", rhtml], ["research.html", redirectHtml]]) {
+for (const [name, doc] of [["index.html", html], ["wholesale.html", whtml], ["research.html", rhtml]]) {
   if (doc.includes("—")) {
     console.error(`FATAL: em dash found in generated ${name}.`);
     process.exit(1);
   }
 }
-await writeFile(new URL("../retail.html", import.meta.url), html);
+await writeFile(new URL("../index.html", import.meta.url), html);
 await writeFile(new URL("../wholesale.html", import.meta.url), whtml);
-await writeFile(new URL("../index.html", import.meta.url), rhtml);
-await writeFile(new URL("../research.html", import.meta.url), redirectHtml);
-console.log(`retail.html generated: ${dates.length} date(s), latest ${lastDate}, ${latest.length} latest rows.`);
+await writeFile(new URL("../research.html", import.meta.url), rhtml);
+console.log(`index.html generated: ${dates.length} date(s), latest ${lastDate}, ${latest.length} latest rows.`);
 console.log(`wholesale.html generated: ${wnDates} date(s), latest ${wLast || "-"}, ${wLatest.length} latest rows.`);
-console.log(`index.html (research landing) + research.html redirect generated.`);
