@@ -11,7 +11,8 @@ Which? benchmark used a three-month average).
 
 ## Contents
 
-- `index.html`: the site (generated; do not edit by hand).
+- `index.html` (research landing page), `retail.html`, `wholesale.html`, `research.html`
+  (redirect stub): the site pages (generated; do not edit by hand).
 - `scraper/pairs.json`: the curated pair register (slugs, hand-verified pack sizes,
   Sainsbury's API queries, matching decisions).
 - `scraper/run_scrape_uk.mjs`: the daily scraper. trolley.co.uk product pages (allowed
