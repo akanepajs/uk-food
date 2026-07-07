@@ -114,7 +114,7 @@ const NOTES = {
   "sausages": "Sainsbury's rows verified against Sainsbury's own product API. Waitrose pair is chorizo vs no-chorizo (its closest like-for-like). Morrisons and Asda excluded: no standard own-brand pork sausage (Morrisons) or own-brand plant sausage (Asda) listed on the aggregator; M&S not covered by the aggregator.",
   "burgers": "Match-quality flags: Tesco pairs a chilled plant product with frozen beef burgers; the Asda plant product is a vegetable burger rather than a meat-imitation patty (its weight is implied from the aggregator's unit price, unverified); the Waitrose pair sits in a premium tier on both sides. Sainsbury's row verified against Sainsbury's API. Morrisons has no comparable own-brand meat-imitation burger, matching the exclusion in Which? (2022).",
   "mince": "Plant mince is compared against the standard 20% fat beef mince, the cheapest standard tier; against lean 5% mince the plant discount would be larger still. Tesco and Asda plant minces are frozen against chilled beef. Morrisons, Waitrose and Co-op list no own-brand plant mince.",
-  "meatballs": "The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Sainsbury's rows verified against Sainsbury's API (its 5% fat variant is dearer, which would push the ratio lower still). Morrisons and Co-op list no own-brand plant meatballs.",
+  "meatballs": "The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Sainsbury's rows verified against Sainsbury's API (its 5% fat variant is more expensive, which would push the ratio lower still). Morrisons and Co-op list no own-brand plant meatballs.",
   "ready meals": "The Which? (2022) ready-meal pairs at Tesco (cottage pie) and Waitrose (moussaka) are no longer listed on the aggregator, so the category currently covers Sainsbury's (lasagne vs lasagne) and Co-op (the same curry pair Which? used). Note the Co-op pair compares a cauliflower curry with a chicken curry: a like-for-like dish, not a like-for-like protein swap.",
   "coleslaw": "Vegan coleslaw differs from standard mainly in the dressing (no egg/cream). Sainsbury's pair is deli-style vs deli-style at the same 300g size, both API-verified. M&S Plant Kitchen coleslaw exists via Ocado but its pack weights cannot be verified on the aggregator (its unit prices there imply implausible pack sizes), so M&S is excluded. Morrisons lists no standard own-brand coleslaw on the aggregator.",
   "mayonnaise": "Pack sizes differ within the Sainsbury's own-brand and Hellmann's pairs (smaller packs usually cost more per 100ml, so those ratios partly reflect pack size). Heinz sells both versions at the same 775g size. A Waitrose listing for the standard Heinz was excluded as a suspected stale or promotional record.",
@@ -350,7 +350,7 @@ ${body}
     .map(pr => `<li><strong>${esc(pr.pair_id)}</strong> (${esc(pr.distributor)}, ${esc(pr.category)}): ${esc(pr.note)}</li>`).join("\n  ");
   return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution). Of the other candidates probed (7 Jul 2026), Booker and Costco UK block automated access outright and Bidfood shows prices only to account holders. In the latest scrape (${fmtD(wLast)}), the plant-based product is cheaper or at parity per 100g/100ml in ${cheaper} of ${rows.length} wholesale pairs.</p>
 <div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent${wnDates >= 2 ? ", averaged over the series" : ""}; the stem shows the distance from parity (1.0, vertical line).
-  <span class="swatch" style="background: var(--pink);"></span>plant-based dearer
+  <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
 <div class="chart">
@@ -469,7 +469,7 @@ ${tabs("retail")}
 
 <h2>Price ratio overview: plant-based / meat, per 100g</h2>
 <div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent, averaged over the series; the stem shows the distance from parity (1.0, vertical line).
-  <span class="swatch" style="background: var(--pink);"></span>plant-based dearer
+  <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
 <div class="chart">
@@ -494,7 +494,7 @@ ${brandedTable("heinz-mayo", "Heinz: Seriously Good Vegan Mayo (775g) vs Serious
 <h2>Trend since Which? (2022)</h2>
 <p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios because they are unaffected by general food inflation; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
 <div class="legend"><span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>2022 ratio (Which?)
-  <span class="swatch" style="background: var(--pink);"></span>current ratio, plant dearer
+  <span class="swatch" style="background: var(--pink);"></span>current ratio, plant costs more
   <span class="swatch" style="background: var(--sage);"></span>current ratio, plant cheaper or equal
 </div>
 <div class="chart">
@@ -627,7 +627,7 @@ Hospitals (2024); AHDB (2025, reporting Kantar).</p>
 <p class="fignote">Modelled diet costs at International Comparison Program 2017 prices, energy- and
 nutrient-matched (Springmann et al., 2021). Shaded bands span the high-veg to high-grain variant range
 for the high-income region, from the study's supplementary data (market cost, 2017): vegan 21.5 to 33.6%
-cheaper, vegetarian 26.8 to 31.4% cheaper, pescatarian from 2.5% dearer (high-veg) to near parity
+cheaper, vegetarian 26.8 to 31.4% cheaper, pescatarian from 2.5% more expensive (high-veg) to near parity
 (high-grain, 0.6% cheaper). The flexitarian band (12 to 14%) is the paper's income-group span (14% in
 high-income, 12% in upper-middle-income countries); its tick is the high-income cell (13.7%). Diamonds
 mark the UK (GBR) country cells: flexitarian 17.0% cheaper (95% CI 13.3 to 18.5), vegetarian 26.5 and
@@ -636,7 +636,7 @@ zero (read as parity). Bands are variant ranges, not confidence intervals; value
 prices, not catering prices. Source: Springmann et al. (2021), including the study's supplementary data.</p>
 
 <h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
-<div class="fig"><img src="assets/research/fig3_item_substitutes.png" alt="Diverging bar chart: plant meatballs 41% and mince 13% cheaper, plant burgers 9% and plant milk 16 to 67% dearer"></div>
+<div class="fig"><img src="assets/research/fig3_item_substitutes.png" alt="Diverging bar chart: plant meatballs 41% and mince 13% cheaper, plant burgers 9% and plant milk 16 to 67% more expensive"></div>
 <p class="fignote">Mince, meatball and burger figures are from a Tesco price snapshot, January to March
 2026, one retailer and one quarter, during a period of rising meat prices in which beef rose fastest
 (supermarket beef prices up more than 10% year on year at the time, lean beef mince up 23%) (GFI Europe,
@@ -644,7 +644,7 @@ prices, not catering prices. Source: Springmann et al. (2021), including the stu
 data (GFI Europe, 2025, based on Circana retail sales and NIQ Homescan panel data): the overall
 per-litre plant-milk premium (67%) is mostly a
 branding-mix artefact, since branded-versus-branded the gap is 16% and branded plant cream is near parity
-(1.6% dearer). Source: GFI Europe (2026, mince and meatballs); GFI Europe (2025, milk and cream).</p>
+(1.6% more expensive). Source: GFI Europe (2026, mince and meatballs); GFI Europe (2025, milk and cream).</p>
 
 <h2>References</h2>
 <ul class="refs">
