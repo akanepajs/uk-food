@@ -294,7 +294,7 @@ function wholesaleSection() {
     if (!drows.length) return "";
     const body = drows.map(r =>
       `    <tr><td class="txt">${esc(r.pair.category)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td>${priceCell(r.p)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td>${priceCell(r.m)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
-    return `<h2>${esc(dist)}</h2>
+    return `<h3>${esc(dist)}</h3>
 <div class="tablewrap">
 <table class="data">
   <thead><tr><th class="txt">Category</th><th class="txt">Plant-based product</th><th>&pound;</th><th>&pound;/100</th><th class="txt">Meat or standard product</th><th>&pound;</th><th>&pound;/100</th><th>Ratio</th>${avgCol ? `<th>Avg (${wnDates}d)</th>` : ""}</tr></thead>
@@ -317,7 +317,8 @@ ${body}
   const cheaper = rows.filter(r => r.ratio <= 1.005).length;
   const noteRows = wreg.pairs.filter(pr => rows.some(r => r.pair.pair_id === pr.pair_id) && pr.note)
     .map(pr => `<li><strong>${esc(pr.pair_id)}</strong> (${esc(pr.distributor)}, ${esc(pr.category)}): ${esc(pr.note)}</li>`).join("\n  ");
-  return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution). Of the other candidates probed (7 Jul 2026), Booker and Costco UK block automated access outright and Bidfood shows prices only to account holders. In the latest scrape (${fmtD(wLast)}), the plant-based product is cheaper or at parity per 100g/100ml in ${cheaper} of ${rows.length} wholesale pairs.</p>
+  return `<h2>Wholesale (foodservice) prices</h2>
+<p>Public-sector and contract caterers buy at wholesale, not retail, so this section tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution). Of the other candidates probed (7 Jul 2026), Booker and Costco UK block automated access outright and Bidfood shows prices only to account holders. In the latest scrape (${fmtD(wLast)}), the plant-based product is cheaper or at parity per 100g/100ml in ${cheaper} of ${rows.length} wholesale pairs.</p>
 <div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent${wnDates >= 2 ? ", averaged over the series" : ""}; the stem shows the distance from parity (1.0, vertical line).
   <span class="swatch" style="background: var(--pink);"></span>plant-based dearer
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
@@ -328,7 +329,7 @@ ${chart.join("\n")}
 ${distTable("JJ Foodservice")}
 ${distTable("Brakes")}
 <p class="tablenote">Prices marked * were on promotion at scrape time (the regular price is recorded in the data as was_price).</p>
-<h2>Wholesale method notes</h2>
+<h3>Wholesale method notes</h3>
 <ul class="checklist">
   <li><strong>Price basis differs from retail and between distributors.</strong> JJ Foodservice prices are ex-VAT Collection prices at the Enfield branch (its product pages publish every branch's price; the data records the min-max across branches). Brakes shows an anonymous indicative price based on an "average customer discount": a real caterer's negotiated contract price can differ, so treat Brakes figures as indicative list-level prices, not transaction prices. Ratios within a distributor are internally consistent.</li>
   <li><strong>Catering pack formats:</strong> per-100g/100ml figures are computed from each product's stated pack weight or volume (recorded in the register and cross-checked against the distributor's own per-kg unit price where published). Pack sizes differ within some pairs; the pair notes flag where that matters.</li>
@@ -336,16 +337,21 @@ ${distTable("Brakes")}
   <li><strong>No published wholesale benchmark exists for plant-based products.</strong> AHDB publishes weekly GB deadweight (carcase) price series for <a href="https://ahdb.org.uk/beef/gb-deadweight-cattle-prices">cattle</a> and <a href="https://ahdb.org.uk/pork/gb-deadweight-pig-prices-eu-spec">pigs</a>, but a carcase price is a farm-gate commodity price, not comparable to a catering product, and no plant-based equivalent series exists anywhere in its taxonomy.</li>
   <li><strong>Scrape conduct:</strong> both sites are scraped as anonymous visitors from their server-rendered product pages, within each site's robots.txt (Brakes sets a 10-second crawl delay and a 04:00-08:45 UTC visit window; the daily run is paced and scheduled accordingly).</li>
 </ul>
-<h2>Pair matching notes (wholesale)</h2>
+<h3>Pair matching notes (wholesale)</h3>
 <ul class="checklist">
   ${noteRows}
 </ul>`;
 }
 
-// ---- shared page chrome ----
-const tabs = active => `<div class="tabs"><a href="./" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a></div>`;
-
-const STYLE = `
+// ---- page ----
+const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UK plant-based vs meat price check</title>
+<meta name="description" content="Price comparison of plant-based products and their meat equivalents at the big UK supermarket chains, per 100g, updated daily. Follows the Which? (2022) basket.">
+<style>
   :root {
     --teal: #88a8a8; --olive: #889880; --pink: #c890a0; --ochre: #e0c868;
     --mint: #c8e8e0; --sage: #c0d0a9; --burgundy: #744c5b;
@@ -403,26 +409,12 @@ const STYLE = `
   .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
   .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
   .checklist li { font-size: 0.85rem; }
-  .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
-  .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
-  .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
-`;
-
-// ---- page ----
-const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UK plant-based vs meat price check</title>
-<meta name="description" content="Price comparison of plant-based products and their meat equivalents at the big UK supermarket chains, per 100g, updated daily. Follows the Which? (2022) basket.">
-<style>${STYLE}</style>
+</style>
 </head>
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK supermarket price check</h1>
 <div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022)</div>
-${tabs("retail")}
 <div class="proto-banner">Updated daily. Series since ${fmtD(firstDate)}; latest prices ${fmtD(lastDate)} (${nDates} day${nDates === 1 ? "" : "s"} of data). Ratios are averages of daily prices over the series.</div>
 
 <div class="key-message">
@@ -473,6 +465,8 @@ ${trendTable()}
 </div>
 <p class="tablenote">2022 figures are Which? three-month averages (Co-op: point prices supplied 5 Dec 2022); "now" figures are the latest scrape with ratios averaged over the series. Product-change flags (*): Waitrose sausages compared Mushroom &amp; Leek vs British pork in 2022 but chorizo vs no-chorizo now; Tesco's 2022 Meat &amp; Veg burger comparator and Asda's 2022 meat-imitation burger are no longer listed (the current Asda plant product is a vegetable burger); Waitrose's current beef comparator is a premium-tier product; Hellmann's pack sizes changed (430ml squeezy both sides in 2022, 750ml vegan vs 580ml real now). The 2022 Co-op comparator was a gluten-free pork sausage, and Co-op had just price-matched its vegan range.</p>
 
+${wholesaleSection()}
+
 <h2>Method and caveats</h2>
 <ul class="checklist">
   <li><strong>Product basket:</strong> follows the own-brand and branded pairs in <a href="https://www.which.co.uk/news/article/plant-based-alternatives-can-cost-twice-as-much-as-meat-which-finds-a4AzY8r4gTpO">Which? (Dec 2022), "Plant-based alternatives can cost twice as much as meat"</a>, re-matched to 2026 assortments and extended with mince, meatballs and additional pairs. Each pair is a plant-based product and its nearest meat/dairy/egg equivalent in the same range tier. The register (with pack sizes and matching decisions) is <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs.json">pairs.json</a>.</li>
@@ -487,12 +481,12 @@ ${trendTable()}
 <ul>
   <li>Full daily history: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history.json">history.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history.csv">history.csv</a> (one row per product, store and date, with provenance).</li>
   <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs.json">pairs.json</a>.</li>
-  <li>Wholesale (foodservice) comparison: <a href="wholesale.html">separate page</a>.</li>
+  <li>Wholesale series: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.json">history_wholesale.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.csv">history_wholesale.csv</a>; register <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_wholesale.json">pairs_wholesale.json</a>.</li>
   <li>Code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
 </ul>
 
 <div class="disclosure">
-  Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
+  Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022); wholesale: JJ Foodservice and Brakes product pages.
   Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated ${fmtD(lastDate)}.
 </div>
 
@@ -500,51 +494,10 @@ ${trendTable()}
 </html>
 `;
 
-// ---- wholesale page ----
-const wbody = wLatest.length ? wholesaleSection()
-  : `<p>No wholesale data yet: the first daily scrape has not landed. The retail comparison is on the <a href="./">main page</a>.</p>`;
-const whtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UK plant-based vs meat wholesale price check</title>
-<meta name="description" content="Wholesale (foodservice) price comparison of plant-based products and their meat equivalents at UK distributors JJ Foodservice and Brakes, per 100g, updated daily.">
-<style>${STYLE}</style>
-</head>
-<body>
-
-<h1>Plant-based products vs their meat equivalents: UK wholesale (foodservice) price check</h1>
-<div class="subtitle">Catering pairs at the two UK foodservice distributors with publicly visible prices, per 100g/100ml</div>
-${tabs("wholesale")}
-${wLatest.length ? `<div class="proto-banner">Updated daily. Series since ${fmtD(wdates[0])}; latest prices ${fmtD(wLast)} (${wnDates} day${wnDates === 1 ? "" : "s"} of data)${wnDates >= 2 ? ". Ratios are averages of daily prices over the series" : ""}.</div>` : ""}
-
-${wbody}
-
-<h2>Data</h2>
-<ul>
-  <li>Wholesale daily history: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.json">history_wholesale.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.csv">history_wholesale.csv</a> (one row per product, distributor and date, with price basis, branch range, stock and promo fields).</li>
-  <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_wholesale.json">pairs_wholesale.json</a>.</li>
-  <li>Retail comparison: <a href="./">main page</a>; code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
-</ul>
-
-<div class="disclosure">
-  Site prepared with Claude Code (data collection, verification and page build). Prices are list/shelf prices and may have changed. Sources: JJ Foodservice and Brakes product pages (wholesale); AHDB (context links).
-  Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated ${fmtD(wLast || lastDate)}.
-</div>
-
-</body>
-</html>
-`;
-
 // Hard rule: no em dashes in outward-facing files.
-for (const [name, doc] of [["index.html", html], ["wholesale.html", whtml]]) {
-  if (doc.includes("—")) {
-    console.error(`FATAL: em dash found in generated ${name}.`);
-    process.exit(1);
-  }
+if (html.includes("—")) {
+  console.error("FATAL: em dash found in generated page.");
+  process.exit(1);
 }
 await writeFile(new URL("../index.html", import.meta.url), html);
-await writeFile(new URL("../wholesale.html", import.meta.url), whtml);
 console.log(`index.html generated: ${dates.length} date(s), latest ${lastDate}, ${latest.length} latest rows.`);
-console.log(`wholesale.html generated: ${wnDates} date(s), latest ${wLast || "-"}, ${wLatest.length} latest rows.`);
