@@ -12,7 +12,7 @@
       "pair_id": "jj-mince", "category": "mince", "distributor": "JJ Foodservice",
       "plant": { "source": "jj", "sku": "VEG913", "label": "KaterVeg Vegan Mince 1x1kg", "amount": 1000, "unit": "g" },
       "meat": { "source": "jj", "sku": "MEA379", "label": "JJ Frozen UK Halal Minced Beef 10% Fat 2x1kg", "amount": 2000, "unit": "g" },
-      "note": "Both frozen, own-brand tier. Beef side is 10% fat: JJ lists no 20% fat mince (the retail comparator tier), and leaner mince is more expensive, so this ratio flatters the plant side relative to the retail convention."
+      "note": "Both frozen, own-brand tier. Beef side is 10% fat: JJ lists no 20% fat mince (the retail comparator tier), and leaner mince is dearer, so this ratio flatters the plant side relative to the retail convention."
     },
     {
       "pair_id": "jj-balls", "category": "meatballs", "distributor": "JJ Foodservice",
