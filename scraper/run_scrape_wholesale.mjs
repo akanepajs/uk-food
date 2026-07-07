@@ -116,9 +116,11 @@ async function fetchBrakes(pair, side, attempt = 1) {
   }
   const d = brakesParseDetails(html, prod.code);
   if (!d) {
-    // Bare SPA shell: retry once (SSR is intermittent), then treat as delisted.
-    if (attempt === 1) { await sleep(11000); return fetchBrakes(pair, side, 2); }
-    failures.push(`${pair.pair_id}/${side}: no ng-state after retry (delisted?) ${prod.code}`);
+    // Bare SPA shell: Brakes' SSR is stochastic per request (a page that renders
+    // fine one minute can return the shell the next, seen from GitHub runners on
+    // 2026-07-07), so retry up to 3 attempts before treating as delisted/failed.
+    if (attempt < 3) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
+    failures.push(`${pair.pair_id}/${side}: no ng-state after ${attempt} attempts (delisted?) ${prod.code}`);
     return;
   }
   const price = d.price?.value;
