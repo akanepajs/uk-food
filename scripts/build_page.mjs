@@ -343,7 +343,7 @@ ${distTable("Brakes")}
 }
 
 // ---- shared page chrome ----
-const tabs = active => `<div class="tabs"><a href="./" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a><a href="research.html" class="tab${active === "research" ? " active" : ""}">Research</a></div>`;
+const tabs = active => `<div class="tabs"><a href="research.html" class="tab${active === "research" ? " active" : ""}">Research</a><a href="./" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a></div>`;
 
 const STYLE = `
   :root {
