@@ -49,15 +49,9 @@
   .bar-row { display: grid; grid-template-columns: 7.5rem 1fr 3.2rem; gap: 0.5rem; align-items: center; margin-bottom: 0.3rem; font-size: 0.85rem; }
   .bar-track { position: relative; background: #efefec; border-radius: 3px; height: 1.05rem; }
   .bar-track .parity { position: absolute; left: 33.33%; top: -0.15rem; bottom: -0.15rem; width: 2px; background: var(--text); opacity: 0.55; }
-  .stem { position: absolute; top: 50%; height: 2px; margin-top: -1px; }
-  .stem.dear { background: var(--pink); }
-  .stem.cheap { background: var(--sage); }
-  .dot { position: absolute; top: 50%; width: 0.72rem; height: 0.72rem; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid rgba(54, 69, 62, 0.35); }
-  .dot.dear { background: var(--pink); }
-  .dot.cheap { background: var(--sage); }
-  .axis-row { display: grid; grid-template-columns: 7.5rem 1fr 3.2rem; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
-  .axis { position: relative; height: 1rem; }
-  .axis span { position: absolute; transform: translateX(-50%); }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px 0 0 3px; }
+  .bar.dear { background: var(--pink); }
+  .bar.cheap { background: var(--sage); }
   .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
   .flag { color: var(--muted); font-size: 0.78rem; }
   .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
@@ -76,25 +70,24 @@
 </div>
 
 <h2>Price ratio overview: plant-based / meat, per 100g</h2>
-<div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent; the stem shows the distance from parity (1.0, vertical line).
+<div class="legend">Bar length = ratio of plant-based price per 100g to the meat equivalent. Vertical line = parity (1.0).
   <span class="swatch" style="background: var(--pink);"></span>plant-based dearer
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
 <div class="chart">
   <div class="grp">Sausages (own-brand)</div>
-  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 37.4%;"></div><div class="dot dear" style="left: 70.7%;"></div></div><span class="bar-val">2.1x</span></div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 31.4%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.9x</span></div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 31.4%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.9x</span></div>
-  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 2.4%;"></div><div class="dot dear" style="left: 35.7%;"></div></div><span class="bar-val">1.1x</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="bar dear" style="width: 70.7%;"></div><div class="parity"></div></div><span class="bar-val">2.1x</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="bar dear" style="width: 64.7%;"></div><div class="parity"></div></div><span class="bar-val">1.9x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="bar dear" style="width: 64.7%;"></div><div class="parity"></div></div><span class="bar-val">1.9x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="bar dear" style="width: 35.7%;"></div><div class="parity"></div></div><span class="bar-val">1.1x</span></div>
   <div class="grp">Burgers (own-brand)</div>
-  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 7.4%;"></div><div class="dot dear" style="left: 40.7%;"></div></div><span class="bar-val">1.2x</span></div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 5.0%;"></div><div class="dot dear" style="left: 38.3%;"></div></div><span class="bar-val">1.1x</span></div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="dot cheap" style="left: 33.4%;"></div></div><span class="bar-val">1.0x</span></div>
-  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 29.5%; width: 3.8%;"></div><div class="dot cheap" style="left: 29.5%;"></div></div><span class="bar-val">0.9x</span></div>
-  <div class="bar-row"><span>Asda</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 12.0%; width: 21.3%;"></div><div class="dot cheap" style="left: 12.0%;"></div></div><span class="bar-val">0.4x</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="bar dear" style="width: 40.7%;"></div><div class="parity"></div></div><span class="bar-val">1.2x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="bar dear" style="width: 38.3%;"></div><div class="parity"></div></div><span class="bar-val">1.1x</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="bar cheap" style="width: 33.3%;"></div><div class="parity"></div></div><span class="bar-val">1.0x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="bar cheap" style="width: 29.3%;"></div><div class="parity"></div></div><span class="bar-val">0.9x</span></div>
+  <div class="bar-row"><span>Asda</span><div class="bar-track"><div class="bar cheap" style="width: 12.0%;"></div><div class="parity"></div></div><span class="bar-val">0.4x</span></div>
   <div class="grp">Mayonnaise (own-brand)</div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 60.0%;"></div><div class="dot dear" style="left: 93.3%;"></div></div><span class="bar-val">2.8x</span></div>
-  <div class="axis-row"><span></span><div class="axis"><span style="left: 0%; transform: none;">0x</span><span style="left: 33.33%;">1x (parity)</span><span style="left: 66.67%;">2x</span><span style="left: 100%; transform: translateX(-100%);">3x</span></div><span></span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="bar dear" style="width: 93.3%;"></div><div class="parity"></div></div><span class="bar-val">2.8x</span></div>
 </div>
 <p class="tablenote">Asda 0.4x compares a vegetable burger (not a meat-imitation product) against quarter pounders; see the burgers table note.</p>
 
