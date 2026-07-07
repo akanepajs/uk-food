@@ -497,7 +497,7 @@ ${trendTable()}
 
 <div class="disclosure">
   Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
-  Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated ${fmtD(lastDate)}.
+  Page generated ${fmtD(lastDate)}.
 </div>
 
 </body>
@@ -534,7 +534,7 @@ ${wbody}
 
 <div class="disclosure">
   Site prepared with Claude Code (data collection, verification and page build). Prices are list/shelf prices and may have changed. Sources: JJ Foodservice and Brakes product pages (wholesale); AHDB (context links).
-  Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated ${fmtD(wLast || lastDate)}.
+  Page generated ${fmtD(wLast || lastDate)}.
 </div>
 
 </body>
@@ -620,10 +620,8 @@ branding-mix artefact, since branded-versus-branded the gap is 16% and branded p
 </ul>
 
 <div class="disclosure">
-  Page prepared with Claude Code (literature review, figure generation and page build). Figures show
-  published-literature findings, not this site's scraped data; every plotted value is checked against the
-  cited source before the figure is generated.
-  Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated ${fmtD(lastDate)}.
+  Page prepared with Claude Code (literature review, figure generation and page build).
+  Page generated ${fmtD(lastDate)}.
 </div>
 
 </body>
