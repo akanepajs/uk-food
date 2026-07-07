@@ -61,6 +61,9 @@
   .axis { position: relative; height: 1rem; }
   .axis span { position: absolute; transform: translateX(-50%); }
   .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .chart.wide .bar-row, .chart.wide .axis-row { grid-template-columns: minmax(8.5rem, 16rem) 1fr 6.6rem; }
+  @media (max-width: 560px) { .chart.wide .bar-row, .chart.wide .axis-row { grid-template-columns: 7.5rem 1fr 5rem; font-size: 0.78rem; } }
+  table.heat td { text-align: right; font-variant-numeric: tabular-nums; }
   .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
   .checklist li { font-size: 0.85rem; }
   .fig { margin: 1rem 0 0.3rem; }

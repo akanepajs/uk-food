@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UK plant-based vs meat costs: research figures</title>
+<meta name="description" content="Figures from the published literature on plant-based vs animal-product food and catering costs: substitution approach, whole-diet patterns, item-level retail gaps and per-meal savings.">
+<style>
+  :root {
+    --teal: #88a8a8; --olive: #889880; --pink: #c890a0; --ochre: #e0c868;
+    --mint: #c8e8e0; --sage: #c0d0a9; --burgundy: #744c5b;
+    --text: #36453e; --muted: #6a7a72; --grid: #dddddd; --bg: #fafaf8; --card: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text); background: var(--bg); line-height: 1.55;
+    padding: 2rem 1rem; max-width: 960px; margin: 0 auto;
+  }
+  h1 { font-size: 1.55rem; font-weight: 700; margin-bottom: 0.3rem; text-wrap: balance; }
+  .subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 2.2rem 0 0.8rem; padding-bottom: 0.3rem; border-bottom: 2px solid var(--teal); }
+  h3 { font-size: 0.98rem; font-weight: 600; margin: 1.4rem 0 0.5rem; }
+  p, li { font-size: 0.92rem; margin-bottom: 0.6rem; }
+  ul { padding-left: 1.3rem; margin-bottom: 1rem; }
+  a { color: var(--burgundy); }
+  .proto-banner {
+    background: var(--mint); color: var(--text); font-size: 0.85rem; font-weight: 600;
+    padding: 0.5rem 0.9rem; border-radius: 6px; margin: 0.8rem 0 1.4rem; display: inline-block;
+  }
+  .key-message {
+    background: var(--mint); border-left: 4px solid var(--teal);
+    padding: 1rem 1.2rem; border-radius: 0 6px 6px 0; margin: 1.2rem 0; font-size: 0.95rem;
+  }
+  .key-message strong { display: block; margin-bottom: 0.3rem; }
+  table.data { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 0.8rem 0 0.4rem; font-variant-numeric: tabular-nums; }
+  table.data th, table.data td { border: 1px solid var(--grid); padding: 0.4rem 0.55rem; text-align: right; }
+  table.data th { background: var(--sage); font-weight: 600; text-align: center; }
+  table.data td.txt, table.data th.txt { text-align: left; }
+  table.data td.ratio { font-weight: 700; }
+  .tablewrap { overflow-x: auto; }
+  .tablenote { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.2rem; }
+  .plant { color: #5c7050; }
+  .meat { color: var(--burgundy); }
+  .legend { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.6rem; }
+  .legend span.swatch { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; vertical-align: -0.05rem; margin: 0 0.25rem 0 0.7rem; }
+  .chart { margin: 1rem 0 0.4rem; }
+  .chart .grp { font-size: 0.83rem; font-weight: 600; margin: 0.9rem 0 0.25rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .bar-row { display: grid; grid-template-columns: 7.5rem 1fr 3.6rem; gap: 0.5rem; align-items: center; margin-bottom: 0.3rem; font-size: 0.85rem; }
+  .bar-track { position: relative; background: #efefec; border-radius: 3px; height: 1.05rem; }
+  .bar-track .parity { position: absolute; left: 33.33%; top: -0.15rem; bottom: -0.15rem; width: 2px; background: var(--text); opacity: 0.55; }
+  .stem { position: absolute; top: 50%; height: 2px; margin-top: -1px; }
+  .stem.dear { background: var(--pink); }
+  .stem.cheap { background: var(--sage); }
+  .stem.trend { background: #c4ccc6; }
+  .dot { position: absolute; top: 50%; width: 0.72rem; height: 0.72rem; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid rgba(54, 69, 62, 0.35); }
+  .dot.dear { background: var(--pink); }
+  .dot.cheap { background: var(--sage); }
+  .dot.past { background: #ffffff; border: 2px solid #9aa8a0; }
+  .axis-row { display: grid; grid-template-columns: 7.5rem 1fr 3.6rem; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+  .axis { position: relative; height: 1rem; }
+  .axis span { position: absolute; transform: translateX(-50%); }
+  .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
+  .checklist li { font-size: 0.85rem; }
+  .fig { margin: 1rem 0 0.3rem; }
+  .fig img { max-width: 100%; height: auto; background: #ffffff; border: 1px solid var(--grid); border-radius: 4px; padding: 0.4rem; }
+  .fignote { color: var(--muted); font-size: 0.83rem; margin: 0.5rem 0 0.4rem; }
+  .refs li { font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
+  .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
+  .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
+</style>
+</head>
+<body>
+
+<h1>Plant-based vs animal-product food costs: what the research says</h1>
+<div class="subtitle">Figures from a review of the published cost-comparison literature (compiled June to July 2026)</div>
+<div class="tabs"><a href="./" class="tab active">Research</a><a href="retail.html" class="tab">Retail (supermarkets)</a><a href="wholesale.html" class="tab">Wholesale (foodservice)</a></div>
+
+<p>Unlike the Retail and Wholesale tabs, which show this site's own daily price data, this page shows
+findings from published studies and reports. Sources are cited below each figure; full references are
+at the bottom of the page.</p>
+
+<h2>Cost change by substitution approach</h2>
+<div class="fig"><img src="assets/research/fig1_substitution_approach.png" alt="Bar chart: cost reduction by substitution approach, from 1.4% for a like-for-like swap to 45% for a Kantar meat-free meal"></div>
+<p class="fignote">A like-for-like analogue swap barely moves meal cost (about 4p per meal, grey bar);
+recipe-level and whole-food approaches are usually substantially cheaper. The Springmann et al. (2021)
+bars are cells from the study's supplementary data: high-income region cells plus, in teal, the UK
+country cell for the flexitarian pattern (17.0% cheaper, 95% CI 13.3 to 18.5). These are modelled retail
+prices, not catering prices. The CAWF (2024) basket is a hypothetical UK comparison priced partly on US
+dietary data. The France value (Un Plus Bio, 2020) is the ingredient-cost gap between canteens serving a
+daily vegetarian option and those serving none. Source: AHDB (2025, reporting Kantar); CAWF (2024);
+Springmann et al. (2021); Un Plus Bio (2020).</p>
+
+<h2>Average main-meal cost in absolute money (GB)</h2>
+<div class="fig"><img src="assets/research/fig4_kantar_meal_costs.png" alt="Bar chart: average GB main-meal cost, GBP 2.86 with meat, 2.82 with a plant-based substitute, 2.31 across all meals, 1.57 without meat"></div>
+<p class="fignote">All four bars come from the same GB household panel (Kantar Usage, total main-meal
+occasions, 52 weeks ending 23 February 2025), as reported by AHDB (2025). A meal containing meat, fish
+or poultry (MFP) averages &pound;2.86; substituting the meat with a plant-based alternative leaves the
+cost almost unchanged at &pound;2.82 (a 4p saving, about 1.4%; the chart's on-bar percentages follow the
+article's own rounded labels, so it shows 1%); a meal without meat averages &pound;1.57,
+a 45% saving; and the average across all main meals is &pound;2.31, 19% below the MFP meal (this last
+value appears only in the article's chart, not its text). These are household retail purchases, not
+catering costs, and are not income-controlled. Source: AHDB (2025, reporting Kantar).</p>
+<p class="fignote"><strong>Case study: NYC Health + Hospitals (US).</strong> The largest institutional
+implementation measured to date points the same way in catering money: recipe-level plant-based
+reformulation across NYC's 11 public hospitals saved a self-reported USD 0.59 per meal in 2023 (about
+&pound;0.47 in 2025 money), roughly an order of magnitude more than the like-for-like swap saving
+above. The case differs from the GB panel in jurisdiction, setting and
+method, so the contrast illustrates the mechanism rather than a controlled estimate. Source: NYC Health +
+Hospitals (2024).</p>
+
+<h2>Whole-diet patterns vs the current diet</h2>
+<div class="fig"><img src="assets/research/fig2_whole_diet_patterns.png" alt="Range chart: modelled whole-diet cost change by dietary pattern, vegan and vegetarian 20 to 34% cheaper, flexitarian 12 to 17%, pescatarian near parity"></div>
+<p class="fignote">Modelled diet costs at International Comparison Program 2017 prices, energy- and
+nutrient-matched (Springmann et al., 2021). Shaded bands span the high-veg to high-grain variant range
+for the high-income region, from the study's supplementary data (market cost, 2017): vegan 21.5 to 33.6%
+cheaper, vegetarian 26.8 to 31.4% cheaper, pescatarian from 2.5% more expensive (high-veg) to near parity
+(high-grain, 0.6% cheaper). The flexitarian band (12 to 14%) is the paper's income-group span (14% in
+high-income, 12% in upper-middle-income countries); its tick is the high-income cell (13.7%). Diamonds
+mark the UK (GBR) country cells: flexitarian 17.0% cheaper (95% CI 13.3 to 18.5), vegetarian 26.5 and
+30.9%, vegan 20.8 and 33.3%, pescatarian 1.9 and 5.4% cheaper with both confidence intervals spanning
+zero (read as parity). Bands are variant ranges, not confidence intervals; values are modelled retail
+prices, not catering prices. Source: Springmann et al. (2021), including the study's supplementary data.</p>
+
+<h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
+<div class="fig"><img src="assets/research/fig3_item_substitutes.png" alt="Diverging bar chart: plant meatballs 41% and mince 13% cheaper, plant burgers 9% and plant milk 16 to 67% more expensive"></div>
+<p class="fignote">Mince, meatball and burger figures are from a Tesco price snapshot, January to March
+2026, one retailer and one quarter, during a period of rising meat prices in which beef rose fastest
+(supermarket beef prices up more than 10% year on year at the time, lean beef mince up 23%) (GFI Europe,
+2026); the mince bar compares against beef mince specifically. Milk and cream figures are from retail
+data (GFI Europe, 2025, based on Circana retail sales and NIQ Homescan panel data): the overall
+per-litre plant-milk premium (around two-thirds, plotted as 67%) is mostly a
+branding-mix artefact, since branded-versus-branded the gap is 16% and branded plant cream is near parity
+(1.6% more expensive). Source: GFI Europe (2026, mince and meatballs); GFI Europe (2025, milk and cream).</p>
+
+<h2>References</h2>
+<ul class="refs">
+  <li>AHDB (Adamson, V.) (2025). <a href="https://ahdb.org.uk/news/consumer-insight-flexitarian-trends-shifting-diets-and-changing-preferences">Flexitarian trends: shifting diets and changing preferences</a>. AHDB Consumer Insight, 22 May 2025. Data: Kantar Usage panel, total main meal occasions, 52 weeks ending 23 February 2025 (GB).</li>
+  <li>Conservative Animal Welfare Foundation (2024, 27 January). <a href="https://www.conservativeanimalwelfarefoundation.org/wp-content/uploads/2024/01/2-Billion-NHS-Windfall-CAWF.pdf">The &pound;2 billion NHS windfall: Why meat reduction matters</a>.</li>
+  <li>Good Food Institute Europe (2025). <a href="https://gfieurope.org/wp-content/uploads/2025/06/UK-plant-based-food-retail-market-insights-2022-2024.pdf">UK plant-based food retail market insights: 2022 to January 2025</a>. Based on Circana retail sales data and NIQ Homescan household panel data.</li>
+  <li>Good Food Institute Europe (2026). <a href="https://gfieurope.org/blog/plant-based-mince-and-meatballs-33-cheaper-than-meat-versions-at-uks-largest-retailer-amid-rising-meat-prices/">Plant-based mince and meatballs 33% cheaper than meat versions at UK's largest retailer amid rising meat prices</a>. 29 April 2026.</li>
+  <li>NYC Health + Hospitals (2024). <a href="https://www.nychealthandhospitals.org/pressrelease/nyc-health-hospitals-celebrates-1-2-million-plant-based-meals-served/">NYC Health + Hospitals celebrates 1.2 million plant-based meals served</a>. Press release, 14 March 2024.</li>
+  <li>Springmann, M., Clark, M. A., Rayner, M., Scarborough, P., &amp; Webb, P. (2021). <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(21)00251-5/fulltext">The global and regional costs of healthy and sustainable dietary patterns: a modelling study</a>. The Lancet Planetary Health, 5(11), e797-e807. doi:10.1016/S2542-5196(21)00251-5</li>
+  <li>Un Plus Bio (2020). <a href="https://www.unplusbio.org/wp-content/uploads/2020/11/R%C3%A9sultats-2020-OBSERVATOIRE.pdf">Observatoire national de la restauration collective bio et durable: Resultats de l'enquete 2020</a> [survey report].</li>
+</ul>
+
+<div class="disclosure">
+  Page prepared with Claude Code (literature review, figure generation and page build).
+  Page generated 7 Jul 2026.
+</div>
+
+</body>
+</html>

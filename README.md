@@ -31,10 +31,13 @@ Which? benchmark used a three-month average).
   retail history), `.github/workflows/daily-scrape-wholesale.yml` (05:10 UTC, inside
   the visit window Brakes' robots.txt requests, 11s request pacing per its crawl-delay).
   Booker, Costco UK (bot-blocked) and Bidfood (account-gated) were probed and excluded.
-- Research tab, since 7 July 2026: `research.html` (generated) with figures from a review
-  of the published plant-based vs animal-product cost literature; images in
-  `assets/research/` (built from a source-checked figure script maintained outside this
-  repo), notes and APA references on the page.
+- Research tab (the landing page `index.html`), since 7 July 2026: findings from a review
+  of the published plant-based vs animal-product cost literature, drawn as the same
+  HTML lollipop charts as the price tabs plus one shaded table. All research-page numbers
+  come from `scripts/research_data.json`, written by a verification script maintained
+  outside this repo that asserts every value against the primary sources (Springmann et
+  al. 2021 supplementary dataset; the review's evidence register) before export. Notes
+  and APA references on the page.
 - `CNAME`: custom domain for GitHub Pages.
 - `scraper/final_scrape.mjs`, `scraper/mince_scrape.mjs`, `scraper/verify_sains.mjs`,
   `scraper/data/2026-07-06_snapshot.json`, `scraper/data/2026-07-07_mince_meatballs.json`:

@@ -16,12 +16,6 @@ try {
   whist = JSON.parse(await readFile(new URL("../scraper/data/history/history_wholesale.json", import.meta.url), "utf8"));
 } catch { /* wholesale layer optional: section is omitted if data absent */ }
 
-// Research-page numbers come ONLY from research_data.json, written by the procurement
-// project's verify_research_data.py after asserting every value against the Springmann
-// supplementary dataset (mmc3) and the procurement evidence register. Do not hand-edit
-// the JSON; re-run that script instead.
-const RD = JSON.parse(await readFile(new URL("./research_data.json", import.meta.url), "utf8"));
-
 const dates = [...new Set(hist.map(r => r.date))].sort();
 const firstDate = dates[0], lastDate = dates[dates.length - 1], nDates = dates.length;
 const latest = hist.filter(r => r.date === lastDate);
@@ -440,9 +434,6 @@ const STYLE = `
   .axis { position: relative; height: 1rem; }
   .axis span { position: absolute; transform: translateX(-50%); }
   .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
-  .chart.wide .bar-row, .chart.wide .axis-row { grid-template-columns: minmax(8.5rem, 16rem) 1fr 6.6rem; }
-  @media (max-width: 560px) { .chart.wide .bar-row, .chart.wide .axis-row { grid-template-columns: 7.5rem 1fr 5rem; font-size: 0.78rem; } }
-  table.heat td { text-align: right; font-variant-numeric: tabular-nums; }
   .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
   .checklist li { font-size: 0.85rem; }
   .fig { margin: 1rem 0 0.3rem; }
@@ -589,180 +580,80 @@ ${wbody}
 `;
 
 // ---- research page ----
-// Charts are site-style HTML lollipops (same idiom as the Retail/Wholesale tabs), rendered
-// from research_data.json only (see the RD load above for the verification chain).
-function linPos(v, min, max) { return (v - min) / (max - min) * 100; }
-// One lollipop row on a linear scale: dot at v, stem from the reference line at ref.
-function rLolli(label, v, valText, min, max, ref, cls) {
-  // round endpoints BEFORE deriving the stem, so stem end lands exactly on the dot/reference
-  const p = +linPos(v, min, max).toFixed(1), pr = +linPos(ref, min, max).toFixed(1);
-  const left = Math.min(p, pr), width = +Math.abs(p - pr).toFixed(1);
-  const stem = (width > 0.3 && cls !== "past") ? `<div class="stem ${cls}" style="left: ${left.toFixed(1)}%; width: ${width.toFixed(1)}%;"></div>` : "";
-  return `  <div class="bar-row"><span>${esc(label)}</span><div class="bar-track"><div class="parity" style="left: ${pr.toFixed(1)}%;"></div>${stem}<div class="dot ${cls}" style="left: ${p.toFixed(1)}%;"></div></div><span class="bar-val">${valText}</span></div>`;
-}
-function rAxis(ticks, min, max, fmt) {
-  const spans = ticks.map(t => {
-    const p = linPos(t, min, max);
-    const tr = p < 3 ? " transform: none;" : (p > 97 ? " transform: translateX(-100%);" : "");
-    return `<span style="left: ${p.toFixed(1)}%;${tr}">${fmt(t)}</span>`;
-  }).join("");
-  return `  <div class="axis-row"><span></span><div class="axis">${spans}</div><span></span></div>`;
-}
-function kantarChart() {
-  const k = RD.kantar, min = 0, max = 3, ref = k.mfp_gbp;
-  const rows = [rLolli("Meal with meat, fish or poultry (MFP)", ref, `&pound;${ref.toFixed(2)}`, min, max, ref, "past")];
-  for (const r of k.rows) rows.push(rLolli(r.label, r.gbp, `&pound;${r.gbp.toFixed(2)} (-${r.save_pct}%)`, min, max, ref, "cheap"));
-  rows.push(rAxis([0, 1, 2, 3], min, max, t => `&pound;${t}`));
-  return rows.join("\n");
-}
-function springChart() {
-  const s = RD.springmann, min = -40, max = 10;
-  const rows = s.diets.map(d => rLolli(d.label, d.pct.market, `${d.pct.market.toFixed(1)}%`, min, max, 0, "cheap"));
-  rows.push(rAxis([-40, -30, -20, -10, 0, 10], min, max, t => t > 0 ? `+${t}%` : `${t}%`));
-  return rows.join("\n");
-}
-function springTable() {
-  const s = RD.springmann;
-  const head = s.cost_items.map(it => `<th>${esc(s.item_labels[it])}</th>`).join("");
-  const body = s.diets.map(d => {
-    const cells = s.cost_items.map(it => {
-      const v = d.pct[it];
-      const a = Math.min(0.85, Math.abs(v) / 50);  // sage shading scaled to the deepest saving
-      return `<td style="background: rgba(192, 208, 169, ${a.toFixed(2)});">${v.toFixed(1)}%</td>`;
-    }).join("");
-    return `    <tr><td class="txt">${esc(d.label)}</td>${cells}</tr>`;
-  }).join("\n");
-  return `<div class="tablewrap">
-<table class="data heat">
-  <thead><tr><th class="txt">Dietary pattern</th>${head}</tr></thead>
-  <tbody>
-${body}
-  </tbody>
-</table>
-</div>`;
-}
-function otherChart() {
-  const min = -25, max = 5;
-  const rows = RD.other_studies.map(o => rLolli(o.label, o.pct, o.val, min, max, 0, "cheap"));
-  rows.push(rAxis([-25, -20, -15, -10, -5, 0, 5], min, max, t => t > 0 ? `+${t}%` : `${t}%`));
-  return rows.join("\n");
-}
-function itemsChart() {
-  const min = -75, max = 75;
-  const rows = RD.items.map(o => rLolli(o.label, o.pct, `${o.pct > 0 ? "+" : ""}${o.pct}%`, min, max, 0, o.pct > 0.5 ? "dear" : "cheap"));
-  rows.push(rAxis([-75, -50, -25, 0, 25, 50, 75], min, max, t => t > 0 ? `+${t}%` : `${t}%`));
-  return rows.join("\n");
-}
-
+// Static content: figures from the plant-based catering cost literature review
+// (regenerated from the review's source-locked figure script; every plotted value
+// is asserted against the underlying evidence register before the PNG is written).
 const rhtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UK plant-based vs meat costs: research findings</title>
-<meta name="description" content="UK evidence on plant-based vs animal-product food and catering costs: GB per-meal panel data, modelled UK whole-diet costs (Springmann et al. 2021), catering case studies and item-level retail price gaps.">
+<title>UK plant-based vs meat costs: research figures</title>
+<meta name="description" content="Figures from the published literature on plant-based vs animal-product food and catering costs: substitution approach, whole-diet patterns, item-level retail gaps and per-meal savings.">
 <style>${STYLE}</style>
 </head>
 <body>
 
 <h1>Plant-based vs animal-product food costs: what the research says</h1>
-<div class="subtitle">Findings from a review of the published cost-comparison literature (compiled June to July 2026)</div>
+<div class="subtitle">Figures from a review of the published cost-comparison literature (compiled June to July 2026)</div>
 ${tabs("research")}
 
 <p>Unlike the Retail and Wholesale tabs, which show this site's own daily price data, this page shows
-findings from published studies and reports, drawn in the same chart style. Sources are cited below
-each chart; full references are at the bottom of the page.</p>
+findings from published studies and reports. Sources are cited below each figure; full references are
+at the bottom of the page.</p>
 
-<h2>Average main-meal cost (GB household panel)</h2>
-<div class="legend">Dot = average cost per main meal; the vertical line marks the meal containing meat,
-fish or poultry (&pound;2.86); stems show the saving against that meal.
-  <span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>reference meal
-  <span class="swatch" style="background: var(--sage);"></span>cheaper than the reference
-</div>
-<div class="chart wide">
-${kantarChart()}
-</div>
-<p class="fignote">All four values come from the same GB household panel (Kantar Usage, total main-meal
+<h2>Cost change by substitution approach</h2>
+<div class="fig"><img src="assets/research/fig1_substitution_approach.png" alt="Bar chart: cost reduction by substitution approach, from 1.4% for a like-for-like swap to 45% for a Kantar meat-free meal"></div>
+<p class="fignote">A like-for-like analogue swap barely moves meal cost (about 4p per meal, grey bar);
+recipe-level and whole-food approaches are usually substantially cheaper. The Springmann et al. (2021)
+bars are cells from the study's supplementary data: high-income region cells plus, in teal, the UK
+country cell for the flexitarian pattern (17.0% cheaper, 95% CI 13.3 to 18.5). These are modelled retail
+prices, not catering prices. The CAWF (2024) basket is a hypothetical UK comparison priced partly on US
+dietary data. The France value (Un Plus Bio, 2020) is the ingredient-cost gap between canteens serving a
+daily vegetarian option and those serving none. Source: AHDB (2025, reporting Kantar); CAWF (2024);
+Springmann et al. (2021); Un Plus Bio (2020).</p>
+
+<h2>Average main-meal cost in absolute money (GB)</h2>
+<div class="fig"><img src="assets/research/fig4_kantar_meal_costs.png" alt="Bar chart: average GB main-meal cost, GBP 2.86 with meat, 2.82 with a plant-based substitute, 2.31 across all meals, 1.57 without meat"></div>
+<p class="fignote">All four bars come from the same GB household panel (Kantar Usage, total main-meal
 occasions, 52 weeks ending 23 February 2025), as reported by AHDB (2025). A meal containing meat, fish
 or poultry (MFP) averages &pound;2.86; substituting the meat with a plant-based alternative leaves the
-cost almost unchanged at &pound;2.82 (a 4p saving, about 1.4%; the chart's percentage follows the
-article's own rounded label, so it shows 1%); a meal without meat averages &pound;1.57,
+cost almost unchanged at &pound;2.82 (a 4p saving, about 1.4%; the chart's on-bar percentages follow the
+article's own rounded labels, so it shows 1%); a meal without meat averages &pound;1.57,
 a 45% saving; and the average across all main meals is &pound;2.31, 19% below the MFP meal (this last
 value appears only in the article's chart, not its text). These are household retail purchases, not
 catering costs, and are not income-controlled. Source: AHDB (2025, reporting Kantar).</p>
-
-<h2>Modelled whole-diet costs for the UK</h2>
-<p>Springmann et al. (2021) modelled the cost of energy- and nutrient-matched dietary patterns in 150
-countries at 2017 international prices. The chart shows the UK (GBR) cells from the study's
-supplementary cost dataset: the change in daily diet cost at market prices, relative to the modelled
-current UK diet, under the study's middle-of-the-road socio-economic scenario. "High-grain" is the
-variant of each pattern with a greater emphasis on whole grains.</p>
-<div class="legend">Dot = modelled change in daily diet cost at market prices vs the current UK diet
-(0%, vertical line); the stem shows the size of the change.
-  <span class="swatch" style="background: var(--sage);"></span>cheaper than the current diet
-</div>
-<div class="chart wide">
-${springChart()}
-</div>
-<p class="fignote">At market prices the flexitarian pattern is 17.0% cheaper than the current UK diet
-(95% CI 13.3 to 18.5, from the author dataset); vegetarian 26.5% (high-grain variant 30.9%), vegan
-20.8% (high-grain 33.3%) and pescatarian 1.9% (high-grain 5.4%) cheaper, with the pescatarian
-confidence intervals spanning zero (read those as parity). These are modelled retail prices, not
-catering prices. Source: Springmann et al. (2021), supplementary data.</p>
-
-<h3>The same UK results across all six cost bases</h3>
-${springTable()}
-<p class="fignote">Change in daily diet cost vs the current UK diet on each of the study's cost bases;
-darker green = larger saving. "Waste halved" reprices the diet with food waste cut by half; "with
-health costs" and "with climate costs" add the diet's modelled diet-related health costs or
-climate-change costs to market prices; "full cost" adds both. All 42 UK cells are cheaper than the
-current diet. For scale, the modelled current UK diet costs USD 7.69 per person per day at market
-prices (2017 international prices), rising to USD 9.13 when health and climate costs are included. The
-dataset also includes the average high-income-country diet as a comparator scenario (not a plant-based
-pattern, so not shown): at market prices it would be 6.2% cheaper than the current UK diet. Source:
-Springmann et al. (2021), supplementary data.</p>
-
-<h2>Catering and basket studies</h2>
-<div class="legend">Dot = reported cost change for the plant-forward option vs the conventional one
-(0%, vertical line).
-  <span class="swatch" style="background: var(--sage);"></span>plant-forward cheaper
-</div>
-<div class="chart wide">
-${otherChart()}
-</div>
-<p class="fignote">The France value (Un Plus Bio, 2020) is the ingredient-cost gap between French
-canteens serving a daily vegetarian option (EUR 1.96 per meal) and those serving none (EUR 2.30),
-about 15%; France 2019 data. The CAWF (2024) basket is a hypothetical UK comparison priced partly on
-US dietary data. Source: CAWF (2024); Un Plus Bio (2020).</p>
 <p class="fignote"><strong>Case study: NYC Health + Hospitals (US).</strong> The largest institutional
 implementation measured to date points the same way in catering money: recipe-level plant-based
 reformulation across NYC's 11 public hospitals saved a self-reported USD 0.59 per meal in 2023 (about
-&pound;0.47 in 2025 money), roughly an order of magnitude more than the like-for-like swap saving in
-the panel chart above. The case differs from the GB panel in jurisdiction, setting and
+&pound;0.47 in 2025 money), roughly an order of magnitude more than the like-for-like swap saving
+above. The case differs from the GB panel in jurisdiction, setting and
 method, so the contrast illustrates the mechanism rather than a controlled estimate. Source: NYC Health +
 Hospitals (2024).</p>
 
+<h2>Whole-diet patterns vs the current diet</h2>
+<div class="fig"><img src="assets/research/fig2_whole_diet_patterns.png" alt="Range chart: modelled whole-diet cost change by dietary pattern, vegan and vegetarian 20 to 34% cheaper, flexitarian 12 to 17%, pescatarian near parity"></div>
+<p class="fignote">Modelled diet costs at International Comparison Program 2017 prices, energy- and
+nutrient-matched (Springmann et al., 2021). Shaded bands span the high-veg to high-grain variant range
+for the high-income region, from the study's supplementary data (market cost, 2017): vegan 21.5 to 33.6%
+cheaper, vegetarian 26.8 to 31.4% cheaper, pescatarian from 2.5% more expensive (high-veg) to near parity
+(high-grain, 0.6% cheaper). The flexitarian band (12 to 14%) is the paper's income-group span (14% in
+high-income, 12% in upper-middle-income countries); its tick is the high-income cell (13.7%). Diamonds
+mark the UK (GBR) country cells: flexitarian 17.0% cheaper (95% CI 13.3 to 18.5), vegetarian 26.5 and
+30.9%, vegan 20.8 and 33.3%, pescatarian 1.9 and 5.4% cheaper with both confidence intervals spanning
+zero (read as parity). Bands are variant ranges, not confidence intervals; values are modelled retail
+prices, not catering prices. Source: Springmann et al. (2021), including the study's supplementary data.</p>
+
 <h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
-<div class="legend">Dot = plant-based price vs the animal product it substitutes (0%, vertical line);
-percentages are relative to the animal product's price.
-  <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper
-  <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
-</div>
-<div class="chart wide">
-${itemsChart()}
-</div>
+<div class="fig"><img src="assets/research/fig3_item_substitutes.png" alt="Diverging bar chart: plant meatballs 41% and mince 13% cheaper, plant burgers 9% and plant milk 16 to 67% more expensive"></div>
 <p class="fignote">Mince, meatball and burger figures are from a Tesco price snapshot, January to March
 2026, one retailer and one quarter, during a period of rising meat prices in which beef rose fastest
-(supermarket beef prices up more than 10% year on year in the week ending 25 April 2026, lean beef
-mince up 23%) (GFI Europe, 2026); the mince figure compares against beef mince specifically. Milk and cream figures are from retail
+(supermarket beef prices up more than 10% year on year at the time, lean beef mince up 23%) (GFI Europe,
+2026); the mince bar compares against beef mince specifically. Milk and cream figures are from retail
 data (GFI Europe, 2025, based on Circana retail sales and NIQ Homescan panel data): the overall
-per-litre plant-milk premium (around two-thirds, shown as +67%) is mostly a
+per-litre plant-milk premium (around two-thirds, plotted as 67%) is mostly a
 branding-mix artefact, since branded-versus-branded the gap is 16% and branded plant cream is near parity
-(1.6% more expensive). Because percentages are relative to the animal product's price, +67% means
-plant-based milk costs about 1.67 times as much per litre as dairy milk; put the other way round, dairy
-is about 40% cheaper than plant-based milk. The Retail and Wholesale tabs above track this item-level
-picture with daily UK prices. Source: GFI Europe (2026, mince and meatballs); GFI Europe (2025, milk
-and cream).</p>
+(1.6% more expensive). Source: GFI Europe (2026, mince and meatballs); GFI Europe (2025, milk and cream).</p>
 
 <h2>References</h2>
 <ul class="refs">
@@ -776,7 +667,7 @@ and cream).</p>
 </ul>
 
 <div class="disclosure">
-  Page prepared with Claude Code (literature review, data verification and page build).
+  Page prepared with Claude Code (literature review, figure generation and page build).
   Page generated ${fmtD(lastDate)}.
 </div>
 
