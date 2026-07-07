@@ -284,6 +284,37 @@ function wholesaleRows() {
   return out;
 }
 
+// Wholesale "Latest picture" summary, composed from the same rows as the chart so it
+// can never contradict the data. Every claim is conditional on what the ratios show.
+function wKeyMessage() {
+  const rows = wholesaleRows();
+  if (!rows.length) return "";
+  const seg = [];
+  const by = cat => rows.filter(r => r.pair.category.toLowerCase().includes(cat));
+  const rng = rs => {
+    const v = rs.map(r => r.avg ?? r.ratio);
+    const lo = Math.min(...v), hi = Math.max(...v);
+    return lo === hi ? fr(lo) : `${fr(lo)} to ${fr(hi)}`;
+  };
+  const mb = [...by("mince"), ...by("meatball")];
+  if (mb.length) {
+    seg.push(mb.every(r => (r.avg ?? r.ratio) <= 1.05)
+      ? `Plant-based mince and meatballs are cheaper than or at parity with their meat equivalents in every wholesale pair (${rng(mb)}).`
+      : `Plant-based mince and meatballs run ${rng(mb)}.`);
+  }
+  const saus = by("sausage");
+  if (saus.length) {
+    seg.push(saus.every(r => (r.avg ?? r.ratio) > 1)
+      ? `Plant-based sausages cost more per 100g in every pair (${rng(saus)}).`
+      : `Sausages run ${rng(saus)}.`);
+  }
+  const burg = by("burger");
+  if (burg.length) seg.push(`Burgers run ${rng(burg)} (see the pair notes: the JJ pair compares coated chicken formats).`);
+  const mayo = by("mayo");
+  if (mayo.length) seg.push(`Same-brand vegan mayonnaise runs ${rng(mayo)}.`);
+  return seg.join(" ");
+}
+
 function wholesaleSection() {
   const rows = wholesaleRows();
   if (!rows.length) return "";
@@ -522,6 +553,11 @@ const whtml = `<!DOCTYPE html>
 <div class="subtitle">Catering pairs at the two UK foodservice distributors with publicly visible prices, per 100g/100ml</div>
 ${tabs("wholesale")}
 ${wLatest.length ? `<div class="proto-banner">Updated daily. Series since ${fmtD(wdates[0])}; latest prices ${fmtD(wLast)} (${wnDates} day${wnDates === 1 ? "" : "s"} of data)${wnDates >= 2 ? ". Ratios are averages of daily prices over the series" : ""}.</div>` : ""}
+
+${wLatest.length ? `<div class="key-message">
+  <strong>Latest picture (${fmtD(wLast)})</strong>
+  The plant-based premium is category-specific at wholesale too. ${wKeyMessage()}
+</div>` : ""}
 
 ${wbody}
 
