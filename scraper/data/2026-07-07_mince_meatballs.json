@@ -1,0 +1,194 @@
+[
+  {
+    "pair_id": "tesco-mince",
+    "category": "mince",
+    "chain": "Tesco",
+    "side": "plant",
+    "slug": "/product/the-plant-chef-meat-free-mince/DCB362",
+    "title": "Tesco Plant Chef Meat Free Mince (454g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£2.25",
+        "per_unit_text": "£0.50 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-mince",
+    "category": "mince",
+    "chain": "Tesco",
+    "side": "meat",
+    "slug": "/product/tesco-beef-mince-20-fat/IXP556",
+    "title": "Tesco Beef Mince 20% Fat (500g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.65 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-mince",
+    "category": "mince",
+    "chain": "Sainsbury's",
+    "side": "plant",
+    "slug": "/product/plant-pioneers-meat-free-mince/RCV168",
+    "title": "Plant Pioneers Meat Free Mince (500g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£1.74",
+        "per_unit_text": "£0.35 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-mince",
+    "category": "mince",
+    "chain": "Sainsbury's",
+    "side": "meat",
+    "slug": "/product/sainsburys-british-or-irish-20-fat-beef-mince/DVD208",
+    "title": "Sainsbury's British or Irish 20% Fat Beef Mince (500g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.65 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "asda-mince",
+    "category": "mince",
+    "chain": "Asda",
+    "side": "plant",
+    "slug": "/product/plant-based-by-asda-vegan-meat-free-mince/DWD378",
+    "title": "Plant Based by ASDA Plant Based Meat-Free Mince (454g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£1.96",
+        "per_unit_text": "£0.43 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "asda-mince",
+    "category": "mince",
+    "chain": "Asda",
+    "side": "meat",
+    "slug": "/product/asda-butchers-selection-beef-mince-typically-less-than-20-fat/IPA272",
+    "title": "ASDA 20% Fat Beef Mince (500g)",
+    "stores": [
+      {
+        "store": "Asda",
+        "price_text": "£3.25",
+        "per_unit_text": "£0.65 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-balls",
+    "category": "meatballs",
+    "chain": "Tesco",
+    "side": "plant",
+    "slug": "/product/tesco-plant-chef-12-meat-free-balls/MUL034",
+    "title": "Tesco Plant Chef Meat-Free Balls (12 x 336g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£3.60",
+        "per_unit_text": "£0.09 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "tesco-balls",
+    "category": "meatballs",
+    "chain": "Tesco",
+    "side": "meat",
+    "slug": "/product/tesco-24-beef-meatballs/KLB802",
+    "title": "Tesco Beef Meatballs (24 x 672g)",
+    "stores": [
+      {
+        "store": "Tesco",
+        "price_text": "£6.50",
+        "per_unit_text": "£0.04 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-balls",
+    "category": "meatballs",
+    "chain": "Sainsbury's",
+    "side": "plant",
+    "slug": "/product/plant-pioneers-meat-free-meatballs/IMW961",
+    "title": "Plant Pioneers Meat Free Meatballs (380g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£1.32",
+        "per_unit_text": "£0.35 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "sains-balls",
+    "category": "meatballs",
+    "chain": "Sainsbury's",
+    "side": "meat",
+    "slug": "/product/sainsburys-british-or-irish-10-fat-12-beef-meatballs/QQH540",
+    "title": "Sainsbury's British or Irish 10% Fat 12 Beef Meatballs (350g)",
+    "stores": [
+      {
+        "store": "Sainsbury's",
+        "price_text": "£4.00",
+        "per_unit_text": "£1.14 per 100g",
+        "offer": null
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-balls",
+    "category": "meatballs",
+    "chain": "Waitrose",
+    "side": "plant",
+    "slug": "/product/waitrose-plantliving-no-meat-vegetarian-meatballs/DOX009",
+    "title": "Waitrose PlantLiving No Meat Meatballs (380g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£2.25",
+        "per_unit_text": "£0.59 per 100g",
+        "offer": "3 FOR 2"
+      }
+    ]
+  },
+  {
+    "pair_id": "wait-balls",
+    "category": "meatballs",
+    "chain": "Waitrose",
+    "side": "meat",
+    "slug": "/product/waitrose-12-british-beef-meatballs/IRF192",
+    "title": "Waitrose 12 British Beef Meatballs (300g)",
+    "stores": [
+      {
+        "store": "Waitrose",
+        "price_text": "£4.50",
+        "per_unit_text": "£1.50 per 100g",
+        "offer": "3 FOR £12"
+      }
+    ]
+  }
+]

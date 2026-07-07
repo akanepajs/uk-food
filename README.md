@@ -18,6 +18,8 @@ coleslaw) are planned; see "What the production site adds" on the page.
 - `scraper/verify_sains.mjs`: cross-check of Sainsbury's rows against Sainsbury's own
   product API (primary source).
 - `scraper/data/2026-07-06_snapshot.json`: the raw scraped records behind the page.
+- `scraper/mince_scrape.mjs` + `scraper/data/2026-07-07_mince_meatballs.json`: the mince
+  and meatballs extension (added 7 July 2026).
 
 ## Data notes
 
