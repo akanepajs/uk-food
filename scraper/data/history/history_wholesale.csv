@@ -1,8 +1,6 @@
 date,pair_id,category,distributor,side,label,price_gbp,per100,unit,amount,pack_size,price_basis,branch_min,branch_max,in_stock,was_price,vat,source,ref
 2026-07-07,brakes-balls,meatballs,Brakes,meat,Brakes Cooked Pork Meatballs 225x12g,32.52,1.2044,g,2700,225 x 12g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3675
-2026-07-07,brakes-balls,meatballs,Brakes,plant,Meatless Farm Plant-Based Meatballs 63x15g,10.99,1.163,g,945,63 x 15g,anonymous indicative (nettPrices=false),,,true,22.99,zero-rated,brakes_ngstate,130516
 2026-07-07,brakes-burger,burgers,Brakes,meat,Sysco Classic 90% Beef Burger 24x113g,36.32,1.3392,g,2712,24 x 113g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3808
-2026-07-07,brakes-burger,burgers,Brakes,plant,Quorn Vegan Burger 18x109g,14.99,0.764,g,1962,18 x 109g,anonymous indicative (nettPrices=false),,,true,26.09,zero-rated,brakes_ngstate,150296
 2026-07-07,brakes-mince,mince,Brakes,meat,Brakes 20% Fat Beef Mince 1x2.5kg,22.79,0.9116,g,2500,1 x 2.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3103
 2026-07-07,brakes-mince,mince,Brakes,plant,QuornPro Mince 1x1.5kg,11.09,0.7393,g,1500,1 x 1.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,136990
 2026-07-07,brakes-saus-chilled,sausages,Brakes,meat,Prime Meats British 80% Old English Pork Sausage 6s 36x76g,28.19,1.0303,g,2736,36 x 76g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,16687
