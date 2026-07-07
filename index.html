@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UK plant-based vs meat price check</title>
-<meta name="description" content="Price comparison of plant-based products and their meat equivalents at the big UK supermarket chains, per 100g, following the Which? (2022) basket.">
+<meta name="description" content="Price comparison of plant-based products and their meat equivalents at the big UK supermarket chains, per 100g, updated daily. Follows the Which? (2022) basket.">
 <style>
   :root {
     --teal: #88a8a8; --olive: #889880; --pink: #c890a0; --ochre: #e0c868;
@@ -25,7 +25,7 @@
   ul { padding-left: 1.3rem; margin-bottom: 1rem; }
   a { color: var(--burgundy); }
   .proto-banner {
-    background: var(--ochre); color: #4a3f14; font-size: 0.85rem; font-weight: 600;
+    background: var(--mint); color: var(--text); font-size: 0.85rem; font-weight: 600;
     padding: 0.5rem 0.9rem; border-radius: 6px; margin: 0.8rem 0 1.4rem; display: inline-block;
   }
   .key-message {
@@ -46,22 +46,21 @@
   .legend span.swatch { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; vertical-align: -0.05rem; margin: 0 0.25rem 0 0.7rem; }
   .chart { margin: 1rem 0 0.4rem; }
   .chart .grp { font-size: 0.83rem; font-weight: 600; margin: 0.9rem 0 0.25rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
-  .bar-row { display: grid; grid-template-columns: 7.5rem 1fr 3.2rem; gap: 0.5rem; align-items: center; margin-bottom: 0.3rem; font-size: 0.85rem; }
+  .bar-row { display: grid; grid-template-columns: 7.5rem 1fr 3.6rem; gap: 0.5rem; align-items: center; margin-bottom: 0.3rem; font-size: 0.85rem; }
   .bar-track { position: relative; background: #efefec; border-radius: 3px; height: 1.05rem; }
   .bar-track .parity { position: absolute; left: 33.33%; top: -0.15rem; bottom: -0.15rem; width: 2px; background: var(--text); opacity: 0.55; }
   .stem { position: absolute; top: 50%; height: 2px; margin-top: -1px; }
   .stem.dear { background: var(--pink); }
   .stem.cheap { background: var(--sage); }
+  .stem.trend { background: #c4ccc6; }
   .dot { position: absolute; top: 50%; width: 0.72rem; height: 0.72rem; border-radius: 50%; transform: translate(-50%, -50%); border: 1.5px solid rgba(54, 69, 62, 0.35); }
   .dot.dear { background: var(--pink); }
   .dot.cheap { background: var(--sage); }
   .dot.past { background: #ffffff; border: 2px solid #9aa8a0; }
-  .stem.trend { background: #c4ccc6; }
-  .axis-row { display: grid; grid-template-columns: 7.5rem 1fr 3.2rem; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+  .axis-row { display: grid; grid-template-columns: 7.5rem 1fr 3.6rem; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
   .axis { position: relative; height: 1rem; }
   .axis span { position: absolute; transform: translateX(-50%); }
   .bar-val { font-variant-numeric: tabular-nums; font-weight: 600; }
-  .flag { color: var(--muted); font-size: 0.78rem; }
   .disclosure { color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--grid); margin-top: 2.2rem; padding-top: 0.8rem; }
   .checklist li { font-size: 0.85rem; }
 </style>
@@ -69,78 +68,86 @@
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK supermarket price check</h1>
-<div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following the basket in Which? (2022)</div>
-<div class="proto-banner">PROTOTYPE. Price snapshot taken 6 to 7 July 2026. Daily updates and price history are planned but not live yet.</div>
+<div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022)</div>
+<div class="proto-banner">Updated daily. Series since 7 Jul 2026; latest prices 7 Jul 2026 (1 day of data). Ratios are averages of daily prices over the series.</div>
 
 <div class="key-message">
-  <strong>Snapshot result, 6 to 7 July 2026</strong>
-  The plant-based premium is category-specific. Own-brand plant-based sausages still cost roughly twice as much per 100g as pork sausages at three of the four chains with a comparable pair (Tesco 1.9x, Sainsbury's 1.9x, Co-op 2.1x; Waitrose 1.1x), and burgers are near price parity (0.9x to 1.2x, with one vegetable-burger outlier at 0.4x). Mince and meatballs mostly flip the other way: own-brand plant mince is 24 to 46 percent cheaper than standard 20% fat beef mince at all three chains with a pair, and plant meatballs are 61 to 70 percent cheaper at Sainsbury's and Waitrose (Tesco 1.1x). Own-brand vegan mayonnaise carries the largest premium in the basket (2.8x at Sainsbury's), while Heinz sells its vegan and standard mayo at the same price and size.
+  <strong>Latest picture (7 Jul 2026)</strong>
+  The plant-based premium is category-specific. Own-brand plant-based sausages cost more per 100g than pork sausages at every chain with a comparable pair (Co-op 2.1x, Sainsbury's 1.9x, Tesco 1.9x, Waitrose 1.1x), roughly double at most of them. Burgers run 0.4x to 1.2x. Mince and meatballs mostly flip the other way: plant mince is cheaper at all 3 chains with a pair (0.5x to 0.8x vs standard 20% fat beef mince), and plant meatballs run 0.3x to 1.1x. Own-brand vegan mayonnaise carries the largest premium in the basket (2.8x at Sainsbury's), while Heinz sells its vegan and standard mayo at the same price and size.
 </div>
 
 <h2>Price ratio overview: plant-based / meat, per 100g</h2>
-<div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent; the stem shows the distance from parity (1.0, vertical line).
+<div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent, averaged over the series; the stem shows the distance from parity (1.0, vertical line).
   <span class="swatch" style="background: var(--pink);"></span>plant-based dearer
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
 <div class="chart">
   <div class="grp">Sausages (own-brand)</div>
-  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 37.4%;"></div><div class="dot dear" style="left: 70.7%;"></div></div><span class="bar-val">2.1x</span></div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 31.4%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.9x</span></div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 31.4%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.9x</span></div>
-  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 2.4%;"></div><div class="dot dear" style="left: 35.7%;"></div></div><span class="bar-val">1.1x</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 37.3%;"></div><div class="dot dear" style="left: 70.6%;"></div></div><span class="bar-val">2.1x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 31.6%;"></div><div class="dot dear" style="left: 64.9%;"></div></div><span class="bar-val">1.9x</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 31.5%;"></div><div class="dot dear" style="left: 64.8%;"></div></div><span class="bar-val">1.9x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 2.4%;"></div><div class="dot dear" style="left: 35.7%;"></div></div><span class="bar-val">1.1x</span></div>
   <div class="grp">Burgers (own-brand)</div>
-  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 7.4%;"></div><div class="dot dear" style="left: 40.7%;"></div></div><span class="bar-val">1.2x</span></div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 5.0%;"></div><div class="dot dear" style="left: 38.3%;"></div></div><span class="bar-val">1.1x</span></div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="dot cheap" style="left: 33.4%;"></div></div><span class="bar-val">1.0x</span></div>
-  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 29.5%; width: 3.8%;"></div><div class="dot cheap" style="left: 29.5%;"></div></div><span class="bar-val">0.9x</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 7.4%;"></div><div class="dot dear" style="left: 40.7%;"></div></div><span class="bar-val">1.2x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 4.9%;"></div><div class="dot dear" style="left: 38.3%;"></div></div><span class="bar-val">1.1x</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="dot cheap" style="left: 33.5%;"></div></div><span class="bar-val">1.0x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 29.5%; width: 3.9%;"></div><div class="dot cheap" style="left: 29.5%;"></div></div><span class="bar-val">0.9x</span></div>
   <div class="bar-row"><span>Asda</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 12.0%; width: 21.3%;"></div><div class="dot cheap" style="left: 12.0%;"></div></div><span class="bar-val">0.4x</span></div>
   <div class="grp">Mince (own-brand)</div>
   <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 25.4%; width: 7.9%;"></div><div class="dot cheap" style="left: 25.4%;"></div></div><span class="bar-val">0.8x</span></div>
   <div class="bar-row"><span>Asda</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 22.1%; width: 11.2%;"></div><div class="dot cheap" style="left: 22.1%;"></div></div><span class="bar-val">0.7x</span></div>
   <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 17.8%; width: 15.5%;"></div><div class="dot cheap" style="left: 17.8%;"></div></div><span class="bar-val">0.5x</span></div>
   <div class="grp">Meatballs (own-brand)</div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 3.6%;"></div><div class="dot dear" style="left: 36.9%;"></div></div><span class="bar-val">1.1x</span></div>
-  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 13.2%; width: 20.1%;"></div><div class="dot cheap" style="left: 13.2%;"></div></div><span class="bar-val">0.4x</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 3.6%;"></div><div class="dot dear" style="left: 36.9%;"></div></div><span class="bar-val">1.1x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 13.2%; width: 20.2%;"></div><div class="dot cheap" style="left: 13.2%;"></div></div><span class="bar-val">0.4x</span></div>
   <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 10.1%; width: 23.2%;"></div><div class="dot cheap" style="left: 10.1%;"></div></div><span class="bar-val">0.3x</span></div>
+  <div class="grp">Ready meals (own-brand)</div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 11.7%;"></div><div class="dot dear" style="left: 45.0%;"></div></div><span class="bar-val">1.3x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem cheap" style="left: 31.7%; width: 1.6%;"></div><div class="dot cheap" style="left: 31.7%;"></div></div><span class="bar-val">1.0x</span></div>
+  <div class="grp">Coleslaw (own-brand)</div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 17.5%;"></div><div class="dot dear" style="left: 50.8%;"></div></div><span class="bar-val">1.5x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 11.9%;"></div><div class="dot dear" style="left: 45.2%;"></div></div><span class="bar-val">1.4x</span></div>
+  <div class="bar-row"><span>Waitrose</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 0.6%;"></div><div class="dot dear" style="left: 33.9%;"></div></div><span class="bar-val">1.0x</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="dot cheap" style="left: 33.3%;"></div></div><span class="bar-val">1.0x</span></div>
   <div class="grp">Mayonnaise (own-brand)</div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.33%; width: 60.0%;"></div><div class="dot dear" style="left: 93.3%;"></div></div><span class="bar-val">2.8x</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem dear" style="left: 33.3%; width: 60.0%;"></div><div class="dot dear" style="left: 93.3%;"></div></div><span class="bar-val">2.8x</span></div>
   <div class="axis-row"><span></span><div class="axis"><span style="left: 0%; transform: none;">0x</span><span style="left: 33.33%;">1x (parity)</span><span style="left: 66.67%;">2x</span><span style="left: 100%; transform: translateX(-100%);">3x</span></div><span></span></div>
 </div>
-<p class="tablenote">Asda 0.4x compares a vegetable burger (not a meat-imitation product) against quarter pounders; see the burgers table note.</p>
+<p class="tablenote">The Asda burger figure compares a vegetable burger (not a meat-imitation product) against quarter pounders; see the burgers table note.</p>
 
 <h2>Sausages: own-brand plant vs pork</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100g</th><th class="txt">Pork product</th><th>£</th><th>£/100g</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Pork product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
   <tbody>
-    <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef 6 Cumberland Style Meat-Free Bangers, 300g</td><td>2.30</td><td>0.77</td><td class="txt meat">British Pork Sausages x8, 454g</td><td>1.79</td><td>0.39</td><td class="ratio">1.9x</td></tr>
-    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Cumberland Shroomdogs x6, 300g</td><td>2.30</td><td>0.77</td><td class="txt meat">Butcher's Choice Cumberland British Pork Sausage x8, 454g</td><td>1.79</td><td>0.39</td><td class="ratio">1.9x</td></tr>
-    <tr><td class="txt">Waitrose</td><td class="txt plant">Plant Living No Chorizo Sausages, 280g</td><td>3.00</td><td>1.07</td><td class="txt meat">6 Chorizo Style Pork Sausages, 400g</td><td>4.00</td><td>1.00</td><td class="ratio">1.1x</td></tr>
     <tr><td class="txt">Co-op</td><td class="txt plant">Plant Based Sizzlin' Sausages, 300g</td><td>2.80</td><td>0.93</td><td class="txt meat">Butchers Choice 8 British Pork Sausages, 454g</td><td>2.00</td><td>0.44</td><td class="ratio">2.1x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Cumberland Shroomdogs x6, 300g</td><td>2.30</td><td>0.77</td><td class="txt meat">Butcher's Choice Cumberland British Pork Sausage x8, 454g</td><td>1.79</td><td>0.39</td><td class="ratio">1.9x</td></tr>
+    <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef 6 Cumberland Style Meat-Free Bangers, 300g</td><td>2.30</td><td>0.77</td><td class="txt meat">British Pork Sausages x8, 454g</td><td>1.79</td><td>0.39</td><td class="ratio">1.9x</td></tr>
+    <tr><td class="txt">Waitrose</td><td class="txt plant">Plant Living No Chorizo Sausages, 280g</td><td>3.00</td><td>1.07</td><td class="txt meat">6 Chorizo Style Pork Sausages, 400g</td><td>4.00</td><td>1.00</td><td class="ratio">1.1x</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">Sainsbury's row verified against Sainsbury's own product API. Waitrose pair is chorizo vs no-chorizo (its closest like-for-like). Morrisons and Asda excluded: no standard own-brand pork sausage (Morrisons) or own-brand plant sausage (Asda) listed on the aggregator; M&amp;S not covered by the aggregator.</p>
+<p class="tablenote">Sainsbury's rows verified against Sainsbury's own product API. Waitrose pair is chorizo vs no-chorizo (its closest like-for-like). Morrisons and Asda excluded: no standard own-brand pork sausage (Morrisons) or own-brand plant sausage (Asda) listed on the aggregator; M&S not covered by the aggregator.</p>
 
 <h2>Burgers: own-brand plant vs beef</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100g</th><th class="txt">Beef product</th><th>£</th><th>£/100g</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Beef product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
   <tbody>
-    <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef 2 Meat Free Burgers, 226g</td><td>2.00</td><td>0.88</td><td class="txt meat">Beef Burgers x8 (frozen), 454g</td><td>4.00</td><td>0.88</td><td class="ratio">1.0x</td></tr>
-    <tr><td class="txt">Asda</td><td class="txt plant">Plant Based by ASDA 4 Veggie Burgers</td><td>1.45</td><td>0.30</td><td class="txt meat">Summer Grill by ASDA 4 Quarter Pounder Beef Burgers, 454g</td><td>3.77</td><td>0.83</td><td class="ratio">0.4x</td></tr>
-    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Meat Free Burgers, 226g</td><td>2.00</td><td>0.89</td><td class="txt meat">4 Quarter Pounder British Beef Burgers, 454g</td><td>3.50</td><td>0.77</td><td class="ratio">1.1x</td></tr>
-    <tr><td class="txt">Waitrose</td><td class="txt plant">PlantLiving 2 Ultimate No Meat Burgers, 210g</td><td>2.25</td><td>1.07</td><td class="txt meat">BBQ 4 Oak Smoked Beef Burgers, 454g</td><td>5.50</td><td>1.21</td><td class="ratio">0.9x</td></tr>
     <tr><td class="txt">Co-op</td><td class="txt plant">Plant Based The Incredible Burger, 210g</td><td>2.40</td><td>1.14</td><td class="txt meat">British 4 Beef Quarter Pounder Burgers, 454g</td><td>4.25</td><td>0.94</td><td class="ratio">1.2x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Meat Free Burgers, 226g</td><td>2.00</td><td>0.89</td><td class="txt meat">4 Quarter Pounder British Beef Burgers, 454g</td><td>3.50</td><td>0.77</td><td class="ratio">1.1x</td></tr>
+    <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef 2 Meat Free Burgers, 226g</td><td>2.00</td><td>0.89</td><td class="txt meat">Beef Burgers x8 (frozen), 454g</td><td>4.00</td><td>0.88</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Waitrose</td><td class="txt plant">PlantLiving 2 Ultimate No Meat Burgers, 210g</td><td>2.25</td><td>1.07</td><td class="txt meat">BBQ 4 Oak Smoked Beef Burgers, 454g</td><td>5.50</td><td>1.21</td><td class="ratio">0.9x</td></tr>
+    <tr><td class="txt">Asda</td><td class="txt plant">Plant Based by ASDA 4 Veggie Burgers</td><td>1.45</td><td>0.30</td><td class="txt meat">Summer Grill by ASDA 4 Quarter Pounder Beef Burgers, 454g</td><td>3.77</td><td>0.83</td><td class="ratio">0.4x</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">Match-quality flags: Tesco pairs a chilled plant product with frozen beef burgers; the Asda plant product is a vegetable burger rather than a meat-imitation patty (its weight is implied from the aggregator's unit price, unverified); the Waitrose pair sits in a premium tier on both sides. Sainsbury's row verified against Sainsbury's API; the aggregator's record for that chain (a 2-pack at 1.32/100g) appears stale and was replaced with the retailer's current standard 4-pack. Morrisons has no comparable own-brand meat-imitation burger, matching the exclusion in Which? (2022).</p>
+<p class="tablenote">Match-quality flags: Tesco pairs a chilled plant product with frozen beef burgers; the Asda plant product is a vegetable burger rather than a meat-imitation patty (its weight is implied from the aggregator's unit price, unverified); the Waitrose pair sits in a premium tier on both sides. Sainsbury's row verified against Sainsbury's API. Morrisons has no comparable own-brand meat-imitation burger, matching the exclusion in Which? (2022).</p>
 
 <h2>Mince: own-brand plant vs beef</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100g</th><th class="txt">Beef product</th><th>£</th><th>£/100g</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Beef product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
   <tbody>
     <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef Meat Free Mince (frozen), 454g</td><td>2.25</td><td>0.50</td><td class="txt meat">Beef Mince 20% Fat, 500g</td><td>3.25</td><td>0.65</td><td class="ratio">0.8x</td></tr>
     <tr><td class="txt">Asda</td><td class="txt plant">Plant Based by ASDA Meat-Free Mince (frozen), 454g</td><td>1.96</td><td>0.43</td><td class="txt meat">20% Fat Beef Mince, 500g</td><td>3.25</td><td>0.65</td><td class="ratio">0.7x</td></tr>
@@ -148,12 +155,12 @@
   </tbody>
 </table>
 </div>
-<p class="tablenote">Plant mince is cheaper per 100g at every chain with an own-brand pair. The comparator is the standard 20% fat beef mince, the cheapest standard tier; against lean 5% mince (about 1.04/100g at Sainsbury's) the plant discount would be larger still. Tesco and Asda plant minces are frozen against chilled beef. Sainsbury's beef row verified against Sainsbury's API; its plant mince is aggregator-only (unit price internally consistent). Morrisons, Waitrose and Co-op list no own-brand plant mince.</p>
+<p class="tablenote">Plant mince is compared against the standard 20% fat beef mince, the cheapest standard tier; against lean 5% mince the plant discount would be larger still. Tesco and Asda plant minces are frozen against chilled beef. Morrisons, Waitrose and Co-op list no own-brand plant mince.</p>
 
 <h2>Meatballs: own-brand plant vs beef</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100g</th><th class="txt">Beef product</th><th>£</th><th>£/100g</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Beef product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
   <tbody>
     <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef 12 Meat-Free Balls, 336g</td><td>3.60</td><td>1.07</td><td class="txt meat">24 Beef Meatballs (frozen), 672g</td><td>6.50</td><td>0.97</td><td class="ratio">1.1x</td></tr>
     <tr><td class="txt">Waitrose</td><td class="txt plant">PlantLiving No Meat Meatballs, 380g</td><td>2.25</td><td>0.59</td><td class="txt meat">12 British Beef Meatballs, 300g</td><td>4.50</td><td>1.50</td><td class="ratio">0.4x</td></tr>
@@ -161,113 +168,174 @@
   </tbody>
 </table>
 </div>
-<p class="tablenote">Both Sainsbury's rows verified against Sainsbury's API (its 5% fat variant is dearer at 4.25, which would push the ratio lower still). The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Waitrose rows are aggregator-only. Morrisons and Co-op list no own-brand plant meatballs.</p>
+<p class="tablenote">The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Sainsbury's rows verified against Sainsbury's API (its 5% fat variant is dearer, which would push the ratio lower still). Morrisons and Co-op list no own-brand plant meatballs.</p>
 
-<h2>Mayonnaise: vegan vs egg-based</h2>
+<h2>Ready meals: own-brand plant vs meat</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Range</th><th class="txt">Vegan product</th><th>£</th><th>£/100</th><th class="txt">Standard product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Meat product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
   <tbody>
-    <tr><td class="txt">Sainsbury's own-brand</td><td class="txt plant">Plant Pioneers Vegan Mayo, 250ml</td><td>1.40</td><td>0.56</td><td class="txt meat">Mayonnaise Squeezy, 500ml</td><td>1.00</td><td>0.20</td><td class="ratio">2.8x</td></tr>
-    <tr><td class="txt">Hellmann's (at Tesco)</td><td class="txt plant">Plant Based Mayo, 750ml</td><td>4.75</td><td>0.63</td><td class="txt meat">Real Mayonnaise, 580ml</td><td>3.25</td><td>0.56</td><td class="ratio">1.1x</td></tr>
-    <tr><td class="txt">Hellmann's (at Morrisons)</td><td class="txt plant">Plant Based Mayo, 750ml</td><td>4.50</td><td>0.60</td><td class="txt meat">Real Mayonnaise, 580ml</td><td>2.50</td><td>0.43</td><td class="ratio">1.4x</td></tr>
-    <tr><td class="txt">Heinz (at Sainsbury's)</td><td class="txt plant">Seriously Good Vegan Mayo, 775g</td><td>3.90</td><td>0.50</td><td class="txt meat">Seriously Good Mayonnaise, 775g</td><td>3.90</td><td>0.50</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Co-op</td><td class="txt plant">Plant Based Creamy Coconut Cauliflower Curry, 370g</td><td>4.25</td><td>1.15</td><td class="txt meat">Thai Green Chicken Curry, 470g</td><td>4.00</td><td>0.85</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Vegan Meat Free Lasagne, 400g</td><td>2.00</td><td>0.50</td><td class="txt meat">Beef Lasagne Ready Meal for 1, 400g</td><td>2.10</td><td>0.53</td><td class="ratio">1.0x</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">Pack sizes differ within the Sainsbury's and Hellmann's pairs (smaller packs usually cost more per 100ml, so those ratios partly reflect pack size). Heinz sells both at the same size and price: parity held at Asda, Morrisons and Sainsbury's, with Tesco at 3.95 vs 3.90. A 2.00 Waitrose listing for the standard Heinz was excluded as a suspected stale or promotional record.</p>
+<p class="tablenote">The Which? (2022) ready-meal pairs at Tesco (cottage pie) and Waitrose (moussaka) are no longer listed on the aggregator, so the category currently covers Sainsbury's (lasagne vs lasagne) and Co-op (the same curry pair Which? used). Note the Co-op pair compares a cauliflower curry with a chicken curry: a like-for-like dish, not a like-for-like protein swap.</p>
+
+<h2>Coleslaw: own-brand vegan vs standard</h2>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Standard product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
+  <tbody>
+    <tr><td class="txt">Tesco</td><td class="txt plant">Plant Chef Coleslaw, 250g</td><td>1.60</td><td>0.64</td><td class="txt meat">Tesco Coleslaw</td><td>0.90</td><td>0.42</td><td class="ratio">1.5x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Coleslaw, 300g</td><td>1.90</td><td>0.63</td><td class="txt meat">Deli-Style Traditional Coleslaw, 300g</td><td>1.40</td><td>0.47</td><td class="ratio">1.4x</td></tr>
+    <tr><td class="txt">Waitrose</td><td class="txt plant">PlantLiving Deli Style Coleslaw, 300g</td><td>1.68</td><td>0.56</td><td class="txt meat">Deli Style Coleslaw, 500g</td><td>2.75</td><td>0.55</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Co-op</td><td class="txt plant">Vegan Coleslaw, 300g</td><td>1.45</td><td>0.48</td><td class="txt meat">Creamy Coleslaw, 300g</td><td>1.45</td><td>0.48</td><td class="ratio">1.0x</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tablenote">Vegan coleslaw differs from standard mainly in the dressing (no egg/cream). Sainsbury's pair is deli-style vs deli-style at the same 300g size, both API-verified. M&S Plant Kitchen coleslaw exists via Ocado but its pack weights cannot be verified on the aggregator (its unit prices there imply implausible pack sizes), so M&S is excluded. Morrisons lists no standard own-brand coleslaw on the aggregator.</p>
+
+<h2>Mayonnaise: own-brand vegan vs egg-based</h2>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">Standard product</th><th>£</th><th>£/100</th><th>Ratio</th></tr></thead>
+  <tbody>
+    <tr><td class="txt">Sainsbury's</td><td class="txt plant">Plant Pioneers Vegan Mayo, 250ml</td><td>1.40</td><td>0.56</td><td class="txt meat">Mayonnaise Squeezy, 500ml</td><td>1.00</td><td>0.20</td><td class="ratio">2.8x</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tablenote">Pack sizes differ within the Sainsbury's own-brand and Hellmann's pairs (smaller packs usually cost more per 100ml, so those ratios partly reflect pack size). Heinz sells both versions at the same 775g size. A Waitrose listing for the standard Heinz was excluded as a suspected stale or promotional record.</p>
 
 <h2>Branded pairs across chains</h2>
 <h3>Richmond sausages: 8 Meat Free Vegan (304g) vs 8 Thick Pork (410g)</h3>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th>Vegan £</th><th>Vegan £/100g</th><th>Pork £</th><th>Pork £/100g</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th></tr></thead>
   <tbody>
     <tr><td class="txt">Asda</td><td>1.87</td><td>0.62</td><td>2.17</td><td>0.53</td><td class="ratio">1.2x</td></tr>
-    <tr><td class="txt">Tesco</td><td>2.40</td><td>0.79</td><td>2.20</td><td>0.54</td><td class="ratio">1.5x</td></tr>
+    <tr><td class="txt">Co-op</td><td>3.00</td><td>0.99</td><td>3.00</td><td>0.73</td><td class="ratio">1.3x</td></tr>
     <tr><td class="txt">Morrisons</td><td>2.40</td><td>0.79</td><td>2.30</td><td>0.56</td><td class="ratio">1.4x</td></tr>
-    <tr><td class="txt">Co-op</td><td>3.00</td><td>0.99</td><td>3.00</td><td>0.73</td><td class="ratio">1.4x</td></tr>
+    <tr><td class="txt">Tesco</td><td>2.40</td><td>0.79</td><td>2.20</td><td>0.54</td><td class="ratio">1.5x</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">Waitrose stocks the vegan product (2.50, 0.82/100g) but no pork price was listed. Which? (2022) found Richmond meat-free at 0.72 to 0.84 and pork at 0.50 to 0.55 per 100g.</p>
-
+<p class="tablenote">Which? (2022) found Richmond meat-free at 0.72 to 0.84 and pork at 0.50 to 0.55 per 100g.</p>
 <h3>Magnum: Collection Vegan Classic (3 x 90ml) vs Classic Chocolate (3 x 100ml)</h3>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th>Vegan £</th><th>Vegan £/100ml</th><th>Classic £</th><th>Classic £/100ml</th><th>Ratio</th></tr></thead>
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th></tr></thead>
   <tbody>
     <tr><td class="txt">Asda</td><td>3.25</td><td>1.20</td><td>3.48</td><td>1.16</td><td class="ratio">1.0x</td></tr>
-    <tr><td class="txt">Tesco</td><td>4.25</td><td>1.57</td><td>3.50</td><td>1.17</td><td class="ratio">1.3x</td></tr>
-    <tr><td class="txt">Sainsbury's</td><td>4.25</td><td>1.57</td><td>3.50</td><td>1.17</td><td class="ratio">1.3x</td></tr>
-    <tr><td class="txt">Morrisons</td><td>4.25</td><td>1.57</td><td>2.00</td><td>0.67</td><td class="ratio">2.4x</td></tr>
-    <tr><td class="txt">Waitrose</td><td>4.45</td><td>1.65</td><td>3.50</td><td>1.17</td><td class="ratio">1.4x</td></tr>
     <tr><td class="txt">Ocado</td><td>4.25</td><td>1.57</td><td>3.50</td><td>1.17</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td>4.25</td><td>1.57</td><td>3.50</td><td>1.17</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Tesco</td><td>4.25</td><td>1.57</td><td>3.50</td><td>1.17</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Waitrose</td><td>4.45</td><td>1.65</td><td>3.50</td><td>1.17</td><td class="ratio">1.4x</td></tr>
+    <tr><td class="txt">Morrisons</td><td>4.25</td><td>1.57</td><td>2.00</td><td>0.67</td><td class="ratio">2.4x</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">The Morrisons 2.00 classic price looks like a promotion; Tesco also showed a 2.50 Clubcard price (loyalty prices are excluded from the headline figures throughout).</p>
+<p class="tablenote">Loyalty-card prices (Nectar, Clubcard) are excluded from all figures throughout; unusually low chain prices may be unflagged promotions.</p>
+<h3>Ginsters: Vegan Quorn Pasty (180g) vs Original Cornish Pasty (227g)</h3>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th></tr></thead>
+  <tbody>
+    <tr><td class="txt">Asda</td><td>1.93</td><td>1.07</td><td>2.24</td><td>0.99</td><td class="ratio">1.1x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td>2.25</td><td>1.25</td><td>2.25</td><td>0.99</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Tesco</td><td>2.25</td><td>1.25</td><td>2.25</td><td>0.99</td><td class="ratio">1.3x</td></tr>
+    <tr><td class="txt">Morrisons</td><td>2.25</td><td>1.25</td><td>1.50</td><td>0.66</td><td class="ratio">1.9x</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tablenote">The same-brand pair Which? (2022) compared (then 0.88-1.11 vegan vs 0.64-0.86 original per 100g across chains).</p>
+<h3>Hellmann's: Plant Based Mayo (750ml) vs Real Mayonnaise (580ml)</h3>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th></tr></thead>
+  <tbody>
+    <tr><td class="txt">Asda</td><td>4.73</td><td>0.63</td><td>3.24</td><td>0.56</td><td class="ratio">1.1x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td>4.75</td><td>0.63</td><td>3.25</td><td>0.56</td><td class="ratio">1.1x</td></tr>
+    <tr><td class="txt">Tesco</td><td>4.75</td><td>0.63</td><td>3.25</td><td>0.56</td><td class="ratio">1.1x</td></tr>
+    <tr><td class="txt">Morrisons</td><td>4.50</td><td>0.60</td><td>2.50</td><td>0.43</td><td class="ratio">1.4x</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tablenote">Pack sizes differ (750ml vs 580ml), so the ratio partly reflects pack size.</p>
+<h3>Heinz: Seriously Good Vegan Mayo (775g) vs Seriously Good Mayonnaise (775g)</h3>
+<div class="tablewrap">
+<table class="data">
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th></tr></thead>
+  <tbody>
+    <tr><td class="txt">Asda</td><td>3.88</td><td>0.50</td><td>3.88</td><td>0.50</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Morrisons</td><td>3.90</td><td>0.50</td><td>3.90</td><td>0.50</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Sainsbury's</td><td>3.90</td><td>0.50</td><td>3.90</td><td>0.50</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Tesco</td><td>3.95</td><td>0.51</td><td>3.90</td><td>0.50</td><td class="ratio">1.0x</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tablenote">Same size both sides. A Waitrose listing for the standard product is excluded as a suspected stale or promotional record.</p>
 
 <h2>Trend since Which? (2022)</h2>
-<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and this snapshot (6 to 7 July 2026). The trend is shown in ratios because they are unaffected by general food inflation; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
+<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios because they are unaffected by general food inflation; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
 <div class="legend"><span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>2022 ratio (Which?)
-  <span class="swatch" style="background: var(--pink);"></span>2026 ratio, plant dearer
-  <span class="swatch" style="background: var(--sage);"></span>2026 ratio, plant cheaper or equal
+  <span class="swatch" style="background: var(--pink);"></span>current ratio, plant dearer
+  <span class="swatch" style="background: var(--sage);"></span>current ratio, plant cheaper or equal
 </div>
 <div class="chart">
   <div class="grp">Sausages (own-brand)</div>
-  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 56.6%; width: 8.1%;"></div><div class="dot past" style="left: 56.6%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.7&#8594;1.9</span></div>
-  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 64.3%; width: 0.4%;"></div><div class="dot past" style="left: 64.3%;"></div><div class="dot dear" style="left: 64.7%;"></div></div><span class="bar-val">1.9&#8594;1.9</span></div>
+  <div class="bar-row"><span>Tesco</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 56.6%; width: 8.2%;"></div><div class="dot past" style="left: 56.6%;"></div><div class="dot dear" style="left: 64.8%;"></div></div><span class="bar-val">1.7&#8594;1.9</span></div>
+  <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 64.3%; width: 0.6%;"></div><div class="dot past" style="left: 64.3%;"></div><div class="dot dear" style="left: 64.9%;"></div></div><span class="bar-val">1.9&#8594;1.9</span></div>
   <div class="bar-row"><span>Waitrose *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 35.7%; width: 44.3%;"></div><div class="dot past" style="left: 80.0%;"></div><div class="dot dear" style="left: 35.7%;"></div></div><span class="bar-val">2.4&#8594;1.1</span></div>
-  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 32.7%; width: 38.0%;"></div><div class="dot past" style="left: 32.7%;"></div><div class="dot dear" style="left: 70.7%;"></div></div><span class="bar-val">1.0&#8594;2.1</span></div>
+  <div class="bar-row"><span>Co-op</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 32.7%; width: 37.9%;"></div><div class="dot past" style="left: 32.7%;"></div><div class="dot dear" style="left: 70.6%;"></div></div><span class="bar-val">1.0&#8594;2.1</span></div>
   <div class="grp">Burgers (own-brand)</div>
-  <div class="bar-row"><span>Tesco *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 33.4%; width: 15.8%;"></div><div class="dot past" style="left: 49.2%;"></div><div class="dot cheap" style="left: 33.4%;"></div></div><span class="bar-val">1.5&#8594;1.0</span></div>
-  <div class="bar-row"><span>Asda *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 12.0%; width: 35.8%;"></div><div class="dot past" style="left: 47.8%;"></div><div class="dot cheap" style="left: 12.0%;"></div></div><span class="bar-val">1.4&#8594;0.4</span></div>
+  <div class="bar-row"><span>Tesco *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 33.5%; width: 15.8%;"></div><div class="dot past" style="left: 49.2%;"></div><div class="dot cheap" style="left: 33.5%;"></div></div><span class="bar-val">1.5&#8594;1.0</span></div>
+  <div class="bar-row"><span>Asda *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 12.0%; width: 35.7%;"></div><div class="dot past" style="left: 47.8%;"></div><div class="dot cheap" style="left: 12.0%;"></div></div><span class="bar-val">1.4&#8594;0.4</span></div>
   <div class="bar-row"><span>Sainsbury's</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 32.9%; width: 5.4%;"></div><div class="dot past" style="left: 32.9%;"></div><div class="dot dear" style="left: 38.3%;"></div></div><span class="bar-val">1.0&#8594;1.1</span></div>
   <div class="bar-row"><span>Waitrose *</span><div class="bar-track"><div class="parity"></div><div class="stem trend" style="left: 29.5%; width: 30.7%;"></div><div class="dot past" style="left: 60.2%;"></div><div class="dot cheap" style="left: 29.5%;"></div></div><span class="bar-val">1.8&#8594;0.9</span></div>
   <div class="axis-row"><span></span><div class="axis"><span style="left: 0%; transform: none;">0x</span><span style="left: 33.33%;">1x (parity)</span><span style="left: 66.67%;">2x</span><span style="left: 100%; transform: translateX(-100%);">3x</span></div><span></span></div>
 </div>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Pair (per 100g, GBP)</th><th>Plant 2022</th><th>Plant 2026</th><th>Meat 2022</th><th>Meat 2026</th><th>Ratio 2022</th><th>Ratio 2026</th></tr></thead>
+  <thead><tr><th class="txt">Pair (per 100g, GBP)</th><th>Plant 2022</th><th>Plant now</th><th>Meat 2022</th><th>Meat now</th><th>Ratio 2022</th><th>Ratio now</th></tr></thead>
   <tbody>
     <tr><td class="txt">Tesco sausages: Plant Chef Cumberland bangers vs pork sausages</td><td>0.56</td><td>0.77</td><td>0.33</td><td>0.39</td><td>1.7x</td><td class="ratio">1.9x</td></tr>
     <tr><td class="txt">Sainsbury's sausages: Shroomdogs vs Butcher's Choice Cumberland</td><td>0.81</td><td>0.77</td><td>0.42</td><td>0.39</td><td>1.9x</td><td class="ratio">1.9x</td></tr>
     <tr><td class="txt">Waitrose sausages *</td><td>1.08</td><td>1.07</td><td>0.45</td><td>1.00</td><td>2.4x</td><td class="ratio">1.1x</td></tr>
     <tr><td class="txt">Co-op sausages: Sizzlin' vs Co-op pork sausages</td><td>0.53</td><td>0.93</td><td>0.54</td><td>0.44</td><td>1.0x</td><td class="ratio">2.1x</td></tr>
-    <tr><td class="txt">Tesco burgers *</td><td>0.65</td><td>0.88</td><td>0.44</td><td>0.88</td><td>1.5x</td><td class="ratio">1.0x</td></tr>
+    <tr><td class="txt">Tesco burgers *</td><td>0.65</td><td>0.89</td><td>0.44</td><td>0.88</td><td>1.5x</td><td class="ratio">1.0x</td></tr>
     <tr><td class="txt">Asda burgers *</td><td>0.96</td><td>0.30</td><td>0.67</td><td>0.83</td><td>1.4x</td><td class="ratio">0.4x</td></tr>
     <tr><td class="txt">Sainsbury's burgers: Plant Pioneers vs quarter pounders</td><td>0.76</td><td>0.89</td><td>0.77</td><td>0.77</td><td>1.0x</td><td class="ratio">1.1x</td></tr>
     <tr><td class="txt">Waitrose burgers *</td><td>1.21</td><td>1.07</td><td>0.67</td><td>1.21</td><td>1.8x</td><td class="ratio">0.9x</td></tr>
-    <tr><td class="txt">Richmond sausages (range across chains)</td><td>0.72-0.84</td><td>0.62-0.99</td><td>0.50-0.55</td><td>0.53-0.73</td><td colspan="2" class="ratio">still dearer at every chain</td></tr>
-    <tr><td class="txt">Hellmann's mayo (range across chains) *</td><td>0.58-0.78</td><td>0.60-0.67</td><td>0.46-0.56</td><td>0.43-0.56</td><td colspan="2" class="ratio">premium narrowed</td></tr>
-    <tr><td class="txt">Magnum (range across chains)</td><td>1.26-1.56</td><td>1.20-1.65</td><td>0.77-0.91</td><td>0.67-1.17</td><td colspan="2" class="ratio">broadly unchanged</td></tr>
+    <tr><td class="txt">Richmond sausages (range across chains)</td><td>0.72-0.84</td><td>0.62-0.99</td><td>0.50-0.55</td><td>0.53-0.73</td><td colspan="2" class="ratio">now 1.2x-1.5x by chain</td></tr>
+    <tr><td class="txt">Ginsters pasty (range across chains)</td><td>0.88-1.11</td><td>1.07-1.25</td><td>0.64-0.86</td><td>0.66-0.99</td><td colspan="2" class="ratio">now 1.1x-1.9x by chain</td></tr>
+    <tr><td class="txt">Hellmann's mayo (range across chains) *</td><td>0.58-0.78</td><td>0.60-0.67</td><td>0.46-0.56</td><td>0.43-0.56</td><td colspan="2" class="ratio">now 1.1x-1.4x by chain</td></tr>
+    <tr><td class="txt">Magnum (range across chains)</td><td>1.26-1.56</td><td>1.20-1.65</td><td>0.77-0.91</td><td>0.67-1.17</td><td colspan="2" class="ratio">now 1.0x-2.4x by chain</td></tr>
   </tbody>
 </table>
 </div>
-<p class="tablenote">2022 figures are Which? three-month averages (Co-op: point prices supplied 5 Dec 2022); 2026 figures are a one-day snapshot, so every comparison is indicative only. Product-change flags (*): Waitrose sausages compared Mushroom &amp; Leek vs British pork in 2022 but chorizo vs no-chorizo in 2026; Tesco's 2022 Meat &amp; Veg burger comparator and Asda's 2022 meat-imitation burger are no longer listed (the 2026 Asda plant product is a vegetable burger); Waitrose's 2026 beef comparator is a premium-tier product; Hellmann's pack sizes changed (430ml squeezy both sides in 2022, 750ml vegan vs 580ml real in 2026). The 2022 Co-op comparator was a gluten-free pork sausage, and Co-op had just price-matched its vegan range: that parity has since reversed. Reading only the same-product pairs (Tesco, Sainsbury's, Co-op sausages; Sainsbury's burgers): no downward trend in the sausage premium, and Sainsbury's Shroomdogs are the only plant product in the set that got nominally cheaper.</p>
+<p class="tablenote">2022 figures are Which? three-month averages (Co-op: point prices supplied 5 Dec 2022); "now" figures are the latest scrape with ratios averaged over the series. Product-change flags (*): Waitrose sausages compared Mushroom &amp; Leek vs British pork in 2022 but chorizo vs no-chorizo now; Tesco's 2022 Meat &amp; Veg burger comparator and Asda's 2022 meat-imitation burger are no longer listed (the current Asda plant product is a vegetable burger); Waitrose's current beef comparator is a premium-tier product; Hellmann's pack sizes changed (430ml squeezy both sides in 2022, 750ml vegan vs 580ml real now). The 2022 Co-op comparator was a gluten-free pork sausage, and Co-op had just price-matched its vegan range.</p>
 
 <h2>Method and caveats</h2>
 <ul class="checklist">
-  <li><strong>Product basket:</strong> follows the own-brand and branded pairs in <a href="https://www.which.co.uk/news/article/plant-based-alternatives-can-cost-twice-as-much-as-meat-which-finds-a4AzY8r4gTpO">Which? (Dec 2022), "Plant-based alternatives can cost twice as much as meat"</a>, re-matched to July 2026 assortments and extended with mince and meatballs (added 7 July 2026). Each pair is a plant-based product and its nearest meat/egg equivalent in the same range tier.</li>
-  <li><strong>Prices:</strong> scraped 6 to 7 July 2026 from <a href="https://www.trolley.co.uk">trolley.co.uk</a> (a price aggregator; secondary source) because Tesco, Asda, Ocado and Co-op block automated access to their own sites. Sainsbury's rows were verified against Sainsbury's own product API (primary source) where the product surfaced there; other chains are aggregator-only in this prototype.</li>
-  <li><strong>Unit prices:</strong> pounds per 100g/100ml computed from the pack price and pack weight. The aggregator's own multipack unit prices are wrong (it multiplies pack count by total weight) and were not used. Pack weights come from the retailer listing titles; the Asda veggie-burger weight is implied, not confirmed.</li>
-  <li><strong>Shelf prices only:</strong> loyalty-card prices (Nectar, Clubcard) and multibuy offers are noted where seen but excluded from all figures, matching the Which? approach.</li>
-  <li><strong>One day, not an average:</strong> Which? averaged three months of daily prices; this snapshot is a single day. The production version of this site will scrape daily and accumulate the same kind of average over time.</li>
-  <li><strong>Coverage gaps:</strong> M&amp;S (not on the aggregator); Morrisons sausages/burgers, Asda sausages, and mince/meatballs at Morrisons and Co-op (no comparable own-brand pair found); Waitrose has no own-brand plant mince; ready meals and coleslaw (in the Which? basket, not yet in this prototype).</li>
+  <li><strong>Product basket:</strong> follows the own-brand and branded pairs in <a href="https://www.which.co.uk/news/article/plant-based-alternatives-can-cost-twice-as-much-as-meat-which-finds-a4AzY8r4gTpO">Which? (Dec 2022), "Plant-based alternatives can cost twice as much as meat"</a>, re-matched to 2026 assortments and extended with mince, meatballs and additional pairs. Each pair is a plant-based product and its nearest meat/dairy/egg equivalent in the same range tier. The register (with pack sizes and matching decisions) is <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs.json">pairs.json</a>.</li>
+  <li><strong>Prices:</strong> scraped daily from <a href="https://www.trolley.co.uk">trolley.co.uk</a> product pages (a price aggregator; secondary source) because Tesco, Asda, Ocado and Co-op block automated access to their own sites. Sainsbury's rows are fetched from Sainsbury's own product API (primary source) where the product surfaces there; each data row records its source. The scrape respects the aggregator's robots.txt (product pages are allowed; its search is not used).</li>
+  <li><strong>Unit prices:</strong> pounds per 100g/100ml computed from the pack price and the register's hand-verified pack weight. The aggregator's own multipack unit prices are wrong (it multiplies pack count by total weight) and are not used, except for two single-container products whose weight the aggregator carries reliably.</li>
+  <li><strong>Shelf prices only:</strong> loyalty-card prices (Nectar, Clubcard) and multibuy offers are recorded but excluded from all figures, matching the Which? approach.</li>
+  <li><strong>Averaging:</strong> Which? averaged three months of daily prices; this site shows the latest day's prices and averages ratios over the accumulating daily series (1 day so far, since 7 Jul 2026).</li>
+  <li><strong>Coverage gaps:</strong> M&amp;S (not on the aggregator; its coleslaw pack weights cannot be verified); Morrisons sausages/burgers/mince/meatballs/coleslaw, Asda sausages, and Co-op mince/meatballs (no comparable own-brand pair found); the 2022 Tesco and Waitrose ready-meal pairs are discontinued.</li>
 </ul>
 
-<h2>What the production site adds</h2>
+<h2>Data</h2>
 <ul>
-  <li>Daily automated scrape with a price-history series, so ratios become multi-month averages rather than one-day snapshots (the Which? methodology).</li>
-  <li>Direct retailer sources for Sainsbury's, Waitrose and Morrisons; aggregator only where retailers block access, labelled per row.</li>
-  <li>The remaining Which? categories (ready meals, coleslaw and potato salad) and a fuller branded set (Ginsters, plant milk).</li>
-  <li>Downloadable data (CSV/JSON) for every date, as on <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a>.</li>
+  <li>Full daily history: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history.json">history.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history.csv">history.csv</a> (one row per product, store and date, with provenance).</li>
+  <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs.json">pairs.json</a>.</li>
+  <li>Code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
 </ul>
 
 <div class="disclosure">
-  Prototype prepared with Claude Code (data collection, verification and page build), 6 July 2026. Prices are point-in-time shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
-  Data and code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>. Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices).
+  Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
+  Related: <a href="https://olas.kanepajs.eu">olas.kanepajs.eu</a> (Latvian egg prices). Page generated 7 Jul 2026.
 </div>
 
 </body>

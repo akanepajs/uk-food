@@ -4,22 +4,28 @@ Price comparison of plant-based products and their meat equivalents at the big U
 supermarket chains, per 100g/100ml, following the product basket in Which? (Dec 2022),
 "Plant-based alternatives can cost twice as much as meat".
 
-Current state: PROTOTYPE. One-day price snapshot (6 July 2026), hand-curated pair
-register, static page. Daily scraping, a price-history series, direct retailer sources
-(Sainsbury's, Waitrose, Morrisons) and the remaining Which? categories (ready meals,
-coleslaw) are planned; see "What the production site adds" on the page.
+Production pipeline (since 7 July 2026): a daily GitHub Actions run scrapes the curated
+pair register, appends to the price-history series, regenerates the page, and redeploys.
+Ratios shown on the page are averages of daily prices over the accumulating series (the
+Which? benchmark used a three-month average).
 
 ## Contents
 
-- `index.html`: the site (fully self-contained, no external assets).
+- `index.html`: the site (generated; do not edit by hand).
+- `scraper/pairs.json`: the curated pair register (slugs, hand-verified pack sizes,
+  Sainsbury's API queries, matching decisions).
+- `scraper/run_scrape_uk.mjs`: the daily scraper. trolley.co.uk product pages (allowed
+  by its robots.txt; search is not used) for all chains, plus Sainsbury's own product
+  API as primary source where the product surfaces there. Fail-loud on bot-block or
+  3+ product failures: nothing is written and the run goes red.
+- `scraper/data/history/history.json` / `history.csv`: the full daily series (one row
+  per product, store and date, with provenance).
+- `scripts/build_page.mjs`: page generator (all page numbers come from the history).
+- `.github/workflows/daily-scrape.yml`: the daily cron (05:40 UTC).
 - `CNAME`: custom domain for GitHub Pages.
-- `scraper/final_scrape.mjs`: the snapshot scraper (trolley.co.uk aggregator, curated
-  register of product-page slugs).
-- `scraper/verify_sains.mjs`: cross-check of Sainsbury's rows against Sainsbury's own
-  product API (primary source).
-- `scraper/data/2026-07-06_snapshot.json`: the raw scraped records behind the page.
-- `scraper/mince_scrape.mjs` + `scraper/data/2026-07-07_mince_meatballs.json`: the mince
-  and meatballs extension (added 7 July 2026).
+- `scraper/final_scrape.mjs`, `scraper/mince_scrape.mjs`, `scraper/verify_sains.mjs`,
+  `scraper/data/2026-07-06_snapshot.json`, `scraper/data/2026-07-07_mince_meatballs.json`:
+  the July 2026 prototype-era one-off scripts and snapshots, kept for provenance.
 
 ## Data notes
 
