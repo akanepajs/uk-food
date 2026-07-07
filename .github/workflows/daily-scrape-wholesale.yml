@@ -1,0 +1,71 @@
+name: daily-scrape-wholesale
+
+# Re-scrape the wholesale (foodservice) pair register each day, rebuild the
+# page, append to the wholesale history series, and commit back. Separate from
+# daily-scrape.yml so a wholesale failure never blocks the retail update (and
+# vice versa). Scheduled 05:10 UTC: inside the 04:00-08:45 UTC visit window
+# Brakes' robots.txt requests, and before the 05:40 retail run. The scraper is
+# fail-loud: a bot-block or 3+ product failures exits non-zero, nothing is
+# written, this run goes red, and the prior committed page stays live.
+
+on:
+  schedule:
+    - cron: '10 5 * * *'   # every day 05:10 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  scrape-wholesale:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Compute run date
+        id: vars
+        run: echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Scrape wholesale pair register
+        working-directory: scraper
+        run: node run_scrape_wholesale.mjs "${{ steps.vars.outputs.date }}"
+
+      - name: Build page
+        run: node scripts/build_page.mjs
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "uk-food-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes this run."
+          else
+            git commit -m "Daily wholesale price update ${{ steps.vars.outputs.date }}"
+            git pull --rebase --autostash origin main || true
+            git push
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,72 @@
+{
+  "comment": "Wholesale (foodservice) pair register, parallel to pairs.json but separate: wholesale rows never enter the retail history. Sources: JJ Foodservice (/product/england/<SKU> pages, schema.org JSON-LD offers per branch; Collection price at the Enfield EN-MW branch is the canonical price, ex-VAT sitewide per its T&Cs 5.4) and Brakes (product pages, ng-state blob; anonymous indicative price, 'average customer discount', nettPrices=false). 'amount' is the hand-verified total pack weight/volume (from the distributor's own pack-size field, cross-checked against its published per-kg unit price on 2026-07-07); per-100 figures are computed from it. Probed and curated 2026-07-07: Booker and Costco UK are bot-blocked at the Akamai edge, Bidfood is account-gated end to end; JJ and Brakes are the two publicly fetchable distributors. Neither JJ nor Brakes lists a vegan coleslaw; JJ lists 28 beef burgers and no beef-style plant burger (its plant burgers are vegetable or coated chicken-style); Brakes lists no vegan mayonnaise. AHDB publishes deadweight (carcase) prices only, no plant-based wholesale series exists.",
+  "jj_branch": "EN-MW",
+  "pairs": [
+    {
+      "pair_id": "jj-saus", "category": "sausages", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "VEG965", "label": "Quorn Vegan Sausages 1x2kg", "amount": 2000, "unit": "g" },
+      "meat": { "source": "jj", "sku": "SGS103", "label": "JJ Butchers Pork Sausages 8s 1x64 (3.63kg)", "amount": 3629, "unit": "g" },
+      "note": "Butcher-style tier both sides. Pack weight from the page's own statement (eight sausages per pound, 64 per box = 8lb). The Cumberland variant SGS035 was rejected: its stated weight (1x3.63kg) contradicts its stated count (1x60 at 6 per pound = 4.54kg). Meat side was out of stock at all branches at curation; its price is still published."
+    },
+    {
+      "pair_id": "jj-mince", "category": "mince", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "VEG913", "label": "KaterVeg Vegan Mince 1x1kg", "amount": 1000, "unit": "g" },
+      "meat": { "source": "jj", "sku": "MEA379", "label": "JJ Frozen UK Halal Minced Beef 10% Fat 2x1kg", "amount": 2000, "unit": "g" },
+      "note": "Both frozen, own-brand tier. Beef side is 10% fat: JJ lists no 20% fat mince (the retail comparator tier), and leaner mince is dearer, so this ratio flatters the plant side relative to the retail convention."
+    },
+    {
+      "pair_id": "jj-balls", "category": "meatballs", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "VGT014", "label": "Quorn Vegan Balls 1x1kg", "amount": 1000, "unit": "g" },
+      "meat": { "source": "jj", "sku": "MEA508", "label": "JJ Halal Mini Beef Meatballs 1x1kg", "amount": 1000, "unit": "g" },
+      "note": "Same 1kg pack both sides, both fully cooked frozen. The beef meatball declares 55% beef content."
+    },
+    {
+      "pair_id": "jj-chickburger", "category": "coated chicken burgers", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "VEG988", "label": "Quorn Vegan ChiQin Buttermilk Burger 100g 1x2kg", "amount": 2000, "unit": "g" },
+      "meat": { "source": "jj", "sku": "CHI536", "label": "Paragon Halal Fully Cooked Battered Chicken Breast Fillets 18x115g", "amount": 2070, "unit": "g" },
+      "note": "Coated chicken-style burger pair (buttermilk-coated mycoprotein vs battered whole-muscle chicken breast), both fully cooked frozen catering patties. JJ lists no beef-style plant burger against its 28 beef burger lines."
+    },
+    {
+      "pair_id": "jj-mayo-heinz", "category": "mayonnaise", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "SAU972", "label": "Heinz Vegan Mayonnaise 1x5L", "amount": 5000, "unit": "ml" },
+      "meat": { "source": "jj", "sku": "SAU043", "label": "Heinz Real Mayonnaise Bucket 1x10L", "amount": 10000, "unit": "ml" },
+      "note": "Same brand both sides (mirrors the retail Heinz pair) but pack sizes differ (5L vs 10L; larger packs are usually cheaper per litre, which inflates the vegan side's per-litre figure)."
+    },
+    {
+      "pair_id": "jj-mayo-sasco", "category": "mayonnaise", "distributor": "JJ Foodservice",
+      "plant": { "source": "jj", "sku": "SAU996", "label": "Sasco Vegan Mayonnaise 1x5L", "amount": 5000, "unit": "ml" },
+      "meat": { "source": "jj", "sku": "SAU044", "label": "Sasco Real Mayonnaise Bucket 1x10L", "amount": 10000, "unit": "ml" },
+      "note": "Same brand both sides; pack sizes differ (5L vs 10L), same caveat as the Heinz pair."
+    },
+    {
+      "pair_id": "brakes-saus-chilled", "category": "sausages", "distributor": "Brakes",
+      "plant": { "source": "brakes", "code": "135570", "path": "/meal-solutions/meat-free-vegetarian/sausages/other/this-vegan-pork-sausages/p/135570", "label": "THIS Vegan Pork Sausages 1x3kg", "amount": 3000, "unit": "g" },
+      "meat": { "source": "brakes", "code": "16687", "path": "/meat-poultry/chilled-processed-meat/sausages/butchers-style/prime-meats-british-old-english-pork-sausage-sixes/p/16687", "label": "Prime Meats British 80% Old English Pork Sausage 6s 36x76g", "amount": 2736, "unit": "g" },
+      "note": "Chilled butcher-style tier both sides (branded premium plant vs 80% pork butcher-style)."
+    },
+    {
+      "pair_id": "brakes-saus-frozen", "category": "sausages", "distributor": "Brakes",
+      "plant": { "source": "brakes", "code": "129633", "path": "/meal-solutions/meat-free-vegetarian/sausages/other/meatless-farm-plant-based-sausages/p/129633", "label": "Meatless Farm Plant-Based Sausages 18x50g", "amount": 900, "unit": "g" },
+      "meat": { "source": "brakes", "code": "129194", "path": "/meat-poultry/frozen-processed-meat/sausages/traditional-style/brakes-pork-sausage-eights/p/129194", "label": "Brakes Pork Sausage Eights 80x57g", "amount": 4560, "unit": "g" },
+      "note": "Tier mismatch flagged: branded plant sausage vs own-brand traditional pork in a much larger catering pack (Brakes lists no own-brand plant sausage in a standard frozen format). Similar sausage sizes (50g vs 57g)."
+    },
+    {
+      "pair_id": "brakes-mince", "category": "mince", "distributor": "Brakes",
+      "plant": { "source": "brakes", "code": "136990", "path": "/meal-solutions/meat-free-vegetarian/ingredients/mince/quornpro-mince/p/136990", "label": "QuornPro Mince 1x1.5kg", "amount": 1500, "unit": "g" },
+      "meat": { "source": "brakes", "code": "3103", "path": "/meat-poultry/frozen-raw-butchered-meat/beef/beef-mince/brakes-20-fat-beef-mince/p/3103", "label": "Brakes 20% Fat Beef Mince 1x2.5kg", "amount": 2500, "unit": "g" },
+      "note": "Both frozen foodservice lines; the beef side is the standard 20% fat tier, matching the retail comparator convention."
+    },
+    {
+      "pair_id": "brakes-balls", "category": "meatballs", "distributor": "Brakes",
+      "plant": { "source": "brakes", "code": "130516", "path": "/meal-solutions/meat-free-vegetarian/burgers-grills-other/other/meatless-farm-plant-based-meatballs/p/130516", "label": "Meatless Farm Plant-Based Meatballs 63x15g", "amount": 945, "unit": "g" },
+      "meat": { "source": "brakes", "code": "3675", "path": "/meat-poultry/frozen-processed-meat/meatballs/cooked/brakes-cooked-pork-meatballs/p/3675", "label": "Brakes Cooked Pork Meatballs 225x12g", "amount": 2700, "unit": "g" },
+      "note": "Comparator is pork, not beef (the only beef meatball line, Green Gourmet, no longer renders a live page and appears delisted). Both cooked. The plant side was on promotion at curation (was-price recorded by the scraper)."
+    },
+    {
+      "pair_id": "brakes-burger", "category": "burgers", "distributor": "Brakes",
+      "plant": { "source": "brakes", "code": "150296", "path": "/meal-solutions/meat-free-vegetarian/burgers-grills-other/burgers/quorn-vegan-burger/p/150296", "label": "Quorn Vegan Burger 18x109g", "amount": 1962, "unit": "g" },
+      "meat": { "source": "brakes", "code": "3808", "path": "/meat-poultry/frozen-processed-meat/burgers-grills/fast-food-burgers/sysco-classic-90-beef-burger/p/3808", "label": "Sysco Classic 90% Beef Burger 24x113g", "amount": 2712, "unit": "g" },
+      "note": "Comparable patty sizes (109g vs 113g), both frozen fast-food tier (own/foodservice brands both sides)."
+    }
+  ]
+}

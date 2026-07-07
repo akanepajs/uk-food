@@ -22,6 +22,14 @@ Which? benchmark used a three-month average).
   per product, store and date, with provenance).
 - `scripts/build_page.mjs`: page generator (all page numbers come from the history).
 - `.github/workflows/daily-scrape.yml`: the daily cron (05:40 UTC).
+- Wholesale (foodservice) layer, since 7 July 2026: `scraper/pairs_wholesale.json`
+  (register), `scraper/run_scrape_wholesale.mjs` (daily scraper: JJ Foodservice
+  product-page JSON-LD, ex-VAT Collection prices at the Enfield branch; Brakes
+  product-page ng-state, anonymous indicative prices), `scraper/data/history/
+  history_wholesale.json` / `.csv` (separate series; wholesale rows never enter the
+  retail history), `.github/workflows/daily-scrape-wholesale.yml` (05:10 UTC, inside
+  the visit window Brakes' robots.txt requests, 11s request pacing per its crawl-delay).
+  Booker, Costco UK (bot-blocked) and Bidfood (account-gated) were probed and excluded.
 - `CNAME`: custom domain for GitHub Pages.
 - `scraper/final_scrape.mjs`, `scraper/mince_scrape.mjs`, `scraper/verify_sains.mjs`,
   `scraper/data/2026-07-06_snapshot.json`, `scraper/data/2026-07-07_mince_meatballs.json`:
