@@ -539,7 +539,6 @@ ${trendTable()}
 <div class="disclosure">
   Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
   Page generated ${fmtD(lastDate)}.
-  © 2026 Artūrs (Art) Kaņepājs. Contact: hello@kanepajs.eu
 </div>
 
 </body>
@@ -582,7 +581,6 @@ ${wbody}
 <div class="disclosure">
   Site prepared with Claude Code (data collection, verification and page build). Prices are list/shelf prices and may have changed. Sources: JJ Foodservice and Brakes product pages (wholesale); AHDB (context links).
   Page generated ${fmtD(wLast || lastDate)}.
-  © 2026 Artūrs (Art) Kaņepājs. Contact: hello@kanepajs.eu
 </div>
 
 </body>
@@ -817,7 +815,6 @@ and cream).</p>
 <div class="disclosure">
   Page prepared with Claude Code (literature review, data verification and page build).
   Page generated ${fmtD(lastDate)}.
-  © 2026 Artūrs (Art) Kaņepājs. Contact: hello@kanepajs.eu
 </div>
 
 </body>
