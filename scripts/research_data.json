@@ -176,5 +176,60 @@
       "label": "Plant milk (overall, per litre)",
       "pct": 67.0
     }
-  ]
+  ],
+  "drewnowski": {
+    "note": "US national mean retail prices (USDA Purchase to Plate Price Tool, FNDDS 2017-18); off-jurisdiction proxy for the UK, labelled US on the page. Asserted against the register rows and the filed PMC11377338 snapshot (Tables 2 and 3 price columns).",
+    "protein50g_usd": [
+      {
+        "label": "Pork",
+        "usd": 2.0
+      },
+      {
+        "label": "Chicken",
+        "usd": 2.16
+      },
+      {
+        "label": "Eggs",
+        "usd": 2.25
+      },
+      {
+        "label": "Pulses",
+        "usd": 2.51
+      },
+      {
+        "label": "Beef",
+        "usd": 3.56
+      },
+      {
+        "label": "Fish",
+        "usd": 4.65
+      }
+    ],
+    "food100g_usd": [
+      {
+        "label": "Pulses",
+        "usd": 0.36
+      },
+      {
+        "label": "Eggs",
+        "usd": 0.53
+      },
+      {
+        "label": "Chicken",
+        "usd": 0.91
+      },
+      {
+        "label": "Pork",
+        "usd": 1.01
+      },
+      {
+        "label": "Beef",
+        "usd": 1.91
+      },
+      {
+        "label": "Fish",
+        "usd": 2.0
+      }
+    ]
+  }
 }

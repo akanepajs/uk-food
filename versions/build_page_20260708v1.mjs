@@ -653,18 +653,6 @@ function itemsChart() {
   rows.push(rAxis([-75, -50, -25, 0, 25, 50, 75], min, max, t => t > 0 ? `+${t}%` : `${t}%`));
   return rows.join("\n");
 }
-// Absolute USD per 50g protein (Drewnowski & Conrad 2024, Table 3); the reference line is
-// pulses, so the chart reads as "which animal proteins beat pulses on a per-protein basis".
-// Unlike the other charts this one is not a signed % vs one animal product, hence its own renderer.
-function drewChart() {
-  const d = RD.drewnowski, min = 0, max = 5;
-  const ref = d.protein50g_usd.find(r => r.label === "Pulses").usd;
-  const rows = d.protein50g_usd.map(r => r.label === "Pulses"
-    ? rLolli("Pulses (plant reference)", r.usd, `$${r.usd.toFixed(2)}`, min, max, ref, "past")
-    : rLolli(r.label, r.usd, `$${r.usd.toFixed(2)}`, min, max, ref, r.usd < ref ? "dear" : "cheap"));
-  rows.push(rAxis([0, 1, 2, 3, 4, 5], min, max, t => `$${t}`));
-  return rows.join("\n");
-}
 
 const rhtml = `<!DOCTYPE html>
 <html lang="en">
@@ -672,7 +660,7 @@ const rhtml = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UK plant-based vs meat costs: research findings</title>
-<meta name="description" content="UK evidence on plant-based vs animal-product food and catering costs: GB per-meal panel data, modelled UK whole-diet costs (Springmann et al. 2021), catering case studies, a US cost-per-protein check and item-level retail price gaps.">
+<meta name="description" content="UK evidence on plant-based vs animal-product food and catering costs: GB per-meal panel data, modelled UK whole-diet costs (Springmann et al. 2021), catering case studies and item-level retail price gaps.">
 <style>${STYLE}</style>
 </head>
 <body>
@@ -754,38 +742,6 @@ the panel chart above. The case differs from the GB panel in jurisdiction, setti
 method, so the contrast illustrates the mechanism rather than a controlled estimate. Source: NYC Health +
 Hospitals (2024).</p>
 
-<h2>Cost per unit of protein (US retail, 2017 to 2018)</h2>
-<div class="key-message">
-  <strong>A different measuring basis</strong>
-  Every estimate above compares diets or meals at similar calorie intake and overall nutritional
-  adequacy; none of them holds protein constant. Springmann et al. (2021), for example, replace meat
-  with plant foods "on a kcal basis", with each pattern built around a minimum quantity of
-  plant-based protein sources rather than a gram-for-gram protein match. Priced per unit of protein
-  instead of per meal or per calorie, the plant-versus-animal cost gap narrows and can reverse, as
-  the US figures below show. They are US retail prices, not UK, so read this section as a point
-  about measurement, not as a UK cost estimate.
-</div>
-<p>Drewnowski and Conrad (2024) price US protein sources both ways from the same national retail
-price data. The chart shows the cost of 50g of protein (100% of the US daily value) from each
-source, with pulses (peas, beans, lentils and chickpeas) as the plant-based reference.</p>
-<div class="legend">Dot = US retail price of 50g of protein from each source; the vertical line
-marks pulses.
-  <span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>pulses (reference)
-  <span class="swatch" style="background: var(--pink);"></span>animal protein cheaper per unit of protein
-  <span class="swatch" style="background: var(--sage);"></span>animal protein costs more per unit of protein
-</div>
-<div class="chart wide">
-${drewChart()}
-</div>
-<p class="fignote">Per 100g of food the same data make pulses the cheapest protein source of all
-(USD 0.36 per 100g, below even eggs at USD 0.53, the cheapest animal source; chicken 0.91, pork
-1.01, beef 1.91, fish 2.00). Per 50g of protein the ranking reverses at the top: pulses cost more
-than pork, chicken and eggs, and less than only beef and fish, because pulses provide less than 10g
-of protein per 100g of food against more than 20g for meat and fish. Prices are US national mean
-retail prices (USDA Purchase to Plate Price Tool, FNDDS 2017 to 2018 food data); they predate
-recent inflation, are not income-controlled, and protein is not adjusted for digestibility. Source:
-Drewnowski &amp; Conrad (2024).</p>
-
 <h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
 <div class="legend">Dot = plant-based price vs the animal product it substitutes (0%, vertical line);
 percentages are relative to the animal product's price.
@@ -812,7 +768,6 @@ and cream).</p>
 <ul class="refs">
   <li>AHDB (Adamson, V.) (2025). <a href="https://ahdb.org.uk/news/consumer-insight-flexitarian-trends-shifting-diets-and-changing-preferences">Flexitarian trends: shifting diets and changing preferences</a>. AHDB Consumer Insight, 22 May 2025. Data: Kantar Usage panel, total main meal occasions, 52 weeks ending 23 February 2025 (GB).</li>
   <li>Conservative Animal Welfare Foundation (2024, 27 January). <a href="https://www.conservativeanimalwelfarefoundation.org/wp-content/uploads/2024/01/2-Billion-NHS-Windfall-CAWF.pdf">The &pound;2 billion NHS windfall: Why meat reduction matters</a>.</li>
-  <li>Drewnowski, A., &amp; Conrad, Z. (2024). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11377338/">Pulse crops: nutrient density, affordability, and environmental impact</a>. Frontiers in Nutrition, 11, 1438369. doi:10.3389/fnut.2024.1438369. Prices from USDA Purchase to Plate Price Tool, FNDDS 2017-18.</li>
   <li>Good Food Institute Europe (2025). <a href="https://gfieurope.org/wp-content/uploads/2025/06/UK-plant-based-food-retail-market-insights-2022-2024.pdf">UK plant-based food retail market insights: 2022 to January 2025</a>. Based on Circana retail sales data and NIQ Homescan household panel data.</li>
   <li>Good Food Institute Europe (2026). <a href="https://gfieurope.org/blog/plant-based-mince-and-meatballs-33-cheaper-than-meat-versions-at-uks-largest-retailer-amid-rising-meat-prices/">Plant-based mince and meatballs 33% cheaper than meat versions at UK's largest retailer amid rising meat prices</a>. 29 April 2026.</li>
   <li>NYC Health + Hospitals (2024). <a href="https://www.nychealthandhospitals.org/pressrelease/nyc-health-hospitals-celebrates-1-2-million-plant-based-meals-served/">NYC Health + Hospitals celebrates 1.2 million plant-based meals served</a>. Press release, 14 March 2024.</li>
