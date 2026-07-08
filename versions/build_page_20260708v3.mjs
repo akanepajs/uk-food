@@ -196,30 +196,27 @@ ${body}
 }
 
 // ---- key message (computed) ----
-// "Latest picture" summary: purely factual ratio listings, no directional or interpretative
-// wording (no "cheaper at every chain" / "largest premium" claims), so the sentences stay
-// correct whatever the prices do (Art, 2026-07-08).
 function keyMessage() {
   const seg = [];
-  const rng = rs => {
-    const v = rs.map(r => r.ratio);
-    const lo = Math.min(...v), hi = Math.max(...v);
-    return lo === hi ? fr(lo) : `${fr(lo)} to ${fr(hi)}`;
-  };
   const saus = own["sausages"];
   if (saus.length) {
+    const over = saus.filter(r => r.ratio >= 1.5);
     const list = saus.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ");
-    seg.push(`Own-brand plant-based sausages vs pork sausages, per 100g: ${list}.`);
+    seg.push(`Own-brand plant-based sausages cost more per 100g than pork sausages at every chain with a comparable pair (${list})${over.length >= saus.length - 1 ? ", roughly double at most of them" : ""}.`);
   }
   const burg = own["burgers"];
-  if (burg.length) seg.push(`Burgers run ${rng(burg)}.`);
+  if (burg.length) {
+    const v = burg.map(r => r.ratio);
+    seg.push(`Burgers run ${fr(Math.min(...v))} to ${fr(Math.max(...v))}.`);
+  }
   const mince = own["mince"], balls = own["meatballs"];
   if (mince.length && balls.length) {
-    seg.push(`Plant mince vs standard 20% fat beef mince runs ${rng(mince)} across ${mince.length} chains with a pair; plant meatballs run ${rng(balls)}.`);
+    const mv = mince.map(r => r.ratio), bv = balls.map(r => r.ratio);
+    seg.push(`Mince and meatballs mostly flip the other way: plant mince is cheaper at all ${mince.length} chains with a pair (${fr(Math.min(...mv))} to ${fr(Math.max(...mv))} vs standard 20% fat beef mince), and plant meatballs run ${fr(Math.min(...bv))} to ${fr(Math.max(...bv))}.`);
   }
   const mayo = own["mayonnaise"];
   if (mayo.length) {
-    seg.push(`Own-brand vegan vs standard mayonnaise: ${fr(mayo[0].ratio)} at ${mayo[0].pair.chain}.`);
+    seg.push(`Own-brand vegan mayonnaise carries the largest premium in the basket (${fr(mayo[0].ratio)} at ${mayo[0].pair.chain}), while Heinz sells its vegan and standard mayo at the same price and size.`);
   }
   return seg.join(" ");
 }
@@ -293,8 +290,8 @@ function wholesaleRows() {
   return out;
 }
 
-// Wholesale "Latest picture" summary: purely factual ratio ranges, no directional wording
-// (same rule as the retail keyMessage; Art, 2026-07-08), so it stays correct as prices move.
+// Wholesale "Latest picture" summary, composed from the same rows as the chart so it
+// can never contradict the data. Every claim is conditional on what the ratios show.
 function wKeyMessage() {
   const rows = wholesaleRows();
   if (!rows.length) return "";
@@ -306,9 +303,17 @@ function wKeyMessage() {
     return lo === hi ? fr(lo) : `${fr(lo)} to ${fr(hi)}`;
   };
   const mb = [...by("mince"), ...by("meatball")];
-  if (mb.length) seg.push(`Plant-based mince and meatballs run ${rng(mb)}.`);
+  if (mb.length) {
+    seg.push(mb.every(r => (r.avg ?? r.ratio) <= 1.05)
+      ? `Plant-based mince and meatballs are cheaper than or at parity with their meat equivalents in every wholesale pair (${rng(mb)}).`
+      : `Plant-based mince and meatballs run ${rng(mb)}.`);
+  }
   const saus = by("sausage");
-  if (saus.length) seg.push(`Plant-based sausages run ${rng(saus)}.`);
+  if (saus.length) {
+    seg.push(saus.every(r => (r.avg ?? r.ratio) > 1)
+      ? `Plant-based sausages cost more per 100g in every pair (${rng(saus)}).`
+      : `Sausages run ${rng(saus)}.`);
+  }
   const burg = by("burger");
   if (burg.length) seg.push(`Burgers run ${rng(burg)} (see the pair notes: the JJ pair compares coated chicken formats).`);
   const mayo = by("mayo");
@@ -468,7 +473,7 @@ ${tabs("retail")}
 
 <div class="key-message">
   <strong>Latest picture (${fmtD(lastDate)})</strong>
-  Price ratios, plant-based / meat equivalent: ${keyMessage()}
+  The plant-based premium is category-specific. ${keyMessage()}
 </div>
 
 <h2>Price ratio overview: plant-based / meat, per 100g</h2>
@@ -562,7 +567,7 @@ ${wLatest.length ? `<div class="proto-banner">Updated daily. Series since ${fmtD
 
 ${wLatest.length ? `<div class="key-message">
   <strong>Latest picture (${fmtD(wLast)})</strong>
-  Price ratios, plant-based / meat equivalent: ${wKeyMessage()}
+  The plant-based premium is category-specific at wholesale too. ${wKeyMessage()}
 </div>` : ""}
 
 ${wbody}
