@@ -325,16 +325,12 @@ function wholesaleSection() {
   const distTable = dist => {
     const drows = rows.filter(r => r.pair.distributor === dist);
     if (!drows.length) return "";
-    const units = new Set(drows.map(r => r.p.unit));
-    const mixed = units.size > 1;
-    const unitHead = mixed ? "&pound;/100g/ml" : (units.has("ml") ? "&pound;/100ml" : "&pound;/100g");
-    const catCell = r => esc(r.pair.category) + (mixed && r.p.unit === "ml" ? " (per 100ml)" : "");
     const body = drows.map(r =>
-      `    <tr><td class="txt">${catCell(r)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td>${priceCell(r.p)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td>${priceCell(r.m)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
+      `    <tr><td class="txt">${esc(r.pair.category)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td>${priceCell(r.p)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td>${priceCell(r.m)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
     return `<h2>${esc(dist)}</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Category</th><th class="txt">Plant-based product</th><th>&pound;</th><th>${unitHead}</th><th class="txt">Meat or standard product</th><th>&pound;</th><th>${unitHead}</th><th>Ratio</th>${avgCol ? `<th>Avg (${wnDates}d)</th>` : ""}</tr></thead>
+  <thead><tr><th class="txt">Category</th><th class="txt">Plant-based product</th><th>&pound;</th><th>&pound;/100</th><th class="txt">Meat or standard product</th><th>&pound;</th><th>&pound;/100</th><th>Ratio</th>${avgCol ? `<th>Avg (${wnDates}d)</th>` : ""}</tr></thead>
   <tbody>
 ${body}
   </tbody>
@@ -351,10 +347,11 @@ ${body}
     }
   }
   chart.push(axisRow);
+  const cheaper = rows.filter(r => r.ratio <= 1.005).length;
   const noteRows = wreg.pairs.filter(pr => rows.some(r => r.pair.pair_id === pr.pair_id) && pr.note)
     .map(pr => `<li><strong>${esc(pr.pair_id)}</strong> (${esc(pr.distributor)}, ${esc(pr.category)}): ${esc(pr.note)}</li>`).join("\n  ");
-  return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution).</p>
-<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent.
+  return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution). Of the other candidates probed (7 Jul 2026), Booker and Costco UK block automated access outright and Bidfood shows prices only to account holders. In the latest scrape (${fmtD(wLast)}), the plant-based product is cheaper or at parity per 100g/100ml in ${cheaper} of ${rows.length} wholesale pairs.</p>
+<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent${wnDates >= 2 ? ", averaged over the series" : ""}; the stem shows the distance from parity (1.0, vertical line).
   <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
