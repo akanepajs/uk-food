@@ -92,3 +92,95 @@ date,pair_id,category,chain,side,store,label,price_gbp,per100,unit,offer,source,
 2026-07-07,wait-saus,sausages,Waitrose,plant,Waitrose,Plant Living No Chorizo Sausages,3,1.0714,g,,trolley,280,register
 2026-07-07,wait-slaw,coleslaw,Waitrose,meat,Waitrose,Deli Style Coleslaw,2.75,0.55,g,,trolley,500,register
 2026-07-07,wait-slaw,coleslaw,Waitrose,plant,Waitrose,PlantLiving Deli Style Coleslaw,1.68,0.56,g,,trolley,300,register
+2026-07-08,asda-burg,burgers,Asda,meat,Asda,Summer Grill by ASDA 4 Quarter Pounder Beef Burgers,3.77,0.8304,g,,trolley,454,register
+2026-07-08,asda-burg,burgers,Asda,plant,Asda,Plant Based by ASDA 4 Veggie Burgers,1.45,0.3,g,,trolley,,aggregator_per_unit
+2026-07-08,asda-mince,mince,Asda,meat,Asda,20% Fat Beef Mince,3.25,0.65,g,,trolley,500,register
+2026-07-08,asda-mince,mince,Asda,plant,Asda,Plant Based by ASDA Meat-Free Mince (frozen),1.96,0.4317,g,,trolley,454,register
+2026-07-08,coop-burg,burgers,Co-op,meat,Co-op,British 4 Beef Quarter Pounder Burgers,4.25,0.9361,g,,trolley,454,register
+2026-07-08,coop-burg,burgers,Co-op,plant,Co-op,Plant Based The Incredible Burger,2.4,1.1429,g,,trolley,210,register
+2026-07-08,coop-curry,ready meals,Co-op,meat,Co-op,Thai Green Chicken Curry,4,0.8511,g,,trolley,470,register
+2026-07-08,coop-curry,ready meals,Co-op,plant,Co-op,Plant Based Creamy Coconut Cauliflower Curry,4.25,1.1486,g,,trolley,370,register
+2026-07-08,coop-saus,sausages,Co-op,meat,Co-op,Butchers Choice 8 British Pork Sausages,2,0.4405,g,,trolley,454,register
+2026-07-08,coop-saus,sausages,Co-op,plant,Co-op,Plant Based Sizzlin' Sausages,2.8,0.9333,g,,trolley,300,register
+2026-07-08,coop-slaw,coleslaw,Co-op,meat,Co-op,Creamy Coleslaw,1.45,0.4833,g,,trolley,300,register
+2026-07-08,coop-slaw,coleslaw,Co-op,plant,Co-op,Vegan Coleslaw,1.45,0.4833,g,,trolley,300,register
+2026-07-08,ginsters-pasty,branded,branded,meat,Asda,Ginsters Original Cornish Pasty (227g),2.24,0.9868,g,,trolley,227,register
+2026-07-08,ginsters-pasty,branded,branded,meat,Morrisons,Ginsters Original Cornish Pasty (227g),1.5,0.6608,g,,trolley,227,register
+2026-07-08,ginsters-pasty,branded,branded,meat,Sainsbury's,Ginsters Original Cornish Pasty (227g),2.25,0.9912,g,,trolley,227,register
+2026-07-08,ginsters-pasty,branded,branded,meat,Tesco,Ginsters Original Cornish Pasty (227g),2.25,0.9912,g,,trolley,227,register
+2026-07-08,ginsters-pasty,branded,branded,meat,Waitrose,Ginsters Original Cornish Pasty (227g),1.75,0.7709,g,,trolley,227,register
+2026-07-08,ginsters-pasty,branded,branded,plant,Asda,Ginsters Vegan Quorn Pasty (180g),1.93,1.0722,g,,trolley,180,register
+2026-07-08,ginsters-pasty,branded,branded,plant,Morrisons,Ginsters Vegan Quorn Pasty (180g),2.25,1.25,g,,trolley,180,register
+2026-07-08,ginsters-pasty,branded,branded,plant,Sainsbury's,Ginsters Vegan Quorn Pasty (180g),2.25,1.25,g,£1.50 NECTAR,trolley,180,register
+2026-07-08,ginsters-pasty,branded,branded,plant,Tesco,Ginsters Vegan Quorn Pasty (180g),2.25,1.25,g,,trolley,180,register
+2026-07-08,heinz-mayo,branded,branded,meat,Asda,Heinz Seriously Good Mayonnaise (775g),3.88,0.5006,g,,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,meat,Morrisons,Heinz Seriously Good Mayonnaise (775g),3.9,0.5032,g,,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,meat,Ocado,Heinz Seriously Good Mayonnaise (775g),3.95,0.5097,g,,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,meat,Sainsbury's,Heinz Seriously Good Mayonnaise (775g),3.9,0.5032,g,£3.50 NECTAR,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,meat,Tesco,Heinz Seriously Good Mayonnaise (775g),3.9,0.5032,g,2 FOR £6,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,plant,Asda,Heinz Seriously Good Vegan Mayo (775g),3.88,0.5006,g,,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,plant,Morrisons,Heinz Seriously Good Vegan Mayo (775g),3.9,0.5032,g,,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,plant,Sainsbury's,Heinz Seriously Good Vegan Mayo (775g),3.9,0.5032,g,£3.50 NECTAR,trolley,775,register
+2026-07-08,heinz-mayo,branded,branded,plant,Tesco,Heinz Seriously Good Vegan Mayo (775g),3.95,0.5097,g,,trolley,775,register
+2026-07-08,hellmanns-mayo,branded,branded,meat,Asda,Hellmann's Real Mayonnaise (580ml),3.24,0.5586,ml,,trolley,580,register
+2026-07-08,hellmanns-mayo,branded,branded,meat,Morrisons,Hellmann's Real Mayonnaise (580ml),2.5,0.431,ml,,trolley,580,register
+2026-07-08,hellmanns-mayo,branded,branded,meat,Sainsbury's,Hellmann's Real Mayonnaise (580ml),3.25,0.5603,ml,£2.80 NECTAR,trolley,580,register
+2026-07-08,hellmanns-mayo,branded,branded,meat,Tesco,Hellmann's Real Mayonnaise (580ml),3.25,0.5603,ml,2 FOR £5,trolley,580,register
+2026-07-08,hellmanns-mayo,branded,branded,plant,Asda,Hellmann's Plant Based Mayo (750ml),4.73,0.6307,ml,,trolley,750,register
+2026-07-08,hellmanns-mayo,branded,branded,plant,Morrisons,Hellmann's Plant Based Mayo (750ml),4.5,0.6,ml,,trolley,750,register
+2026-07-08,hellmanns-mayo,branded,branded,plant,Sainsbury's,Hellmann's Plant Based Mayo (750ml),4.75,0.6333,ml,£3.50 NECTAR,trolley,750,register
+2026-07-08,hellmanns-mayo,branded,branded,plant,Tesco,Hellmann's Plant Based Mayo (750ml),4.75,0.6333,ml,£3.50 CLUBCARD,trolley,750,register
+2026-07-08,hellmanns-mayo,branded,branded,plant,Waitrose,Hellmann's Plant Based Mayo (750ml),5,0.6667,ml,,trolley,750,register
+2026-07-08,magnum-ice,branded,branded,meat,Asda,Magnum Classic Chocolate (3 x 100ml),3.48,1.16,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Co-op,Magnum Classic Chocolate (3 x 100ml),3.2,1.0667,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Morrisons,Magnum Classic Chocolate (3 x 100ml),2,0.6667,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Ocado,Magnum Classic Chocolate (3 x 100ml),3.5,1.1667,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Sainsbury's,Magnum Classic Chocolate (3 x 100ml),3.5,1.1667,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Tesco,Magnum Classic Chocolate (3 x 100ml),3.5,1.1667,ml,£2.50 CLUBCARD,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,meat,Waitrose,Magnum Classic Chocolate (3 x 100ml),2.5,0.8333,ml,,trolley,300,register
+2026-07-08,magnum-ice,branded,branded,plant,Asda,Magnum Collection Vegan Classic (3 x 90ml),3.25,1.2037,ml,,trolley,270,register
+2026-07-08,magnum-ice,branded,branded,plant,Morrisons,Magnum Collection Vegan Classic (3 x 90ml),4.25,1.5741,ml,,trolley,270,register
+2026-07-08,magnum-ice,branded,branded,plant,Sainsbury's,Magnum Collection Vegan Classic (3 x 90ml),4.25,1.5741,ml,,trolley,270,register
+2026-07-08,magnum-ice,branded,branded,plant,Tesco,Magnum Collection Vegan Classic (3 x 90ml),4.25,1.5741,ml,,trolley,270,register
+2026-07-08,magnum-ice,branded,branded,plant,Waitrose,Magnum Collection Vegan Classic (3 x 90ml),3.25,1.2037,ml,,trolley,270,register
+2026-07-08,richmond-saus,branded,branded,meat,Asda,Richmond 8 Thick Pork Sausages (410g),2.17,0.5293,g,,trolley,410,register
+2026-07-08,richmond-saus,branded,branded,meat,Co-op,Richmond 8 Thick Pork Sausages (410g),3,0.7317,g,,trolley,410,register
+2026-07-08,richmond-saus,branded,branded,meat,Morrisons,Richmond 8 Thick Pork Sausages (410g),2.3,0.561,g,,trolley,410,register
+2026-07-08,richmond-saus,branded,branded,meat,Tesco,Richmond 8 Thick Pork Sausages (410g),2.2,0.5366,g,,trolley,410,register
+2026-07-08,richmond-saus,branded,branded,plant,Asda,Richmond 8 Meat Free Vegan Sausages (304g),1.87,0.6151,g,,trolley,304,register
+2026-07-08,richmond-saus,branded,branded,plant,Co-op,Richmond 8 Meat Free Vegan Sausages (304g),3,0.9868,g,,trolley,304,register
+2026-07-08,richmond-saus,branded,branded,plant,Morrisons,Richmond 8 Meat Free Vegan Sausages (304g),2.4,0.7895,g,,trolley,304,register
+2026-07-08,richmond-saus,branded,branded,plant,Tesco,Richmond 8 Meat Free Vegan Sausages (304g),2.4,0.7895,g,3 FOR 2,trolley,304,register
+2026-07-08,richmond-saus,branded,branded,plant,Waitrose,Richmond 8 Meat Free Vegan Sausages (304g),2,0.6579,g,,trolley,304,register
+2026-07-08,sains-balls,meatballs,Sainsbury's,meat,Sainsbury's,British or Irish 10% Fat 12 Beef Meatballs,4,1.1429,g,,trolley,350,register
+2026-07-08,sains-balls,meatballs,Sainsbury's,plant,Sainsbury's,Plant Pioneers Meat Free Meatballs,1.32,0.3474,g,,trolley,380,register
+2026-07-08,sains-burg,burgers,Sainsbury's,meat,Sainsbury's,4 Quarter Pounder British Beef Burgers,3,0.6608,g,,trolley,454,register
+2026-07-08,sains-burg,burgers,Sainsbury's,plant,Sainsbury's,Plant Pioneers Meat Free Burgers,2,0.885,g,,trolley,226,register
+2026-07-08,sains-lasagne,ready meals,Sainsbury's,meat,Sainsbury's,Beef Lasagne Ready Meal for 1,2.1,0.525,g,£1.90 NECTAR,trolley,400,register
+2026-07-08,sains-lasagne,ready meals,Sainsbury's,plant,Sainsbury's,Plant Pioneers Vegan Meat Free Lasagne,2,0.5,g,,trolley,400,register
+2026-07-08,sains-mayo,mayonnaise,Sainsbury's,meat,Sainsbury's,Mayonnaise Squeezy,1,0.2,ml,,trolley,500,register
+2026-07-08,sains-mayo,mayonnaise,Sainsbury's,plant,Sainsbury's,Plant Pioneers Vegan Mayo,1.4,0.56,ml,£1.25 NECTAR,trolley,250,register
+2026-07-08,sains-mince,mince,Sainsbury's,meat,Sainsbury's,British or Irish 20% Fat Beef Mince,3.25,0.65,g,,trolley,500,register
+2026-07-08,sains-mince,mince,Sainsbury's,plant,Sainsbury's,Plant Pioneers Meat Free Mince,1.74,0.348,g,,trolley,500,register
+2026-07-08,sains-saus,sausages,Sainsbury's,meat,Sainsbury's,Butcher's Choice Cumberland British Pork Sausage x8,1.79,0.3943,g,,trolley,454,register
+2026-07-08,sains-saus,sausages,Sainsbury's,plant,Sainsbury's,Plant Pioneers Cumberland Shroomdogs x6,2.3,0.7667,g,,trolley,300,register
+2026-07-08,sains-slaw,coleslaw,Sainsbury's,meat,Sainsbury's,Deli-Style Traditional Coleslaw,1.4,0.4667,g,,trolley,300,register
+2026-07-08,sains-slaw,coleslaw,Sainsbury's,plant,Sainsbury's,Plant Pioneers Coleslaw,1.9,0.6333,g,,trolley,300,register
+2026-07-08,tesco-balls,meatballs,Tesco,meat,Tesco,24 Beef Meatballs (frozen),6.5,0.9673,g,,trolley,672,register
+2026-07-08,tesco-balls,meatballs,Tesco,plant,Tesco,Plant Chef 12 Meat-Free Balls,3.6,1.0714,g,,trolley,336,register
+2026-07-08,tesco-burg,burgers,Tesco,meat,Tesco,Beef Burgers x8 (frozen),4,0.8811,g,,trolley,454,register
+2026-07-08,tesco-burg,burgers,Tesco,plant,Tesco,Plant Chef 2 Meat Free Burgers,2,0.885,g,3 FOR 2,trolley,226,register
+2026-07-08,tesco-mince,mince,Tesco,meat,Tesco,Beef Mince 20% Fat,3.25,0.65,g,,trolley,500,register
+2026-07-08,tesco-mince,mince,Tesco,plant,Tesco,Plant Chef Meat Free Mince (frozen),1.58,0.348,g,,trolley,454,register
+2026-07-08,tesco-saus,sausages,Tesco,meat,Tesco,British Pork Sausages x8,1.79,0.3943,g,,trolley,454,register
+2026-07-08,tesco-saus,sausages,Tesco,plant,Tesco,Plant Chef 6 Cumberland Style Meat-Free Bangers,2.3,0.7667,g,3 FOR 2,trolley,300,register
+2026-07-08,tesco-slaw,coleslaw,Tesco,meat,Tesco,Tesco Coleslaw,0.9,0.42,g,,trolley,,aggregator_per_unit
+2026-07-08,tesco-slaw,coleslaw,Tesco,plant,Tesco,Plant Chef Coleslaw,1.6,0.64,g,,trolley,250,register
+2026-07-08,wait-balls,meatballs,Waitrose,meat,Waitrose,12 British Beef Meatballs,4.5,1.5,g,,trolley,300,register
+2026-07-08,wait-balls,meatballs,Waitrose,plant,Waitrose,PlantLiving No Meat Meatballs,2.25,0.5921,g,,trolley,380,register
+2026-07-08,wait-burg,burgers,Waitrose,meat,Waitrose,BBQ 4 Oak Smoked Beef Burgers,5.5,1.2115,g,3 FOR £12,trolley,454,register
+2026-07-08,wait-burg,burgers,Waitrose,plant,Waitrose,PlantLiving 2 Ultimate No Meat Burgers,2.25,1.0714,g,,trolley,210,register
+2026-07-08,wait-saus,sausages,Waitrose,meat,Waitrose,6 Chorizo Style Pork Sausages,4,1,g,2 FOR £6,trolley,400,register
+2026-07-08,wait-saus,sausages,Waitrose,plant,Waitrose,Plant Living No Chorizo Sausages,3,1.0714,g,,trolley,280,register
+2026-07-08,wait-slaw,coleslaw,Waitrose,meat,Waitrose,Deli Style Coleslaw,2.75,0.55,g,,trolley,500,register
+2026-07-08,wait-slaw,coleslaw,Waitrose,plant,Waitrose,PlantLiving Deli Style Coleslaw,2.1,0.7,g,,trolley,300,register
