@@ -161,14 +161,14 @@ function ownTable(cat) {
   if (!rows.length) return "";
   const [heading, meatHead] = CAT_HEADINGS[cat];
   const avgCol = nDates >= 2;
-  const unit = rows[0].p.unit === "ml" ? "£/100ml" : "£/100g";
   const body = rows.map(r => {
+    const unit = r.p.unit === "ml" ? "£/100ml" : "£/100g";
     return `    <tr><td class="txt">${esc(r.pair.chain)}</td><td class="txt plant">${esc(r.pair.plant.label)}${r.pair.plant.amount ? ", " + r.pair.plant.amount + r.p.unit : ""}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}${r.pair.meat.amount ? ", " + r.pair.meat.amount + r.m.unit : ""}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`;
   }).join("\n");
   return `<h2>${esc(heading)}</h2>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>${unit}</th><th class="txt">${esc(meatHead)}</th><th>£</th><th>${unit}</th><th>Ratio</th>${avgCol ? `<th>Avg ratio (${nDates}d)</th>` : ""}</tr></thead>
+  <thead><tr><th class="txt">Chain</th><th class="txt">Plant-based product</th><th>£</th><th>£/100</th><th class="txt">${esc(meatHead)}</th><th>£</th><th>£/100</th><th>Ratio</th>${avgCol ? `<th>Avg ratio (${nDates}d)</th>` : ""}</tr></thead>
   <tbody>
 ${body}
   </tbody>
@@ -181,13 +181,12 @@ function brandedTable(pairId, title, note) {
   const rows = brandedRows(pairId);
   if (!rows.length) return "";
   const avgCol = nDates >= 2;
-  const unit = rows[0].p.unit === "ml" ? "£/100ml" : "£/100g";
   const body = rows.map(r =>
     `    <tr><td class="txt">${esc(r.store)}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
   return `<h3>${esc(title)}</h3>
 <div class="tablewrap">
 <table class="data">
-  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant ${unit}</th><th>Standard £</th><th>Standard ${unit}</th><th>Ratio</th>${avgCol ? `<th>Avg (${nDates}d)</th>` : ""}</tr></thead>
+  <thead><tr><th class="txt">Chain</th><th>Plant £</th><th>Plant £/100</th><th>Standard £</th><th>Standard £/100</th><th>Ratio</th>${avgCol ? `<th>Avg (${nDates}d)</th>` : ""}</tr></thead>
   <tbody>
 ${body}
   </tbody>
@@ -463,7 +462,7 @@ const html = `<!DOCTYPE html>
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK supermarket price check</h1>
-<div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022). Shelf prices only: loyalty-card prices (Nectar, Clubcard) and multibuy offers are recorded but excluded from all figures, matching the Which? approach.</div>
+<div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022)</div>
 ${tabs("retail")}
 <div class="proto-banner">Updated daily. Series since ${fmtD(firstDate)}; latest prices ${fmtD(lastDate)} (${nDates} day${nDates === 1 ? "" : "s"} of data). Ratios are averages of daily prices over the series.</div>
 
@@ -473,7 +472,7 @@ ${tabs("retail")}
 </div>
 
 <h2>Price ratio overview: plant-based / meat, per 100g</h2>
-<div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent, averaged over the series.
+<div class="legend">Dot = ratio of plant-based price per 100g to the meat equivalent, averaged over the series; the stem shows the distance from parity (1.0, vertical line).
   <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
@@ -497,7 +496,7 @@ ${brandedTable("heinz-mayo", "Heinz: Seriously Good Vegan Mayo (775g) vs Serious
   "Same size both sides. A Waitrose listing for the standard product is excluded as a suspected stale or promotional record.")}
 
 <h2>Trend since Which? (2022)</h2>
-<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
+<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios because they are unaffected by general food inflation; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
 <div class="legend"><span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>2022 ratio (Which?)
   <span class="swatch" style="background: var(--pink);"></span>current ratio, plant costs more
   <span class="swatch" style="background: var(--sage);"></span>current ratio, plant cheaper or equal
