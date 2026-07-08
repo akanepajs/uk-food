@@ -327,7 +327,7 @@ function wholesaleSection() {
     if (!drows.length) return "";
     const units = new Set(drows.map(r => r.p.unit));
     const mixed = units.size > 1;
-    const unitHead = mixed ? "&pound;/100g/ml" : (units.has("ml") ? "&pound;/100ml" : "&pound;/100g");
+    const unitHead = mixed ? "&pound;/100g or &pound;/100ml" : (units.has("ml") ? "&pound;/100ml" : "&pound;/100g");
     const catCell = r => esc(r.pair.category) + (mixed && r.p.unit === "ml" ? " (per 100ml)" : "");
     const body = drows.map(r =>
       `    <tr><td class="txt">${catCell(r)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td>${priceCell(r.p)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td>${priceCell(r.m)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
@@ -354,7 +354,7 @@ ${body}
   const noteRows = wreg.pairs.filter(pr => rows.some(r => r.pair.pair_id === pr.pair_id) && pr.note)
     .map(pr => `<li><strong>${esc(pr.pair_id)}</strong> (${esc(pr.distributor)}, ${esc(pr.category)}): ${esc(pr.note)}</li>`).join("\n  ");
   return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution).</p>
-<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent.
+<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent, averaged.
   <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
