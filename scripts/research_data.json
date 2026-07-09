@@ -231,5 +231,61 @@
         "usd": 2.0
       }
     ]
+  },
+  "drewnowski_uk": {
+    "note": "UK replication of the Drewnowski & Conrad method: published multi-retailer average prices (ONS shopping-prices-tool dataset, Jan 2025, UK, the last month with detailed food-item average prices; Defra Family Food FYE 2024 unit values for fresh pork, dried pulses) joined to CoFID 2021 protein composition, as-sold basis. Category means re-derived here from the item rows of 2026-07-09_uk_cost_per_protein/output/uk_cost_per_protein_v2.json; raw inputs spot-asserted against the ONS, Family Food and CoFID files.",
+    "protein50g_gbp": [
+      {
+        "label": "Chicken",
+        "gbp": 1.61
+      },
+      {
+        "label": "Pulses",
+        "gbp": 1.64
+      },
+      {
+        "label": "Pork",
+        "gbp": 1.69
+      },
+      {
+        "label": "Eggs",
+        "gbp": 2.24
+      },
+      {
+        "label": "Beef",
+        "gbp": 3.29
+      },
+      {
+        "label": "Fish",
+        "gbp": 4.21
+      }
+    ],
+    "food100g_gbp": [
+      {
+        "label": "Pulses",
+        "gbp": 0.27
+      },
+      {
+        "label": "Eggs",
+        "gbp": 0.56
+      },
+      {
+        "label": "Pork",
+        "gbp": 0.69
+      },
+      {
+        "label": "Chicken",
+        "gbp": 0.8
+      },
+      {
+        "label": "Beef",
+        "gbp": 1.34
+      },
+      {
+        "label": "Fish",
+        "gbp": 1.67
+      }
+    ],
+    "lamb_50g_gbp": 7.14
   }
 }

@@ -666,18 +666,6 @@ function drewChart() {
   rows.push(rAxis([0, 1, 2, 3, 4, 5], min, max, t => `$${t}`));
   return rows.join("\n");
 }
-// UK replication of the same per-protein chart (GBP; published multi-retailer averages,
-// ONS Jan 2025 + Defra Family Food FYE 2024; CoFID 2021 protein). Same scale and colour
-// semantics as drewChart so the two sections read side by side.
-function drewUkChart() {
-  const d = RD.drewnowski_uk, min = 0, max = 5;
-  const ref = d.protein50g_gbp.find(r => r.label === "Pulses").gbp;
-  const rows = d.protein50g_gbp.map(r => r.label === "Pulses"
-    ? rLolli("Pulses (plant reference)", r.gbp, `&pound;${r.gbp.toFixed(2)}`, min, max, ref, "past")
-    : rLolli(r.label, r.gbp, `&pound;${r.gbp.toFixed(2)}`, min, max, ref, r.gbp < ref ? "dear" : "cheap"));
-  rows.push(rAxis([0, 1, 2, 3, 4, 5], min, max, t => `&pound;${t}`));
-  return rows.join("\n");
-}
 
 const rhtml = `<!DOCTYPE html>
 <html lang="en">
@@ -685,7 +673,7 @@ const rhtml = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UK plant-based vs meat costs: research findings</title>
-<meta name="description" content="UK evidence on plant-based vs animal-product food and catering costs: GB per-meal panel data, modelled UK whole-diet costs (Springmann et al. 2021), catering case studies, US and UK cost-per-protein checks and item-level retail price gaps.">
+<meta name="description" content="UK evidence on plant-based vs animal-product food and catering costs: GB per-meal panel data, modelled UK whole-diet costs (Springmann et al. 2021), catering case studies, a US cost-per-protein check and item-level retail price gaps.">
 <style>${STYLE}</style>
 </head>
 <body>
@@ -771,8 +759,7 @@ Hospitals (2024).</p>
   plant-based protein sources rather than a gram-for-gram protein match. Priced per unit of protein
   instead of per meal or per calorie, the plant-versus-animal cost gap narrows and can reverse, as
   the US figures below show. They are US retail prices, not UK, so read this section as a point
-  about measurement, not as a UK cost estimate. The section after it repeats the calculation
-  with UK prices.
+  about measurement, not as a UK cost estimate.
 </div>
 <p>Drewnowski and Conrad (2024) price US protein sources both ways from the same national retail
 price data. The chart shows the cost of 50g of protein (100% of the US daily value) from each
@@ -793,34 +780,6 @@ of protein per 100g of food against more than 20g for meat and fish. Prices are 
 retail prices (USDA Purchase to Plate Price Tool, FNDDS 2017 to 2018 food data); they predate
 recent inflation, are not income-controlled, and protein is not adjusted for digestibility. Source:
 Drewnowski &amp; Conrad (2024).</p>
-
-<h2>Cost per unit of protein (UK retail averages, 2024 to 2025)</h2>
-<p>The same calculation run for the UK, from published multi-retailer average prices: ONS average
-price data for January 2025 (the last month with detailed food-item average prices), with Defra
-Family Food unit values (financial year 2023-24) filling fresh pork and dried pulses, joined to
-the official UK food composition tables (CoFID 2021). Each category averages one to three
-representative items.</p>
-<div class="legend">Dot = UK average retail price of 50g of protein from each source.
-  <span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>pulses (reference)
-  <span class="swatch" style="background: var(--pink);"></span>animal protein cheaper
-  <span class="swatch" style="background: var(--sage);"></span>animal protein costs more
-</div>
-<div class="chart wide">
-${drewUkChart()}
-</div>
-<p class="fignote"><strong>Per 100g of food</strong> pulses are again the cheapest source (&pound;0.27
-per 100g, below eggs at &pound;0.56, the cheapest animal source; pork 0.69, chicken 0.80, beef 1.34,
-fish 1.67; boneless items only). <strong>Per 50g of protein</strong> the UK ranking reverses less than
-the US one: chicken (&pound;1.61) is at parity with pulses (&pound;1.64), with pork close behind
-(&pound;1.69), while eggs (&pound;2.24), beef (&pound;3.29) and fish (&pound;4.21) cost more than
-pulses; lamb (not shown) is the dearest source at &pound;7.14. Within UK pulses, dried pulses alone
-provide 50g of protein for about &pound;0.61, the cheapest form in the data. Relative to pulses,
-every animal category is dearer in these UK figures than in the US figures above; differences in
-price year (US 2017 to 2018), item mix and production standards can all contribute. UK prices are
-as-sold (raw meat, canned or dried pulses; bone-in items priced on with-bone protein content), US
-prices as-consumed: per-protein costs are robust to that basis difference, but per-100g levels are
-not directly comparable across the two charts, and protein is again not adjusted for
-digestibility. Sources: ONS (2025); Defra (2025); Public Health England (2021).</p>
 
 <h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
 <div class="legend">Dot = plant-based price vs the animal product it substitutes (0%, vertical line).
@@ -847,13 +806,10 @@ and cream).</p>
 <ul class="refs">
   <li>AHDB (Adamson, V.) (2025). <a href="https://ahdb.org.uk/news/consumer-insight-flexitarian-trends-shifting-diets-and-changing-preferences">Flexitarian trends: shifting diets and changing preferences</a>. AHDB Consumer Insight, 22 May 2025. Data: Kantar Usage panel, total main meal occasions, 52 weeks ending 23 February 2025 (GB).</li>
   <li>Conservative Animal Welfare Foundation (2024, 27 January). <a href="https://www.conservativeanimalwelfarefoundation.org/wp-content/uploads/2024/01/2-Billion-NHS-Windfall-CAWF.pdf">The &pound;2 billion NHS windfall: Why meat reduction matters</a>.</li>
-  <li>Defra (2025). <a href="https://www.gov.uk/government/statistical-data-sets/family-food-datasets">Family Food datasets: UK household purchases and expenditure, financial year ending 2024</a> [data]. Unit values derived as expenditure divided by quantity purchased.</li>
   <li>Drewnowski, A., &amp; Conrad, Z. (2024). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11377338/">Pulse crops: nutrient density, affordability, and environmental impact</a>. Frontiers in Nutrition, 11, 1438369. doi:10.3389/fnut.2024.1438369. Prices from USDA Purchase to Plate Price Tool, FNDDS 2017-18.</li>
   <li>Good Food Institute Europe (2025). <a href="https://gfieurope.org/wp-content/uploads/2025/06/UK-plant-based-food-retail-market-insights-2022-2024.pdf">UK plant-based food retail market insights: 2022 to January 2025</a>. Based on Circana retail sales data and NIQ Homescan household panel data.</li>
   <li>Good Food Institute Europe (2026). <a href="https://gfieurope.org/blog/plant-based-mince-and-meatballs-33-cheaper-than-meat-versions-at-uks-largest-retailer-amid-rising-meat-prices/">Plant-based mince and meatballs 33% cheaper than meat versions at UK's largest retailer amid rising meat prices</a>. 29 April 2026.</li>
   <li>NYC Health + Hospitals (2024). <a href="https://www.nychealthandhospitals.org/pressrelease/nyc-health-hospitals-celebrates-1-2-million-plant-based-meals-served/">NYC Health + Hospitals celebrates 1.2 million plant-based meals served</a>. Press release, 14 March 2024.</li>
-  <li>ONS (2025). <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/adhocs/2724shoppingpricescomparisontooldatadownloadbeforethe2025update">Shopping prices comparison tool: data download before the 2025 update</a> [data]. Office for National Statistics. UK average prices from the CPI monthly price collection; detailed food-item series end January 2025.</li>
-  <li>Public Health England (2021). <a href="https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid">McCance and Widdowson's Composition of Foods Integrated Dataset (CoFID)</a> [data].</li>
   <li>Springmann, M., Clark, M. A., Rayner, M., Scarborough, P., &amp; Webb, P. (2021). <a href="https://www.thelancet.com/journals/lanplh/article/PIIS2542-5196(21)00251-5/fulltext">The global and regional costs of healthy and sustainable dietary patterns: a modelling study</a>. The Lancet Planetary Health, 5(11), e797-e807. doi:10.1016/S2542-5196(21)00251-5</li>
   <li>Un Plus Bio (2020). <a href="https://www.unplusbio.org/wp-content/uploads/2020/11/R%C3%A9sultats-2020-OBSERVATOIRE.pdf">Observatoire national de la restauration collective bio et durable: Resultats de l'enquete 2020</a> [survey report].</li>
 </ul>
