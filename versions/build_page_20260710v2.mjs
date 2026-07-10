@@ -771,8 +771,8 @@ Hospitals (2024).</p>
   plant-based protein sources rather than a gram-for-gram protein match. Priced per unit of protein
   instead of per meal or per calorie, the plant-versus-animal cost gap narrows and can reverse, as
   the US figures below show. They are US retail prices, not UK, so read this section as a point
-  about measurement, not as a UK cost estimate. The next section repeats the calculation with
-  UK prices.
+  about measurement, not as a UK cost estimate. The section after it repeats the calculation
+  with UK prices.
 </div>
 <p>Drewnowski and Conrad (2024) price US protein sources both ways from the same national retail
 price data. The chart shows the cost of 50g of protein (100% of the US daily value) from each
@@ -795,11 +795,11 @@ recent inflation, are not income-controlled, and protein is not adjusted for dig
 Drewnowski &amp; Conrad (2024).</p>
 
 <h2>Cost per unit of protein (UK retail averages, 2024 to 2025)</h2>
-<p>The same calculation can be run for the UK from published average prices that cover many
-retailers. Prices are ONS averages for January 2025, the last month with detailed food-item
-average prices; Defra Family Food unit values for the financial year 2023-24 supply the fresh
-pork and dried pulses prices. Protein content comes from the official UK food composition tables
-(CoFID 2021). Each category mean covers one to three representative items.</p>
+<p>The same calculation run for the UK, from published multi-retailer average prices: ONS average
+price data for January 2025 (the last month with detailed food-item average prices), with Defra
+Family Food unit values (financial year 2023-24) filling fresh pork and dried pulses, joined to
+the official UK food composition tables (CoFID 2021). Each category averages one to three
+representative items.</p>
 <div class="legend">Dot = UK average retail price of 50g of protein from each source.
   <span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>pulses (reference)
   <span class="swatch" style="background: var(--pink);"></span>animal protein cheaper
@@ -810,18 +810,17 @@ ${drewUkChart()}
 </div>
 <p class="fignote"><strong>Per 100g of food</strong> pulses are again the cheapest source (&pound;0.27
 per 100g, below eggs at &pound;0.56, the cheapest animal source; pork 0.69, chicken 0.80, beef 1.34,
-fish 1.67; boneless items only). <strong>Per 50g of protein</strong> the ranking shifts less in the
-UK than in the US data: chicken (&pound;1.61) is at parity with pulses (&pound;1.64) and pork costs
-only slightly more (&pound;1.69), while eggs (&pound;2.24), beef (&pound;3.29) and fish (&pound;4.21)
-all cost more than pulses; lamb (not shown) is the most expensive source at &pound;7.14. Within UK
-pulses, dried pulses alone provide 50g of protein for about &pound;0.61, cheaper than any category
-shown. Relative to pulses, every animal category costs more in these UK figures than in the US
-figures above; differences in price year (US 2017 to 2018), item mix and production standards can
-all contribute. UK prices are as-sold (raw meat, canned or dried pulses; bone-in items are priced
-per bone-in weight, with protein measured on the same basis), while the US prices are as-consumed.
-Per-protein costs are robust to that difference, but per-100g levels are not directly comparable
-across the two charts, and protein is again not adjusted for digestibility. Sources: ONS (2025);
-Defra (2025); Public Health England (2021).</p>
+fish 1.67; boneless items only). <strong>Per 50g of protein</strong> the UK ranking reverses less than
+the US one: chicken (&pound;1.61) is at parity with pulses (&pound;1.64), with pork close behind
+(&pound;1.69), while eggs (&pound;2.24), beef (&pound;3.29) and fish (&pound;4.21) cost more than
+pulses; lamb (not shown) is the dearest source at &pound;7.14. Within UK pulses, dried pulses alone
+provide 50g of protein for about &pound;0.61, the cheapest form in the data. Relative to pulses,
+every animal category is dearer in these UK figures than in the US figures above; differences in
+price year (US 2017 to 2018), item mix and production standards can all contribute. UK prices are
+as-sold (raw meat, canned or dried pulses; bone-in items priced on with-bone protein content), US
+prices as-consumed: per-protein costs are robust to that basis difference, but per-100g levels are
+not directly comparable across the two charts, and protein is again not adjusted for
+digestibility. Sources: ONS (2025); Defra (2025); Public Health England (2021).</p>
 
 <h2>Item-level price gaps (UK retail, 2024 to 2026)</h2>
 <div class="legend">Dot = plant-based price vs the animal product it substitutes (0%, vertical line).
