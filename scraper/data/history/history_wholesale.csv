@@ -213,3 +213,24 @@ date,pair_id,category,distributor,side,label,price_gbp,per100,unit,amount,pack_s
 2026-07-16,jj-mince,mince,JJ Foodservice,meat,JJ Frozen UK Halal Minced Beef 10% Fat 2x1kg,14.99,0.7495,g,2000,1x2kg,collection EN-MW,14.99,14.99,true,,ex-VAT,jj_jsonld,MEA379
 2026-07-16,jj-mince,mince,JJ Foodservice,plant,KaterVeg Vegan Mince 1x1kg,6.99,0.699,g,1000,1x1kg,collection EN-MW,6.99,6.99,true,,ex-VAT,jj_jsonld,VEG913
 2026-07-16,jj-saus,sausages,JJ Foodservice,plant,Quorn Vegan Sausages 1x2kg,15.99,0.7995,g,2000,1x2kg,collection EN-MW,15.99,15.99,true,,ex-VAT,jj_jsonld,VEG965
+2026-07-17,brakes-balls,meatballs,Brakes,meat,Brakes Cooked Pork Meatballs 225x12g,32.52,1.2044,g,2700,225 x 12g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3675
+2026-07-17,brakes-balls,meatballs,Brakes,plant,Meatless Farm Plant-Based Meatballs 63x15g,10.99,1.163,g,945,63 x 15g,anonymous indicative (nettPrices=false),,,true,22.99,zero-rated,brakes_ngstate,130516
+2026-07-17,brakes-burger,burgers,Brakes,meat,Sysco Classic 90% Beef Burger 24x113g,36.32,1.3392,g,2712,24 x 113g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3808
+2026-07-17,brakes-burger,burgers,Brakes,plant,Quorn Vegan Burger 18x109g,14.99,0.764,g,1962,18 x 109g,anonymous indicative (nettPrices=false),,,true,26.09,zero-rated,brakes_ngstate,150296
+2026-07-17,brakes-mince,mince,Brakes,meat,Brakes 20% Fat Beef Mince 1x2.5kg,22.79,0.9116,g,2500,1 x 2.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3103
+2026-07-17,brakes-mince,mince,Brakes,plant,QuornPro Mince 1x1.5kg,11.09,0.7393,g,1500,1 x 1.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,136990
+2026-07-17,brakes-saus-chilled,sausages,Brakes,meat,Prime Meats British 80% Old English Pork Sausage 6s 36x76g,28.19,1.0303,g,2736,36 x 76g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,16687
+2026-07-17,brakes-saus-chilled,sausages,Brakes,plant,THIS Vegan Pork Sausages 1x3kg,32.98,1.0993,g,3000,1 x 3kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,135570
+2026-07-17,brakes-saus-frozen,sausages,Brakes,meat,Brakes Pork Sausage Eights 80x57g,14.05,0.3081,g,4560,80 x 57g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,129194
+2026-07-17,brakes-saus-frozen,sausages,Brakes,plant,Meatless Farm Plant-Based Sausages 18x50g,8.96,0.9956,g,900,18 x 50g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,129633
+2026-07-17,jj-balls,meatballs,JJ Foodservice,meat,JJ Halal Mini Beef Meatballs 1x1kg,10.99,1.099,g,1000,1x1kg,collection EN-MW,10.99,10.99,true,,ex-VAT,jj_jsonld,MEA508
+2026-07-17,jj-balls,meatballs,JJ Foodservice,plant,Quorn Vegan Balls 1x1kg,8.49,0.849,g,1000,1x1kg,collection min (branch fallback),8.49,8.49,,,ex-VAT,jj_jsonld,VGT014
+2026-07-17,jj-chickburger,coated chicken burgers,JJ Foodservice,meat,Paragon Halal Fully Cooked Battered Chicken Breast Fillets 18x115g,22.99,1.1106,g,2070,18x115g,collection EN-MW,22.99,22.99,true,,ex-VAT,jj_jsonld,CHI536
+2026-07-17,jj-chickburger,coated chicken burgers,JJ Foodservice,plant,Quorn Vegan ChiQin Buttermilk Burger 100g 1x2kg,27.99,1.3995,g,2000,1x2kg,collection EN-MW,27.99,27.99,true,,ex-VAT,jj_jsonld,VEG988
+2026-07-17,jj-mayo-heinz,mayonnaise,JJ Foodservice,meat,Heinz Real Mayonnaise Bucket 1x10L,29.99,0.2999,ml,10000,1x10l,collection EN-MW,29.99,29.99,true,,ex-VAT,jj_jsonld,SAU043
+2026-07-17,jj-mayo-heinz,mayonnaise,JJ Foodservice,plant,Heinz Vegan Mayonnaise 1x5L,16.99,0.3398,ml,5000,1x5l,collection EN-MW,16.99,16.99,true,,ex-VAT,jj_jsonld,SAU972
+2026-07-17,jj-mayo-sasco,mayonnaise,JJ Foodservice,meat,Sasco Real Mayonnaise Bucket 1x10L,20.49,0.2049,ml,10000,1x10l,collection EN-MW,20.49,20.49,true,,ex-VAT,jj_jsonld,SAU044
+2026-07-17,jj-mayo-sasco,mayonnaise,JJ Foodservice,plant,Sasco Vegan Mayonnaise 1x5L,8.99,0.1798,ml,5000,1x5l,collection EN-MW,8.99,8.99,true,,ex-VAT,jj_jsonld,SAU996
+2026-07-17,jj-mince,mince,JJ Foodservice,meat,JJ Frozen UK Halal Minced Beef 10% Fat 2x1kg,14.99,0.7495,g,2000,1x2kg,collection EN-MW,14.99,14.99,true,,ex-VAT,jj_jsonld,MEA379
+2026-07-17,jj-mince,mince,JJ Foodservice,plant,KaterVeg Vegan Mince 1x1kg,6.99,0.699,g,1000,1x1kg,collection EN-MW,6.99,6.99,true,,ex-VAT,jj_jsonld,VEG913
+2026-07-17,jj-saus,sausages,JJ Foodservice,plant,Quorn Vegan Sausages 1x2kg,15.99,0.7995,g,2000,1x2kg,collection EN-MW,15.99,15.99,true,,ex-VAT,jj_jsonld,VEG965
