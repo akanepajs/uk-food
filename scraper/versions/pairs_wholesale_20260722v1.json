@@ -5,8 +5,8 @@
     {
       "pair_id": "jj-saus", "category": "sausages", "distributor": "JJ Foodservice",
       "plant": { "source": "jj", "sku": "VEG965", "label": "Quorn Vegan Sausages 1x2kg", "amount": 2000, "unit": "g" },
-      "meat": { "source": "jj", "sku": "SGS131", "label": "Blakemans Premier Sausages 8s 1x80 (4.54kg)", "amount": 4540, "unit": "g" },
-      "note": "Branded tier both sides (Quorn vs Blakemans). Meat side replaced 2026-07-22: SGS103 (JJ Butchers 8s, pork 42%) was out of stock at every branch since curation and lost its Collection offers on 2026-07-15. Blakemans Premier is pork (50%), same 8-per-pound (57g) frozen format; pack weight consistent between name (1x4.54kg) and size field (1x80). Larger pack than the plant side (4.54kg vs 2kg; bulk pricing flatters the meat side). Cumberland SGS035 re-rejected 2026-07-22 (weight/count contradiction persists); Tasty Bake 'pork' lines are chicken 24%/pork 14% by ingredients; JJ Quality lines are chicken."
+      "meat": { "source": "jj", "sku": "SGS103", "label": "JJ Butchers Pork Sausages 8s 1x64 (3.63kg)", "amount": 3629, "unit": "g" },
+      "note": "Butcher-style tier both sides. Pack weight from the page's own statement (eight sausages per pound, 64 per box = 8lb). The Cumberland variant SGS035 was rejected: its stated weight (1x3.63kg) contradicts its stated count (1x60 at 6 per pound = 4.54kg). Meat side was out of stock at all branches at curation; its price is still published."
     },
     {
       "pair_id": "jj-mince", "category": "mince", "distributor": "JJ Foodservice",
