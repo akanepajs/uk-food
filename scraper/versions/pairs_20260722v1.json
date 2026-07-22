@@ -1,9 +1,9 @@
 {
-  "comment": "Curated pair register: each pair is a plant-based product and its nearest meat/dairy/egg equivalent in the same range tier. RETAILER-DIRECT since 2026-07-22: live prices come only from Sainsbury's own product API ('sains_api': query + name; name with pack size where several sizes exist, matched case/punctuation-insensitively) and Morrisons product pages ('morr': path + hand-verified amount, price read from the page's schema.org JSON-LD). The aggregator trolley.co.uk was dropped on 2026-07-22 after a terms review (its terms bar automated access); rows scraped from it up to that date remain in the history as a frozen series. Pairs carrying 'retired' lost their price source that day (their chain has no compliant direct route: Tesco and Ocado prohibit scraping in their terms; Asda, Waitrose and Co-op block non-browser clients) and are kept for the frozen history only. 'amount' is the hand-verified total pack weight/volume used to compute per-100 prices; per-retailer amounts live inside sains_api/morr because pack sizes differ by chain. The old 'slug' fields are the trolley provenance of the frozen rows; they are no longer fetched.",
+  "comment": "Curated pair register: each pair is a plant-based product and its nearest meat/dairy/egg equivalent in the same range tier. Slugs are trolley.co.uk /product/ pages (allowed by its robots.txt; /search/ is not used by the scraper). 'amount' is the hand-verified total pack weight/volume used to compute per-100 prices (the aggregator's own multipack unit prices are wrong: it multiplies pack count by total weight). amount null = fall back to the aggregator's per-unit string (single-container products only). 'sains_api' = query + name substring to fetch the same product from Sainsbury's own product API (primary source, preferred over the aggregator when it matches).",
   "allowed_stores": ["Tesco", "Asda", "Sainsbury's", "Morrisons", "Waitrose", "Ocado", "Co-op"],
   "pairs": [
     {
-      "pair_id": "tesco-saus", "category": "sausages", "chain": "Tesco", "retired": "2026-07-22",
+      "pair_id": "tesco-saus", "category": "sausages", "chain": "Tesco",
       "plant": { "slug": "/product/tesco-plant-chef-6-cumberland-style-meat-free-bangers/ZDO772", "label": "Plant Chef 6 Cumberland Style Meat-Free Bangers", "amount": 300, "unit": "g" },
       "meat": { "slug": "/product/tesco-8-brtish-pork-sausages/ZWA592", "label": "British Pork Sausages x8", "amount": 454, "unit": "g" }
     },
@@ -13,22 +13,22 @@
       "meat": { "slug": "/product/sainsburys-butchers-choice-cumberland-british-pork-sausage/IEQ033", "label": "Butcher's Choice Cumberland British Pork Sausage x8", "amount": 454, "unit": "g", "sains_api": { "query": "butchers choice cumberland sausages", "name": "Butchers choice Cumberland British Pork Sausage x8" } }
     },
     {
-      "pair_id": "wait-saus", "category": "sausages", "chain": "Waitrose", "retired": "2026-07-22",
+      "pair_id": "wait-saus", "category": "sausages", "chain": "Waitrose",
       "plant": { "slug": "/product/waitrose-plant-living-no-chorizo-sausages/EHQ919", "label": "Plant Living No Chorizo Sausages", "amount": 280, "unit": "g" },
       "meat": { "slug": "/product/waitrose-6-chorizo-sausages/FMK179", "label": "6 Chorizo Style Pork Sausages", "amount": 400, "unit": "g" }
     },
     {
-      "pair_id": "coop-saus", "category": "sausages", "chain": "Co-op", "retired": "2026-07-22",
+      "pair_id": "coop-saus", "category": "sausages", "chain": "Co-op",
       "plant": { "slug": "/product/co-op-gro-sizzlin-sausages/TGQ766", "label": "Plant Based Sizzlin' Sausages", "amount": 300, "unit": "g" },
       "meat": { "slug": "/product/co-op-outdoor-bred-8-butchers-choice-pork-sausages/UWM179", "label": "Butchers Choice 8 British Pork Sausages", "amount": 454, "unit": "g" }
     },
     {
-      "pair_id": "tesco-burg", "category": "burgers", "chain": "Tesco", "retired": "2026-07-22",
+      "pair_id": "tesco-burg", "category": "burgers", "chain": "Tesco",
       "plant": { "slug": "/product/tesco-plant-chef-2-meat-free-burgers/VGZ971", "label": "Plant Chef 2 Meat Free Burgers", "amount": 226, "unit": "g" },
       "meat": { "slug": "/product/tesco-8-beef-burgers/URQ780", "label": "Beef Burgers x8 (frozen)", "amount": 454, "unit": "g" }
     },
     {
-      "pair_id": "asda-burg", "category": "burgers", "chain": "Asda", "retired": "2026-07-22",
+      "pair_id": "asda-burg", "category": "burgers", "chain": "Asda",
       "plant": { "slug": "/product/plant-based-by-asda-4-veggie-burgers/GAG509", "label": "Plant Based by ASDA 4 Veggie Burgers", "amount": null, "unit": "g" },
       "meat": { "slug": "/product/asda-succulent-4-quarter-pounder-beef-burgers/MOA632", "label": "Summer Grill by ASDA 4 Quarter Pounder Beef Burgers", "amount": 454, "unit": "g" }
     },
@@ -38,32 +38,32 @@
       "meat": { "slug": "/product/sainsburys-quarter-pounder-british-beef-burgers/DUP261", "label": "4 Quarter Pounder British Beef Burgers", "amount": 454, "unit": "g", "sains_api": { "query": "quarter pounder beef burgers", "name": "Sainsburys 4 Quarter Pounder British Beef Burgers 454g" } }
     },
     {
-      "pair_id": "wait-burg", "category": "burgers", "chain": "Waitrose", "retired": "2026-07-22",
+      "pair_id": "wait-burg", "category": "burgers", "chain": "Waitrose",
       "plant": { "slug": "/product/waitrose-plantliving-2-ultimate-no-meat-vegetarian-burgers/ACR154", "label": "PlantLiving 2 Ultimate No Meat Burgers", "amount": 210, "unit": "g" },
       "meat": { "slug": "/product/waitrose-bbq-4-oak-smoked-beef-burgers/KHQ589", "label": "BBQ 4 Oak Smoked Beef Burgers", "amount": 454, "unit": "g" }
     },
     {
-      "pair_id": "coop-burg", "category": "burgers", "chain": "Co-op", "retired": "2026-07-22",
+      "pair_id": "coop-burg", "category": "burgers", "chain": "Co-op",
       "plant": { "slug": "/product/co-op-gro-the-incredible-burger/JIA309", "label": "Plant Based The Incredible Burger", "amount": 210, "unit": "g" },
       "meat": { "slug": "/product/co-op-british-4-beef-quarter-pounder-burgers/QLC428", "label": "British 4 Beef Quarter Pounder Burgers", "amount": 454, "unit": "g" }
     },
     {
-      "pair_id": "tesco-mince", "category": "mince", "chain": "Tesco", "retired": "2026-07-22",
+      "pair_id": "tesco-mince", "category": "mince", "chain": "Tesco",
       "plant": { "slug": "/product/the-plant-chef-meat-free-mince/DCB362", "label": "Plant Chef Meat Free Mince (frozen)", "amount": 454, "unit": "g" },
       "meat": { "slug": "/product/tesco-beef-mince-20-fat/IXP556", "label": "Beef Mince 20% Fat", "amount": 500, "unit": "g" }
     },
     {
-      "pair_id": "asda-mince", "category": "mince", "chain": "Asda", "retired": "2026-07-22",
+      "pair_id": "asda-mince", "category": "mince", "chain": "Asda",
       "plant": { "slug": "/product/plant-based-by-asda-vegan-meat-free-mince/DWD378", "label": "Plant Based by ASDA Meat-Free Mince (frozen)", "amount": 454, "unit": "g" },
       "meat": { "slug": "/product/asda-butchers-selection-beef-mince-typically-less-than-20-fat/IPA272", "label": "20% Fat Beef Mince", "amount": 500, "unit": "g" }
     },
     {
-      "pair_id": "sains-mince", "category": "mince", "chain": "Sainsbury's", "retired": "2026-07-22", "retired_reason": "Sainsbury's delisted Plant Pioneers Meat Free Mince (absent from the API's full Plant Pioneers range, checked 2026-07-22); no own-brand plant mince to pair.",
+      "pair_id": "sains-mince", "category": "mince", "chain": "Sainsbury's",
       "plant": { "slug": "/product/plant-pioneers-meat-free-mince/RCV168", "label": "Plant Pioneers Meat Free Mince", "amount": 500, "unit": "g", "sains_api": { "query": "meat free mince", "name": "Plant Pioneers Meat Free Mince" } },
       "meat": { "slug": "/product/sainsburys-british-or-irish-20-fat-beef-mince/DVD208", "label": "British or Irish 20% Fat Beef Mince", "amount": 500, "unit": "g", "sains_api": { "query": "20 fat beef mince", "name": "British or Irish 20% Fat Beef Mince 500g" } }
     },
     {
-      "pair_id": "tesco-balls", "category": "meatballs", "chain": "Tesco", "retired": "2026-07-22",
+      "pair_id": "tesco-balls", "category": "meatballs", "chain": "Tesco",
       "plant": { "slug": "/product/tesco-plant-chef-12-meat-free-balls/MUL034", "label": "Plant Chef 12 Meat-Free Balls", "amount": 336, "unit": "g" },
       "meat": { "slug": "/product/tesco-24-beef-meatballs/KLB802", "label": "24 Beef Meatballs (frozen)", "amount": 672, "unit": "g" }
     },
@@ -73,22 +73,22 @@
       "meat": { "slug": "/product/sainsburys-british-or-irish-10-fat-12-beef-meatballs/QQH540", "label": "British or Irish 10% Fat 12 Beef Meatballs", "amount": 350, "unit": "g", "sains_api": { "query": "12 beef meatballs", "name": "British or Irish 10% Fat 12 Beef Meatballs 350g" } }
     },
     {
-      "pair_id": "wait-balls", "category": "meatballs", "chain": "Waitrose", "retired": "2026-07-22",
+      "pair_id": "wait-balls", "category": "meatballs", "chain": "Waitrose",
       "plant": { "slug": "/product/waitrose-plantliving-no-meat-vegetarian-meatballs/DOX009", "label": "PlantLiving No Meat Meatballs", "amount": 380, "unit": "g" },
       "meat": { "slug": "/product/waitrose-12-british-beef-meatballs/IRF192", "label": "12 British Beef Meatballs", "amount": 300, "unit": "g" }
     },
     {
       "pair_id": "sains-lasagne", "category": "ready meals", "chain": "Sainsbury's",
       "plant": { "slug": "/product/plant-pioneers-vegan-meat-free-lasagne/EPP479", "label": "Plant Pioneers Vegan Meat Free Lasagne", "amount": 400, "unit": "g", "sains_api": { "query": "vegan lasagne", "name": "Plant Pioneers Vegan Meat Free Lasagne" } },
-      "meat": { "slug": "/product/sainsburys-beef-lasagne-meal-for-1/JMZ877", "label": "Beef Lasagne Ready Meal for 1", "amount": 400, "unit": "g", "sains_api": { "query": "beef lasagne", "name": "Sainsbury's Beef Lasagne Ready Meal For 1 400g", "url_hint": "sainsburys-beef-lasagne-ready-meal-for-1-400g" } }
+      "meat": { "slug": "/product/sainsburys-beef-lasagne-meal-for-1/JMZ877", "label": "Beef Lasagne Ready Meal for 1", "amount": 400, "unit": "g", "sains_api": { "query": "beef lasagne", "name": "Beef Lasagne Meal for 1" } }
     },
     {
-      "pair_id": "coop-curry", "category": "ready meals", "chain": "Co-op", "retired": "2026-07-22",
+      "pair_id": "coop-curry", "category": "ready meals", "chain": "Co-op",
       "plant": { "slug": "/product/co-op-gro-creamy-coconut-cauliflower-curry/FJP815", "label": "Plant Based Creamy Coconut Cauliflower Curry", "amount": 370, "unit": "g" },
       "meat": { "slug": "/product/co-op-thai-green-chicken-curry/QWB769", "label": "Thai Green Chicken Curry", "amount": 470, "unit": "g" }
     },
     {
-      "pair_id": "tesco-slaw", "category": "coleslaw", "chain": "Tesco", "retired": "2026-07-22",
+      "pair_id": "tesco-slaw", "category": "coleslaw", "chain": "Tesco",
       "plant": { "slug": "/product/tesco-plant-chef-coleslaw/SOF949", "label": "Plant Chef Coleslaw", "amount": 250, "unit": "g" },
       "meat": { "slug": "/product/tesco-coleslaw/FNI487", "label": "Tesco Coleslaw", "amount": null, "unit": "g" }
     },
@@ -98,88 +98,44 @@
       "meat": { "slug": "/product/sainsburys-deli-style-coleslaw/BJC339", "label": "Deli-Style Traditional Coleslaw", "amount": 300, "unit": "g", "sains_api": { "query": "deli style traditional coleslaw", "name": "Deli-Style Traditional Coleslaw" } }
     },
     {
-      "pair_id": "wait-slaw", "category": "coleslaw", "chain": "Waitrose", "retired": "2026-07-22",
+      "pair_id": "wait-slaw", "category": "coleslaw", "chain": "Waitrose",
       "plant": { "slug": "/product/plantliving-deli-style-coleslaw/GWX934", "label": "PlantLiving Deli Style Coleslaw", "amount": 300, "unit": "g" },
       "meat": { "slug": "/product/waitrose-deli-style-coleslaw/HOF548", "label": "Deli Style Coleslaw", "amount": 500, "unit": "g" }
     },
     {
-      "pair_id": "coop-slaw", "category": "coleslaw", "chain": "Co-op", "retired": "2026-07-22",
+      "pair_id": "coop-slaw", "category": "coleslaw", "chain": "Co-op",
       "plant": { "slug": "/product/co-op-vegan-coleslaw/QHF815", "label": "Vegan Coleslaw", "amount": 300, "unit": "g" },
       "meat": { "slug": "/product/co-op-creamy-coleslaw/ANS105", "label": "Creamy Coleslaw", "amount": 300, "unit": "g" }
     },
     {
-      "pair_id": "sains-mayo", "category": "mayonnaise", "chain": "Sainsbury's", "retired": "2026-07-22", "retired_reason": "Sainsbury's delisted Plant Pioneers Vegan Mayo (absent from the API's full Plant Pioneers range, checked 2026-07-22); no own-brand vegan mayo to pair.",
+      "pair_id": "sains-mayo", "category": "mayonnaise", "chain": "Sainsbury's",
       "plant": { "slug": "/product/plant-pioneers-vegan-mayo/KHD660", "label": "Plant Pioneers Vegan Mayo", "amount": 250, "unit": "ml", "sains_api": { "query": "vegan mayo", "name": "Plant Pioneers Vegan Mayo" } },
       "meat": { "slug": "/product/sainsburys-mayonnaise-squeezy/RYF474", "label": "Mayonnaise Squeezy", "amount": 500, "unit": "ml", "sains_api": { "query": "mayonnaise squeezy", "name": "Sainsburys Mayonnaise Squeezy 500ml" } }
     },
     {
       "pair_id": "hellmanns-mayo", "category": "branded", "chain": "branded",
-      "pair_note": "Since 2026-07-22 each chain compares like-sized squeezy bottles within that chain (430ml both sides at Sainsbury's, 750ml both sides at Morrisons); the frozen aggregator rows compared 750ml plant vs 580ml standard.",
-      "plant": {
-        "slug": "/product/hellmanns-plant-based-mayo/GCM325", "label": "Hellmann's Plant Based Mayo", "amount": 750, "unit": "ml",
-        "sains_api": { "query": "hellmanns plant based mayo", "name": "Hellmann's Mayo 100% Plant Based 430ml", "amount": 430, "unit": "ml" },
-        "morr": { "path": "/products/hellmann-s-plant-based-mayo-750ml/113801592", "name": "Hellmann's Plant Based Mayo 750ml", "amount": 750, "unit": "ml" }
-      },
-      "meat": {
-        "slug": "/product/hellmanns-real-mayonnaise/FOQ118", "label": "Hellmann's Real Mayonnaise", "amount": 580, "unit": "ml",
-        "sains_api": { "query": "hellmanns real squeezy mayonnaise", "name": "Hellmann's Real Squeezy Mayonnaise 430ml", "amount": 430, "unit": "ml" },
-        "morr": { "path": "/products/hellmann-s-real-squeezy-mayonnaise-750ml/100377770", "name": "Hellmann's Real Squeezy Mayonnaise 750ml", "amount": 750, "unit": "ml" }
-      }
+      "plant": { "slug": "/product/hellmanns-plant-based-mayo/GCM325", "label": "Hellmann's Plant Based Mayo (750ml)", "amount": 750, "unit": "ml" },
+      "meat": { "slug": "/product/hellmanns-real-mayonnaise/FOQ118", "label": "Hellmann's Real Mayonnaise (580ml)", "amount": 580, "unit": "ml" }
     },
     {
       "pair_id": "heinz-mayo", "category": "branded", "chain": "branded", "exclude_stores": ["Waitrose"],
-      "pair_note": "Sainsbury's sells both versions at 775g (mass basis). At Morrisons the vegan version is listed in ml (800ml) and the standard in g (775g), so the Morrisons ratio compares per-100ml with per-100g; treat it as approximate.",
-      "plant": {
-        "slug": "/product/heinz-seriously-good-vegan-mayonnaise/OGD694", "label": "Heinz Seriously Good Vegan Mayo", "amount": 775, "unit": "g",
-        "sains_api": { "query": "heinz vegan mayo", "name": "Heinz Vegan Mayo 775g", "amount": 775, "unit": "g" },
-        "morr": { "path": "/products/heinz-seriously-good-vegan-mayo/112538518", "name": "Heinz Seriously Good Vegan Mayo", "amount": 800, "unit": "ml" }
-      },
-      "meat": {
-        "slug": "/product/heinz-seriously-good-mayonnaise/SFX180", "label": "Heinz Seriously Good Mayonnaise (775g)", "amount": 775, "unit": "g",
-        "sains_api": { "query": "heinz seriously good mayonnaise 775", "name": "Heinz Seriously Good Mayonnaise 775g", "amount": 775, "unit": "g" },
-        "morr": { "path": "/products/heinz-seriously-good-mayonnaise-775g/108208532", "name": "Heinz Seriously Good Mayonnaise 775g", "amount": 775, "unit": "g" }
-      }
+      "plant": { "slug": "/product/heinz-seriously-good-vegan-mayonnaise/OGD694", "label": "Heinz Seriously Good Vegan Mayo (775g)", "amount": 775, "unit": "g" },
+      "meat": { "slug": "/product/heinz-seriously-good-mayonnaise/SFX180", "label": "Heinz Seriously Good Mayonnaise (775g)", "amount": 775, "unit": "g" }
     },
     {
       "pair_id": "richmond-saus", "category": "branded", "chain": "branded",
-      "pair_note": "At Sainsbury's both sides are chilled 8-packs. At Morrisons the vegan 8-pack is frozen (no chilled 8-pack listed) against chilled pork; frozen lines are usually cheaper per kg.",
-      "plant": {
-        "slug": "/product/richmond-8-vegan-meat-free-sausages/ULY095", "label": "Richmond 8 Meat Free Vegan Sausages (304g)", "amount": 304, "unit": "g",
-        "sains_api": { "query": "richmond meat free vegan sausages 8", "name": "Richmond Meat Free Vegan & Vegetarian Sausages x8 304g", "amount": 304, "unit": "g" },
-        "morr": { "path": "/products/richmond-8-frozen-meat-free-vegan-sausages-304g/113128668", "name": "Richmond 8 Frozen Meat Free Vegan Sausages 304g", "amount": 304, "unit": "g" }
-      },
-      "meat": {
-        "slug": "/product/richmond-8-thick-pork-sausages/KAT162", "label": "Richmond 8 Thick Pork Sausages (410g)", "amount": 410, "unit": "g",
-        "sains_api": { "query": "richmond thick pork sausages 8", "name": "Richmond Thick Pork Sausages x8 410g", "amount": 410, "unit": "g" },
-        "morr": { "path": "/products/richmond-8-thick-pork-sausages-410g/111071477", "name": "Richmond 8 Thick Pork Sausages 410g", "amount": 410, "unit": "g" }
-      }
+      "plant": { "slug": "/product/richmond-8-vegan-meat-free-sausages/ULY095", "label": "Richmond 8 Meat Free Vegan Sausages (304g)", "amount": 304, "unit": "g" },
+      "meat": { "slug": "/product/richmond-8-thick-pork-sausages/KAT162", "label": "Richmond 8 Thick Pork Sausages (410g)", "amount": 410, "unit": "g" }
     },
     {
       "pair_id": "magnum-ice", "category": "branded", "chain": "branded",
-      "pair_note": "Morrisons lists the vegan Classic twice (an older listing at a lower price); the current Collection-branded listing is used, matching Sainsbury's naming.",
-      "plant": {
-        "slug": "/product/magnum-vegan-classic-3mp/PAN815", "label": "Magnum Collection Vegan Classic (3 x 90ml)", "amount": 270, "unit": "ml",
-        "sains_api": { "query": "magnum vegan classic", "name": "Magnum 3 x 90ml Collection Vegan Classic Ice Cream Sticks", "amount": 270, "unit": "ml" },
-        "morr": { "path": "/products/magnum-collection-classic-vegan-ice-cream-sticks-3x90ml/114743419", "name": "Magnum Collection Classic Vegan Ice Cream Sticks 3x90ml", "amount": 270, "unit": "ml" }
-      },
-      "meat": {
-        "slug": "/product/magnum-ice-cream-sticks-classic-3x100/VIT009", "label": "Magnum Classic Chocolate (3 x 100ml)", "amount": 300, "unit": "ml",
-        "sains_api": { "query": "magnum classic ice cream 3", "name": "Magnum Classic 3 x 100ml Ice Cream Sticks", "amount": 300, "unit": "ml" },
-        "morr": { "path": "/products/magnum-classic-ice-cream-sticks-3-x-100ml/112945990", "name": "Magnum Classic Ice Cream Sticks 3 x 100ml", "amount": 300, "unit": "ml" }
-      }
+      "plant": { "slug": "/product/magnum-vegan-classic-3mp/PAN815", "label": "Magnum Collection Vegan Classic (3 x 90ml)", "amount": 270, "unit": "ml" },
+      "meat": { "slug": "/product/magnum-ice-cream-sticks-classic-3x100/VIT009", "label": "Magnum Classic Chocolate (3 x 100ml)", "amount": 300, "unit": "ml" }
     },
     {
       "pair_id": "ginsters-pasty", "category": "branded", "chain": "branded",
-      "plant": {
-        "slug": "/product/ginsters-vegan-quorn-pasty/BPH026", "label": "Ginsters Vegan Quorn Pasty (180g)", "amount": 180, "unit": "g",
-        "sains_api": { "query": "ginsters vegan quorn pasty", "name": "Ginsters Vegan Quorn Pasty 180g", "amount": 180, "unit": "g" },
-        "morr": { "path": "/products/ginsters-vegan-quorn-pasty-180g/114761385", "name": "Ginsters Vegan Quorn Pasty 180g", "amount": 180, "unit": "g" }
-      },
-      "meat": {
-        "slug": "/product/ginsters-cornish-pasty/WGZ575", "label": "Ginsters Original Cornish Pasty (227g)", "amount": 227, "unit": "g",
-        "sains_api": { "query": "ginsters cornish pasty", "name": "Ginsters Cornish Pasty, 227g", "amount": 227, "unit": "g" },
-        "morr": { "path": "/products/ginsters-original-cornish-pasty/103045156", "name": "Ginsters Original Cornish Pasty", "amount": 227, "unit": "g" }
-      }
+      "plant": { "slug": "/product/ginsters-vegan-quorn-pasty/BPH026", "label": "Ginsters Vegan Quorn Pasty (180g)", "amount": 180, "unit": "g" },
+      "meat": { "slug": "/product/ginsters-cornish-pasty/WGZ575", "label": "Ginsters Original Cornish Pasty (227g)", "amount": 227, "unit": "g" }
     }
   ]
 }

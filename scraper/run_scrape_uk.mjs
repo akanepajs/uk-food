@@ -1,14 +1,20 @@
-// Daily UK plant-vs-meat price scrape. Walks the curated register in pairs.json:
-// one trolley.co.uk /product/ page per product (robots-compliant; /search/ is not
-// used), plus Sainsbury's own product API as the primary source for Sainsbury's
-// rows where the register carries a query. Computes per-100g/ml from the
-// register's hand-verified pack amounts (the aggregator's own multipack unit
-// prices are wrong: it multiplies pack count by total weight), writes a dated raw
-// snapshot, and appends to the flat history series (upsert per date).
+// Daily UK plant-vs-meat price scrape, RETAILER-DIRECT (since 2026-07-22).
+// Sources: Sainsbury's own product API (rows where the register side carries
+// 'sains_api') and Morrisons product pages ('morr': price read from the page's
+// schema.org JSON-LD). The aggregator trolley.co.uk was dropped on 2026-07-22
+// after a terms review; its rows up to that date remain in the history as a
+// frozen series and are never fetched again. Pairs flagged 'retired' in the
+// register are skipped (no compliant direct route for their chain).
 //
-// Fail-loud policy (mirrors olas): a bot-block signal (403/429/challenge) or 3+
-// product failures aborts without writing, so a transient outage never lands in
-// the history as a fake price gap and the prior committed page stays live.
+// per-100 basis: always the register's hand-verified pack amount
+// (price / amount * 100). The retailer's own displayed unit price is used only
+// as a cross-check (warn > 2% mismatch), mirroring the wholesale scraper's
+// discipline: the register amount, not the retailer's derived figure, is the
+// source of truth.
+//
+// Fail-loud policy (unchanged): a bot-block signal (403/429/challenge) aborts
+// without writing; 3+ product failures abort without writing, so a transient
+// outage never lands in the history as a fake price gap.
 //
 // Usage: node run_scrape_uk.mjs [run-date YYYY-MM-DD]
 
@@ -20,125 +26,122 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 const runDate = process.argv[2] || new Date().toISOString().slice(0, 10);
 const register = JSON.parse(await readFile(new URL("./pairs.json", import.meta.url), "utf8"));
-const ALLOWED = new Set(register.allowed_stores);
 
-function decodeEnt(s) {
-  return s.replace(/&pound;/g, "£").replace(/&amp;/g, "&").replace(/&#039;/g, "'").replace(/&quot;/g, '"');
-}
-function parsePrice(text) {
-  const m = String(text || "").match(/(\d+(?:\.\d+)?)/);
-  return m ? Number(m[1]) : null;
-}
-// "£0.42 per 100g" -> 0.42 (fallback when the register has no pack amount;
-// single-container products only, where the aggregator's figure is reliable).
-function parsePerUnit(text) {
-  const m = String(text || "").match(/£\s?(\d+(?:\.\d+)?)\s*per\s*100\s*(g|ml)/i);
-  return m ? Number(m[1]) : null;
-}
-function parseStores(html) {
-  const items = html.split('<div class="_item">').slice(1);
-  const out = [];
-  for (const it of items) {
-    const store = (it.match(/<svg title="([^"]+)" class="store-logo/) || [])[1];
-    if (!store) continue;
-    let price = (it.match(/<div class="_price"><b>([^<]+)<\/b>/) || [])[1];
-    if (!price) price = (it.match(/£\s?\d+(?:\.\d{2})?|&pound;\d+(?:\.\d{2})?/) || [])[0];
-    const per = (it.match(/<div class="_per-item[^"]*">([^<]+)/) || [])[1];
-    const offer = (it.match(/<div class="_product-offer">([^<]+)/) || [])[1];
-    out.push({
-      store,
-      price: price ? parsePrice(decodeEnt(price)) : null,
-      per_unit_text: per ? decodeEnt(per).trim() : null,
-      offer: offer ? decodeEnt(offer).trim() : null,
-    });
-  }
-  return out;
-}
 const norm = s => String(s || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
 
 let blocked = null;
 const failures = [];
+const warnings = [];
 const rows = [];
 
-async function fetchTrolley(pair, side) {
-  const prod = pair[side];
-  const url = "https://www.trolley.co.uk" + prod.slug;
-  const r = await fetch(url, { headers: H });
-  if (r.status === 403 || r.status === 429) { blocked = `HTTP ${r.status} on ${prod.slug}`; return; }
-  if (!r.ok) { failures.push(`${pair.pair_id}/${side}: HTTP ${r.status}`); return; }
-  const html = await r.text();
-  if (/cf-challenge|Attention Required!|just a moment/i.test(html.slice(0, 3000))) {
-    blocked = `challenge page on ${prod.slug}`; return;
-  }
-  const stores = parseStores(html).filter(s => ALLOWED.has(s.store));
-  if (!stores.length) { failures.push(`${pair.pair_id}/${side}: no store rows parsed`); return; }
-  const excl = new Set(pair.exclude_stores || []);
-  for (const s of stores) {
-    if (excl.has(s.store)) continue;
-    if (s.price == null) continue;
-    const per100 = prod.amount
-      ? Number((s.price / prod.amount * 100).toFixed(4))
-      : parsePerUnit(s.per_unit_text);
-    rows.push({
-      date: runDate, pair_id: pair.pair_id, category: pair.category, chain: pair.chain,
-      side, store: s.store, label: prod.label, price_gbp: s.price, per100, unit: prod.unit,
-      offer: s.offer || null, source: "trolley",
-      amount: prod.amount, amount_basis: prod.amount ? "register" : "aggregator_per_unit",
-    });
-  }
+// Cross-check a computed per-100 figure against a retailer-displayed unit price.
+function xcheck(tag, per100, retailerPer100) {
+  if (per100 == null || retailerPer100 == null) return;
+  const rel = Math.abs(per100 - retailerPer100) / retailerPer100;
+  if (rel > 0.02) warnings.push(`${tag}: register-based ${per100} vs retailer unit price ${retailerPer100} (${(rel * 100).toFixed(1)}% apart); register basis kept`);
 }
 
-async function sainsburysApi(pair, side) {
+// Parse a Morrisons JSON-LD size string ("750ml", "775g", "3 x 90ml", "3x100ml")
+// to a total amount in the register's unit (g or ml). Returns null if unparseable.
+function parseSize(text) {
+  const s = String(text || "").toLowerCase().replace(/\s+/g, "");
+  const m = s.match(/^(?:(\d+(?:\.\d+)?)x)?(\d+(?:\.\d+)?)(g|kg|ml|l|ltr)$/);
+  if (!m) return null;
+  const count = m[1] ? Number(m[1]) : 1;
+  let v = Number(m[2]) * count;
+  if (m[3] === "kg" || m[3] === "l" || m[3] === "ltr") v *= 1000;
+  return v;
+}
+
+async function fetchSains(pair, side) {
   const prod = pair[side];
-  if (!prod.sains_api) return;
+  const cfg = prod.sains_api;
+  if (!cfg) return;
+  const amount = cfg.amount ?? prod.amount;
+  const unit = cfg.unit ?? prod.unit;
+  const u = "https://www.sainsburys.co.uk/groceries-api/gol-services/product/v1/product?filter[keyword]="
+    + encodeURIComponent(cfg.query);
+  const r = await fetch(u, { headers: { ...H, "Accept": "application/json" } });
+  if (r.status === 403 || r.status === 429) { blocked = `Sainsbury's HTTP ${r.status} on ${pair.pair_id}/${side}`; return; }
+  if (!r.ok) { failures.push(`${pair.pair_id}/${side} (Sainsbury's): HTTP ${r.status}`); return; }
+  const j = await r.json();
+  const want = norm(cfg.name);
+  let cands = (j.products || []).filter(p => norm(p.name).includes(want));
+  // Disambiguate identically named listings (the API can carry two products with
+  // the same display name at different prices) by URL slug when the register
+  // provides one.
+  if (cfg.url_hint) {
+    const u = cands.filter(p => String(p.full_url || "").includes(cfg.url_hint));
+    if (u.length) cands = u;
+    else { failures.push(`${pair.pair_id}/${side} (Sainsbury's): no candidate URL contains "${cfg.url_hint}"`); return; }
+  }
+  const hit = cands[0];
+  if (!hit || !hit.retail_price) { failures.push(`${pair.pair_id}/${side} (Sainsbury's): no product matching "${cfg.name}"`); return; }
+  if (!amount) { failures.push(`${pair.pair_id}/${side} (Sainsbury's): no register amount`); return; }
+  const per100 = Number((hit.retail_price.price / amount * 100).toFixed(4));
+  const up = hit.unit_price;
+  if (up && up.price != null) {
+    if (/^(kg|ltr|l)$/i.test(up.measure)) xcheck(`${pair.pair_id}/${side} S`, per100, Number((up.price / 10).toFixed(4)));
+    else if (/^100\s?(g|ml)$/i.test(up.measure)) xcheck(`${pair.pair_id}/${side} S`, per100, Number(up.price.toFixed(4)));
+  }
+  rows.push({
+    date: runDate, pair_id: pair.pair_id, category: pair.category, chain: pair.chain,
+    side, store: "Sainsbury's", label: hit.name, price_gbp: hit.retail_price.price, per100,
+    unit, offer: null, source: "sainsburys_api", amount, amount_basis: "register", api_name: hit.name,
+  });
+}
+
+async function fetchMorrisons(pair, side) {
+  const prod = pair[side];
+  const cfg = prod.morr;
+  if (!cfg) return;
+  const url = "https://groceries.morrisons.com" + cfg.path;
+  const r = await fetch(url, { headers: H });
+  if (r.status === 403 || r.status === 429) { blocked = `Morrisons HTTP ${r.status} on ${pair.pair_id}/${side}`; return; }
+  if (!r.ok) { failures.push(`${pair.pair_id}/${side} (Morrisons): HTTP ${r.status}`); return; }
+  const html = await r.text();
+  if (/just a moment|challenge-platform|Attention Required!/i.test(html.slice(0, 3000))) {
+    blocked = `Morrisons challenge page on ${pair.pair_id}/${side}`; return;
+  }
+  const m = html.match(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/);
+  if (!m) { failures.push(`${pair.pair_id}/${side} (Morrisons): no JSON-LD on page`); return; }
+  let p;
   try {
-    const u = "https://www.sainsburys.co.uk/groceries-api/gol-services/product/v1/product?filter[keyword]="
-      + encodeURIComponent(prod.sains_api.query);
-    const r = await fetch(u, { headers: { ...H, "Accept": "application/json" } });
-    if (!r.ok) return; // silent: aggregator row stands, provenance stays "trolley"
-    const j = await r.json();
-    const want = norm(prod.sains_api.name);
-    const hit = (j.products || []).find(p => norm(p.name).includes(want));
-    if (!hit || !hit.retail_price) return;
-    let per100 = null;
-    const up = hit.unit_price;
-    if (up && up.price != null) {
-      if (/^(kg|ltr|l)$/i.test(up.measure)) per100 = Number((up.price / 10).toFixed(4));
-      else if (/^100\s?(g|ml)$/i.test(up.measure)) per100 = Number(up.price.toFixed(4));
-    }
-    if (per100 == null && prod.amount) per100 = Number((hit.retail_price.price / prod.amount * 100).toFixed(4));
-    if (per100 == null) return;
-    // Replace the aggregator's Sainsbury's row for this product with the primary source.
-    const i = rows.findIndex(x => x.pair_id === pair.pair_id && x.side === side && x.store === "Sainsbury's");
-    const rec = {
-      date: runDate, pair_id: pair.pair_id, category: pair.category, chain: pair.chain,
-      side, store: "Sainsbury's", label: prod.label, price_gbp: hit.retail_price.price, per100,
-      unit: prod.unit, offer: null, source: "sainsburys_api",
-      amount: prod.amount, amount_basis: "retailer_api", api_name: hit.name,
-    };
-    if (i >= 0) rows[i] = rec; else rows.push(rec);
-  } catch { /* API is an upgrade, not a dependency */ }
+    const j = JSON.parse(m[1]);
+    p = Array.isArray(j) ? j.find(x => x["@type"] === "Product") : j;
+  } catch (e) { failures.push(`${pair.pair_id}/${side} (Morrisons): JSON-LD parse: ${e.message}`); return; }
+  const price = p && p.offers ? Number(p.offers.price) : null;
+  if (!p || !price) { failures.push(`${pair.pair_id}/${side} (Morrisons): no price in JSON-LD`); return; }
+  // Guard against a silent relist/pack change: the page's own size string must
+  // match the register amount when it parses.
+  const ldAmount = parseSize(p.size);
+  if (ldAmount != null && Math.abs(ldAmount - cfg.amount) > 0.5) {
+    failures.push(`${pair.pair_id}/${side} (Morrisons): page size ${p.size} (=${ldAmount}${cfg.unit}) != register ${cfg.amount}${cfg.unit}`);
+    return;
+  }
+  const per100 = Number((price / cfg.amount * 100).toFixed(4));
+  rows.push({
+    date: runDate, pair_id: pair.pair_id, category: pair.category, chain: pair.chain,
+    side, store: "Morrisons", label: p.name || cfg.name, price_gbp: price, per100,
+    unit: cfg.unit, offer: null, source: "morrisons_page", amount: cfg.amount, amount_basis: "register", api_name: p.name,
+  });
 }
 
 for (const pair of register.pairs) {
+  if (pair.retired) continue;
   for (const side of ["plant", "meat"]) {
     if (blocked) break;
-    await fetchTrolley(pair, side);
-    await sleep(600);
+    await fetchSains(pair, side);
+    await sleep(500);
+    if (blocked) break;
+    await fetchMorrisons(pair, side);
+    await sleep(700);
   }
   if (blocked) break;
 }
-if (!blocked) {
-  for (const pair of register.pairs) {
-    for (const side of ["plant", "meat"]) {
-      await sainsburysApi(pair, side);
-      await sleep(300);
-    }
-  }
-}
 
 if (blocked) {
-  console.error(`FATAL: aggregator appears to be blocking this client (${blocked}). Writing nothing.`);
+  console.error(`FATAL: a retailer appears to be blocking this client (${blocked}). Writing nothing.`);
   process.exit(2);
 }
 if (failures.length >= 3) {
@@ -146,6 +149,7 @@ if (failures.length >= 3) {
   process.exit(1);
 }
 if (failures.length) console.error("WARN (continuing):\n" + failures.join("\n"));
+if (warnings.length) console.error("XCHECK warnings:\n" + warnings.join("\n"));
 
 await mkdir(new URL("./data/raw/", import.meta.url), { recursive: true });
 await mkdir(new URL("./data/history/", import.meta.url), { recursive: true });
@@ -159,7 +163,9 @@ try {
 } catch (e) {
   if (e.code !== "ENOENT") throw new Error(`history.json unreadable; refusing to overwrite: ${e.message}`);
 }
-hist = hist.filter(r => r.date !== runDate);
+// Upsert only this run's retailer-direct rows; frozen trolley-era rows for the
+// same date (2026-07-22 overlap day) are preserved.
+hist = hist.filter(r => !(r.date === runDate && (r.source === "sainsburys_api" || r.source === "morrisons_page")));
 hist.push(...rows);
 hist.sort((a, b) => a.date !== b.date ? (a.date < b.date ? -1 : 1)
   : a.pair_id !== b.pair_id ? a.pair_id.localeCompare(b.pair_id)
@@ -174,4 +180,4 @@ await writeFile(new URL("./data/history/history.csv", import.meta.url),
 
 const dates = new Set(hist.map(r => r.date));
 console.log(`OK: ${rows.length} product-store rows on ${runDate} (${failures.length} product failures); history now ${hist.length} rows across ${dates.size} date(s).`);
-console.log(`Sainsbury's API rows this run: ${rows.filter(r => r.source === "sainsburys_api").length}`);
+console.log(`Sainsbury's API rows: ${rows.filter(r => r.source === "sainsburys_api").length}; Morrisons rows: ${rows.filter(r => r.source === "morrisons_page").length}`);

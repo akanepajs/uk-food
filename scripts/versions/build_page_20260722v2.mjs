@@ -30,28 +30,7 @@ const RD = JSON.parse(await readFile(new URL("./research_data.json", import.meta
 
 const dates = [...new Set(hist.map(r => r.date))].sort();
 const firstDate = dates[0], lastDate = dates[dates.length - 1], nDates = dates.length;
-
-// Retailer-direct era (since 2026-07-22): live rows come from Sainsbury's API and
-// Morrisons product pages; the aggregator series (trolley.co.uk) is frozen at
-// FROZEN_DATE and no longer fetched. "latest" is the newest row per
-// pair/side/store slot, preferring a retailer-direct row over an aggregator row
-// on the overlap day, so frozen chains keep their last snapshot on the page.
-const FROZEN_DATE = "2026-07-22";
-const DIRECT = new Set(["sainsburys_api", "morrisons_page"]);
-const bySlot = new Map();
-for (const r of hist) {
-  const k = r.pair_id + "|" + r.side + "|" + r.store;
-  const prev = bySlot.get(k);
-  if (!prev) { bySlot.set(k, r); continue; }
-  const rd = DIRECT.has(r.source), pd = DIRECT.has(prev.source);
-  if (rd !== pd) { if (rd) bySlot.set(k, r); continue; }
-  if (r.date >= prev.date) bySlot.set(k, r);
-}
-const latest = [...bySlot.values()];
-// A row is frozen if it comes from the retired aggregator series.
-const isFrozen = r => r && r.source === "trolley";
-const frozenMark = (...rowsToCheck) => rowsToCheck.some(isFrozen) ? "<sup>&dagger;</sup>" : "";
-const FROZEN_NOTE = "&dagger; frozen at the last aggregator snapshot (22 Jul 2026): this chain has no compliant automated price source (its site blocks non-browser clients or its terms bar scraping), so the row no longer updates.";
+const latest = hist.filter(r => r.date === lastDate);
 
 const fmtD = iso => { const [y, m, d] = iso.split("-"); return `${Number(d)} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][m-1]} ${y}`; };
 const f2 = v => v == null ? "-" : v.toFixed(2);
@@ -92,8 +71,7 @@ for (const pair of register.pairs) {
     pair, store, p, m,
     ratio: p.per100 / m.per100,
     avg: avgRatio(pair.pair_id, store),
-    verified: DIRECT.has(p.source) && DIRECT.has(m.source),
-    frozen: isFrozen(p) || isFrozen(m),
+    verified: (p.source === "sainsburys_api") && (m.source === "sainsburys_api"),
   });
 }
 for (const cat of OWN_CATS) own[cat].sort((a, b) => b.ratio - a.ratio);
@@ -145,13 +123,13 @@ const TREND_BRANDED = [
 ];
 
 const NOTES = {
-  "sausages": "Sainsbury's row fetched from Sainsbury's own product API. Waitrose pair is chorizo vs no-chorizo (its closest like-for-like). Morrisons and Asda have no own-brand pair in this category (no standard own-brand pork sausage at Morrisons; no own-brand plant sausage at Asda); M&S was never covered.",
-  "burgers": "Match-quality flags: Tesco pairs a chilled plant product with frozen beef burgers; the Asda plant product is a vegetable burger rather than a meat-imitation patty (its weight was implied from the former aggregator's unit price, unverified); the Waitrose pair is in a premium tier on both sides. Sainsbury's row fetched from Sainsbury's API. Morrisons has no comparable own-brand meat-imitation burger, matching the exclusion in Which? (2022).",
-  "mince": "Plant mince is compared against the standard 20% fat beef mince, the cheapest standard tier; against lean 5% mince the plant discount would be larger still. Tesco and Asda plant minces are frozen products against chilled beef. Sainsbury's delisted Plant Pioneers Meat Free Mince by July 2026, so no chain in this category has a live own-brand pair.",
-  "meatballs": "The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Sainsbury's row fetched from Sainsbury's API (its 5% fat variant is more expensive, which would push the ratio lower still). Morrisons and Co-op list no own-brand plant meatballs.",
-  "ready meals": "The Which? (2022) ready-meal pairs at Tesco (cottage pie) and Waitrose (moussaka) were discontinued before this series began, so the category covers Sainsbury's (lasagne vs lasagne) and Co-op (the same curry pair Which? used). Note the Co-op pair compares a cauliflower curry with a chicken curry: a like-for-like dish, not a like-for-like protein swap.",
-  "coleslaw": "Vegan coleslaw differs from standard mainly in the dressing (no egg/cream). Sainsbury's pair is deli-style vs deli-style at the same 300g size, fetched from Sainsbury's API. M&S Plant Kitchen coleslaw was excluded when the series ran on the former aggregator (its pack weights could not be verified there) and M&S has no compliant direct source. Morrisons lists no standard own-brand coleslaw.",
-  "mayonnaise": "Sainsbury's delisted Plant Pioneers Vegan Mayo by July 2026, so this category has no live own-brand pair; the frozen row compares packs of different sizes (smaller packs usually cost more per 100ml). Same-brand Hellmann's and Heinz comparisons continue in the branded section below.",
+  "sausages": "Sainsbury's rows verified against Sainsbury's own product API. Waitrose pair is chorizo vs no-chorizo (its closest like-for-like). Morrisons and Asda excluded: no standard own-brand pork sausage (Morrisons) or own-brand plant sausage (Asda) listed on the aggregator; M&S not covered by the aggregator.",
+  "burgers": "Match-quality flags: Tesco pairs a chilled plant product with frozen beef burgers; the Asda plant product is a vegetable burger rather than a meat-imitation patty (its weight is implied from the aggregator's unit price, unverified); the Waitrose pair sits in a premium tier on both sides. Sainsbury's row verified against Sainsbury's API. Morrisons has no comparable own-brand meat-imitation burger, matching the exclusion in Which? (2022).",
+  "mince": "Plant mince is compared against the standard 20% fat beef mince, the cheapest standard tier; against lean 5% mince the plant discount would be larger still. Tesco and Asda plant minces are frozen against chilled beef. Morrisons, Waitrose and Co-op list no own-brand plant mince.",
+  "meatballs": "The Tesco pair is frozen on both sides but 12 balls vs a 24-ball pack. Sainsbury's rows verified against Sainsbury's API (its 5% fat variant is more expensive, which would push the ratio lower still). Morrisons and Co-op list no own-brand plant meatballs.",
+  "ready meals": "The Which? (2022) ready-meal pairs at Tesco (cottage pie) and Waitrose (moussaka) are no longer listed on the aggregator, so the category currently covers Sainsbury's (lasagne vs lasagne) and Co-op (the same curry pair Which? used). Note the Co-op pair compares a cauliflower curry with a chicken curry: a like-for-like dish, not a like-for-like protein swap.",
+  "coleslaw": "Vegan coleslaw differs from standard mainly in the dressing (no egg/cream). Sainsbury's pair is deli-style vs deli-style at the same 300g size, both API-verified. M&S Plant Kitchen coleslaw exists via Ocado but its pack weights cannot be verified on the aggregator (its unit prices there imply implausible pack sizes), so M&S is excluded. Morrisons lists no standard own-brand coleslaw on the aggregator.",
+  "mayonnaise": "Pack sizes differ within the Sainsbury's own-brand and Hellmann's pairs (smaller packs usually cost more per 100ml, so those ratios partly reflect pack size). Heinz sells both versions at the same 775g size. A Waitrose listing for the standard Heinz was excluded as a suspected stale or promotional record.",
 };
 
 const CAT_HEADINGS = {
@@ -191,9 +169,8 @@ function ownTable(cat) {
   const avgCol = nDates >= 2;
   const unit = rows[0].p.unit === "ml" ? "£/100ml" : "£/100g";
   const body = rows.map(r => {
-    return `    <tr><td class="txt">${esc(r.pair.chain)}${frozenMark(r.p, r.m)}</td><td class="txt plant">${esc(r.pair.plant.label)}${r.pair.plant.amount ? ", " + r.pair.plant.amount + r.p.unit : ""}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}${r.pair.meat.amount ? ", " + r.pair.meat.amount + r.m.unit : ""}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`;
+    return `    <tr><td class="txt">${esc(r.pair.chain)}</td><td class="txt plant">${esc(r.pair.plant.label)}${r.pair.plant.amount ? ", " + r.pair.plant.amount + r.p.unit : ""}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}${r.pair.meat.amount ? ", " + r.pair.meat.amount + r.m.unit : ""}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`;
   }).join("\n");
-  const frozenNote = rows.some(r => r.frozen) ? " " + FROZEN_NOTE : "";
   return `<h2>${esc(heading)}</h2>
 <div class="tablewrap">
 <table class="data">
@@ -203,18 +180,16 @@ ${body}
   </tbody>
 </table>
 </div>
-<p class="tablenote">${NOTES[cat]}${frozenNote}</p>`;
+<p class="tablenote">${NOTES[cat]}</p>`;
 }
 
 function brandedTable(pairId, title, note) {
   const rows = brandedRows(pairId);
   if (!rows.length) return "";
   const avgCol = nDates >= 2;
-  const us = new Set(rows.flatMap(r => [r.p.unit, r.m.unit]));
-  const unit = us.size > 1 ? "£/100g or 100ml" : (us.has("ml") ? "£/100ml" : "£/100g");
+  const unit = rows[0].p.unit === "ml" ? "£/100ml" : "£/100g";
   const body = rows.map(r =>
-    `    <tr><td class="txt">${esc(r.store)}${frozenMark(r.p, r.m)}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
-  const frozenNote = rows.some(r => isFrozen(r.p) || isFrozen(r.m)) ? " " + FROZEN_NOTE : "";
+    `    <tr><td class="txt">${esc(r.store)}</td><td>${f2(r.p.price_gbp)}</td><td>${f2(r.p.per100)}</td><td>${f2(r.m.price_gbp)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
   return `<h3>${esc(title)}</h3>
 <div class="tablewrap">
 <table class="data">
@@ -224,7 +199,7 @@ ${body}
   </tbody>
 </table>
 </div>
-<p class="tablenote">${note}${frozenNote}</p>`;
+<p class="tablenote">${note}</p>`;
 }
 
 // ---- key message (computed) ----
@@ -232,37 +207,27 @@ ${body}
 // wording (no "cheaper at every chain" / "largest premium" claims), so the sentences stay
 // correct whatever the prices do (Art, 2026-07-08).
 function keyMessage() {
-  // Live rows only (retailer-direct); the frozen aggregator series is pointed to
-  // separately so the "latest picture" never quotes a stale price as current.
-  const live = {};
-  for (const cat of OWN_CATS) live[cat] = own[cat].filter(r => !r.frozen);
   const seg = [];
   const rng = rs => {
     const v = rs.map(r => r.ratio);
-    const lo = fr(Math.min(...v)), hi = fr(Math.max(...v));
-    return lo === hi ? lo : `${lo} to ${hi}`;
+    const lo = Math.min(...v), hi = Math.max(...v);
+    return lo === hi ? fr(lo) : `${fr(lo)} to ${fr(hi)}`;
   };
-  const saus = live["sausages"];
+  const saus = own["sausages"];
   if (saus.length) {
     const list = saus.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ");
     seg.push(`Own-brand plant-based sausages vs pork sausages, per 100g: ${list}.`);
   }
-  const burg = live["burgers"];
-  if (burg.length) seg.push(`Burgers: ${burg.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ")}.`);
-  const balls = live["meatballs"];
-  if (balls.length) seg.push(`Plant meatballs: ${balls.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ")}.`);
-  const slaw = live["coleslaw"], meals = live["ready meals"];
-  if (slaw.length) seg.push(`Vegan coleslaw: ${slaw.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ")}.`);
-  if (meals.length) seg.push(`Ready meals: ${meals.map(r => `${r.pair.chain} ${fr(r.ratio)}`).join(", ")}.`);
-  const BRAND_LABEL = { "richmond-saus": "Richmond sausages", "heinz-mayo": "Heinz mayo", "hellmanns-mayo": "Hellmann's mayo", "magnum-ice": "Magnum", "ginsters-pasty": "Ginsters pasty" };
-  const brandedLive = [];
-  for (const pair of register.pairs) {
-    if (pair.chain !== "branded") continue;
-    const rs = brandedRows(pair.pair_id).filter(r => !isFrozen(r.p) && !isFrozen(r.m));
-    if (rs.length) brandedLive.push(`${BRAND_LABEL[pair.pair_id] || pair.pair_id} ${rng(rs)}`);
+  const burg = own["burgers"];
+  if (burg.length) seg.push(`Burgers run ${rng(burg)}.`);
+  const mince = own["mince"], balls = own["meatballs"];
+  if (mince.length && balls.length) {
+    seg.push(`Plant mince vs standard 20% fat beef mince runs ${rng(mince)} across ${mince.length} chains with a pair; plant meatballs run ${rng(balls)}.`);
   }
-  if (brandedLive.length) seg.push(`Same-brand pairs (across Sainsbury's and Morrisons): ${brandedLive.join(", ")}.`);
-  seg.push("Tesco, Asda, Waitrose, Co-op and Ocado rows are a frozen series (to 22 Jul 2026) in the tables below.");
+  const mayo = own["mayonnaise"];
+  if (mayo.length) {
+    seg.push(`Own-brand vegan vs standard mayonnaise: ${fr(mayo[0].ratio)} at ${mayo[0].pair.chain}.`);
+  }
   return seg.join(" ");
 }
 
@@ -272,7 +237,7 @@ function mainChart() {
   for (const cat of OWN_CATS) {
     if (!own[cat].length) continue;
     out.push(`  <div class="grp">${esc(cat[0].toUpperCase() + cat.slice(1))} (own-brand)</div>`);
-    for (const r of own[cat]) out.push(lollipop(r.pair.chain + (r.frozen ? " †" : ""), r.avg ?? r.ratio, fr(r.avg ?? r.ratio)));
+    for (const r of own[cat]) out.push(lollipop(r.pair.chain, r.avg ?? r.ratio, fr(r.avg ?? r.ratio)));
   }
   out.push(axisRow);
   return out.join("\n");
@@ -287,7 +252,7 @@ function trendChart() {
       const row = own[g.key].find(r => r.pair.pair_id === t.pair_id);
       if (!row) continue;
       const rNow = row.avg ?? row.ratio;
-      out.push(dumbbell(t.label + (t.flag ? " *" : "") + (row.frozen ? " †" : ""), t.p22 / t.m22, rNow));
+      out.push(dumbbell(t.label + (t.flag ? " *" : ""), t.p22 / t.m22, rNow));
     }
   }
   out.push(axisRow);
@@ -547,7 +512,7 @@ const html = `<!DOCTYPE html>
 <h1>Plant-based products vs their meat equivalents: UK supermarket price check</h1>
 <div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022). Shelf prices only: loyalty-card prices (Nectar, Clubcard) and multibuy offers are recorded but excluded from all figures, matching the Which? approach.</div>
 ${tabs("retail")}
-<div class="proto-banner">Sainsbury's and Morrisons prices update daily (retailer-direct); other chains are a frozen series to 22 Jul 2026, marked &dagger;. Series since ${fmtD(firstDate)}; latest prices ${fmtD(lastDate)} (${nDates} day${nDates === 1 ? "" : "s"} of data). Ratios are averages of daily prices over the series.</div>
+<div class="proto-banner">Updated daily. Series since ${fmtD(firstDate)}; latest prices ${fmtD(lastDate)} (${nDates} day${nDates === 1 ? "" : "s"} of data). Ratios are averages of daily prices over the series.</div>
 
 <div class="key-message">
   <strong>Latest picture (${fmtD(lastDate)})</strong>
@@ -562,7 +527,7 @@ ${tabs("retail")}
 <div class="chart">
 ${mainChart()}
 </div>
-<p class="tablenote">&dagger; = frozen series (last aggregator snapshot, 22 Jul 2026); unmarked chains update daily from the retailer. The Asda burger figure compares a vegetable burger (not a meat-imitation product) against quarter pounders; see the burgers table note.</p>
+<p class="tablenote">The Asda burger figure compares a vegetable burger (not a meat-imitation product) against quarter pounders; see the burgers table note.</p>
 
 ${OWN_CATS.map(ownTable).join("\n\n")}
 
@@ -573,13 +538,13 @@ ${brandedTable("magnum-ice", "Magnum: Collection Vegan Classic (3 x 90ml) vs Cla
   "Loyalty-card prices (Nectar, Clubcard) are excluded from all figures throughout; unusually low chain prices may be unflagged promotions.")}
 ${brandedTable("ginsters-pasty", "Ginsters: Vegan Quorn Pasty (180g) vs Original Cornish Pasty (227g)",
   "The same-brand pair Which? (2022) compared (then 0.88-1.11 vegan vs 0.64-0.86 original per 100g across chains).")}
-${brandedTable("hellmanns-mayo", "Hellmann's: Plant Based Mayo vs Real Mayonnaise",
-  "Live rows compare like-sized squeezy bottles within each chain (430ml both sides at Sainsbury's, 750ml both sides at Morrisons). Frozen rows compared 750ml plant vs 580ml standard, so those ratios partly reflect pack size.")}
-${brandedTable("heinz-mayo", "Heinz: Seriously Good Vegan Mayo vs Seriously Good Mayonnaise",
-  "Sainsbury's sells both versions at 775g and at the same price. At Morrisons the vegan version is listed by volume (800ml) and the standard by weight (775g), so its ratio compares per-100ml with per-100g; treat it as approximate. A Waitrose listing for the standard product was excluded as a suspected stale or promotional record.")}
+${brandedTable("hellmanns-mayo", "Hellmann's: Plant Based Mayo (750ml) vs Real Mayonnaise (580ml)",
+  "Pack sizes differ (750ml vs 580ml), so the ratio partly reflects pack size.")}
+${brandedTable("heinz-mayo", "Heinz: Seriously Good Vegan Mayo (775g) vs Seriously Good Mayonnaise (775g)",
+  "Same size both sides. A Waitrose listing for the standard product is excluded as a suspected stale or promotional record.")}
 
 <h2>Trend since Which? (2022)</h2>
-<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes. Pairs marked &dagger; end at the frozen snapshot of 22 Jul 2026.</p>
+<p>How the plant/meat price ratio moved between the Which? study (average of daily prices, Aug to Oct 2022) and the current series average. The trend is shown in ratios; nominal per-100g prices are in the table below. Pairs marked * are category-level comparisons where one or both 2022 products have been discontinued or replaced, so those moves partly reflect product turnover, not price changes.</p>
 <div class="legend"><span class="swatch" style="background: #ffffff; border: 2px solid #9aa8a0;"></span>2022 ratio (Which?)
   <span class="swatch" style="background: var(--pink);"></span>current ratio, plant costs more
   <span class="swatch" style="background: var(--sage);"></span>current ratio, plant cheaper or equal
@@ -600,11 +565,11 @@ ${trendTable()}
 <h2>Method and caveats</h2>
 <ul class="checklist">
   <li><strong>Product basket:</strong> follows the own-brand and branded pairs in <a href="https://www.which.co.uk/news/article/plant-based-alternatives-can-cost-twice-as-much-as-meat-which-finds-a4AzY8r4gTpO">Which? (Dec 2022), "Plant-based alternatives can cost twice as much as meat"</a>, re-matched to 2026 assortments and extended with mince, meatballs and additional pairs. Each pair is a plant-based product and its nearest meat/dairy/egg equivalent in the same range tier. The register (with pack sizes and matching decisions) is <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs.json">pairs.json</a>.</li>
-  <li><strong>Prices:</strong> fetched daily direct from the retailers: Sainsbury's own product API and Morrisons product pages (both primary sources; each data row records its source). Until 22 Jul 2026 the other chains were covered via the aggregator trolley.co.uk; that stopped after a review of its terms of use (they bar automated access), and those rows remain in the history as a frozen series, marked &dagger; in the tables. Tesco and Ocado prohibit scraping in their website terms, and Asda, Waitrose and Co-op block non-browser clients, so those chains have no compliant direct source and their rows stay frozen.</li>
-  <li><strong>Unit prices:</strong> pounds per 100g/100ml computed from the pack price and the register's hand-verified pack weight, with the retailer's own displayed unit price as a cross-check. (Frozen aggregator rows used the same register weights; the aggregator's own multipack unit prices were wrong and were not used, except for two single-container products.)</li>
+  <li><strong>Prices:</strong> scraped daily from <a href="https://www.trolley.co.uk">trolley.co.uk</a> product pages (a price aggregator; secondary source) because Tesco, Asda, Ocado and Co-op block automated access to their own sites. Sainsbury's rows are fetched from Sainsbury's own product API (primary source) where the product surfaces there; each data row records its source. The scrape respects the aggregator's robots.txt (product pages are allowed; its search is not used).</li>
+  <li><strong>Unit prices:</strong> pounds per 100g/100ml computed from the pack price and the register's hand-verified pack weight. The aggregator's own multipack unit prices are wrong (it multiplies pack count by total weight) and are not used, except for two single-container products whose weight the aggregator carries reliably.</li>
   <li><strong>Shelf prices only:</strong> loyalty-card prices (Nectar, Clubcard) and multibuy offers are recorded but excluded from all figures, matching the Which? approach.</li>
   <li><strong>Averaging:</strong> Which? averaged three months of daily prices; this site shows the latest day's prices and averages ratios over the accumulating daily series (${nDates} day${nDates === 1 ? "" : "s"} so far, since ${fmtD(firstDate)}).</li>
-  <li><strong>Coverage gaps:</strong> live daily prices cover Sainsbury's (own-brand and branded pairs) and Morrisons (branded pairs; it has no comparable own-brand plant range in these categories). Sainsbury's delisted its Plant Pioneers mince and vegan mayo by July 2026, so those two own-brand pairs are frozen. Tesco, Asda, Waitrose, Co-op and Ocado are frozen at 22 Jul 2026 (no compliant automated source); M&amp;S was never covered.</li>
+  <li><strong>Coverage gaps:</strong> M&amp;S (not on the aggregator; its coleslaw pack weights cannot be verified); Morrisons sausages/burgers/mince/meatballs/coleslaw, Asda sausages, and Co-op mince/meatballs (no comparable own-brand pair found); the 2022 Tesco and Waitrose ready-meal pairs are discontinued.</li>
 </ul>
 
 <h2>Data</h2>
@@ -616,7 +581,7 @@ ${trendTable()}
 </ul>
 
 <div class="disclosure">
-  Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: Sainsbury's product API, Morrisons product pages, trolley.co.uk (aggregator; frozen series to 22 Jul 2026), Which? (2022).
+  Site prepared with Claude Code (data collection, verification and page build). Prices are shelf prices and may have changed. Sources: trolley.co.uk (aggregator), Sainsbury's product API, Which? (2022).
   Page generated ${fmtD(lastDate)}.
   © 2026 Artūrs (Art) Kaņepājs. Contact: hello@kanepajs.eu
 </div>
