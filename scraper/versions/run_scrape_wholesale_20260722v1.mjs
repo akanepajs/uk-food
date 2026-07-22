@@ -6,11 +6,7 @@
 //   Product/Offer JSON-LD block with per-branch Collection/Delivery prices in
 //   GBP. Canonical price = Collection at the register's jj_branch (Enfield
 //   EN-MW); min/max across branches recorded alongside. Prices are ex-VAT
-//   sitewide (T&Cs 5.4). robots.txt allows /product/ pages. JJ can drop the
-//   Collection offers entirely from the JSON-LD while still publishing a
-//   Delivery price (seen on SGS103 from 2026-07-15, out of stock at every
-//   branch): the scraper then falls back to Delivery offers, with the basis
-//   recorded in price_basis so the switch is visible in the data.
+//   sitewide (T&Cs 5.4). robots.txt allows /product/ pages.
 // - Brakes: product pages server-render an ng-state JSON blob with an
 //   anonymous indicative price ("average customer discount", nettPrices=false),
 //   pack size and the retailer's own per-kg unit price. robots.txt sets
@@ -81,19 +77,16 @@ async function fetchJJ(pair, side) {
     }))
     .filter(o => o.branch && Number.isFinite(o.price));
   const coll = branchOffers.filter(o => /collection/i.test(o.seller));
-  const delv = branchOffers.filter(o => /delivery/i.test(o.seller));
-  const used = coll.length ? coll : delv;
-  const basis = coll.length ? "collection" : "delivery";
-  if (!used.length) { failures.push(`${pair.pair_id}/${side}: no branch Collection or Delivery offers ${prod.sku}`); return; }
-  const canonical = used.find(o => o.branch === JJ_BRANCH) || null;
-  const prices = used.map(o => o.price);
+  if (!coll.length) { failures.push(`${pair.pair_id}/${side}: no branch Collection offers ${prod.sku}`); return; }
+  const canonical = coll.find(o => o.branch === JJ_BRANCH) || null;
+  const prices = coll.map(o => o.price);
   const price = canonical ? canonical.price : Math.min(...prices);
   rows.push({
     date: runDate, pair_id: pair.pair_id, category: pair.category,
     distributor: pair.distributor, side, label: prod.label,
     price_gbp: price, per100: per100(price, prod.amount), unit: prod.unit,
     amount: prod.amount, pack_size: p.size || null,
-    price_basis: canonical ? `${basis} ${JJ_BRANCH}` : `${basis} min (branch fallback)`,
+    price_basis: canonical ? `collection ${JJ_BRANCH}` : "collection min (branch fallback)",
     branch_min: Math.min(...prices), branch_max: Math.max(...prices),
     in_stock: canonical ? canonical.inStock : null,
     was_price: null, vat: "ex-VAT", source: "jj_jsonld", ref: prod.sku,
@@ -125,9 +118,8 @@ async function fetchBrakes(pair, side, attempt = 1) {
   if (!d) {
     // Bare SPA shell: Brakes' SSR is stochastic per request (a page that renders
     // fine one minute can return the shell the next, seen from GitHub runners on
-    // 2026-07-07; two products lost 3-in-a-row on 2026-07-21), so retry up to
-    // 5 attempts before treating as delisted/failed.
-    if (attempt < 5) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
+    // 2026-07-07), so retry up to 3 attempts before treating as delisted/failed.
+    if (attempt < 3) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
     failures.push(`${pair.pair_id}/${side}: no ng-state after ${attempt} attempts (delisted?) ${prod.code}`);
     return;
   }
