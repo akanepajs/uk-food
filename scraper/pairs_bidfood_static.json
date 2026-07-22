@@ -1,0 +1,124 @@
+{
+  "comment": "Bidfood (Bidfood Direct) static snapshot register, RATIOS ONLY. Bidfood's ordering portal is account-gated and its trading terms (clause 4, v. October 2025) treat specific pricing as confidential, so this public register carries no prices: only the plant/animal price ratio per pair, from a hand-curated snapshot taken via a trade account on the snapshot date (ex-VAT list prices as shown to a new account; a contract caterer's negotiated prices can be lower). The price-bearing source register and full harvest live in the private procurement project, where each price was verified against the portal UI. Rendered by build_page.mjs as its own table; never touched by run_scrape_wholesale.mjs and never merged into history_wholesale.json. Matching follows the register discipline of pairs_wholesale.json. Same-brand sweep completed with a second portal session on the snapshot date: pairs carrying same_brand=true compare a brand's own plant-based line against its animal-product line. Ruled out: Richmond (Bidfood lists only the Meat Free line, no Richmond pork sausages), Pukka (no Pukka products at Bidfood), and every Everyday Favourites own-brand pairing (EF pork sausages and EF Vegetable Burger publish piece counts, '1-80pk', with no per-piece weight, so no per-kg basis exists; the EF burger lines also mismatch tiers, spicy bean vs 90% premium gourmet beef).",
+  "snapshot_date": "2026-07-22",
+  "distributor": "Bidfood (trade account snapshot)",
+  "price_basis": "ratios of ex-VAT list prices, new trade account, Bidfood Direct portal (specific prices withheld per Bidfood trading terms clause 4)",
+  "pairs": [
+    {
+      "pair_id": "bidfood-mince",
+      "category": "mince",
+      "plant": {
+        "label": "KaterVeg Vegan Mince 1kg",
+        "unit": "g"
+      },
+      "meat": {
+        "label": "Everyday Favourites Frozen Minced Beef IQF 90VL 2.5kg",
+        "unit": "g"
+      },
+      "ratio": 0.599,
+      "note": "Both frozen, own/value tier (mirrors the jj-mince pairing). The beef side is 90VL (about 10% fat): Bidfood lists no 20% fat mince, the retail comparator tier, and leaner mince costs more, which flatters the plant side. Branded alternative on file: Meatless Farm plant-based mince. Quorn mince excluded as a bonus-pack promotion (1kg + 50% extra free)."
+    },
+    {
+      "pair_id": "bidfood-saus",
+      "category": "sausages",
+      "plant": {
+        "label": "Quorn Vegan Sausage 2kg",
+        "unit": "g"
+      },
+      "meat": {
+        "label": "Delenco Fresh Pork Sausages 8s 1.5kg",
+        "unit": "g"
+      },
+      "ratio": 1.374,
+      "note": "Branded plant sausage vs standard fresh pork 8s. Format mismatch flagged: the Quorn side is frozen, the pork side chilled (Bidfood's own-label Everyday Favourites pork 8s pack, 1x80pk, publishes no per-sausage weight, so it could not be used on a per-kg basis)."
+    },
+    {
+      "pair_id": "bidfood-burger",
+      "category": "burgers",
+      "plant": {
+        "label": "Quorn Vegan Beef Burger 18x109g",
+        "unit": "g"
+      },
+      "meat": {
+        "label": "Paragon 70% Wholebeef Beef Burger Halal 48x113g",
+        "unit": "g"
+      },
+      "ratio": 0.901,
+      "note": "Comparable patty sizes (109g vs 113g), both frozen catering burgers. The beef side declares 70% beef content and comes in a much larger case (5.4kg vs 2kg; bulk pricing flatters it)."
+    },
+    {
+      "pair_id": "bidfood-milk-oat",
+      "category": "milk vs oat drink",
+      "plant": {
+        "label": "Oatly Oat Drink Barista Edition 6x1.5L",
+        "unit": "ml"
+      },
+      "meat": {
+        "label": "Freshways Whole Milk Red Tractor 2L",
+        "unit": "ml"
+      },
+      "ratio": 1.703,
+      "note": "Cheapest per-litre oat line vs cheapest per-litre cow-milk line at the snapshot. Basis mismatch flagged: the oat side is long-life barista formulation in a 6-pack, the milk side fresh in a single 2L bottle."
+    },
+    {
+      "pair_id": "bidfood-mayo-hellmanns",
+      "category": "mayonnaise",
+      "same_brand": true,
+      "plant": {
+        "label": "Hellmann's Vegan Mayonnaise 5L",
+        "unit": "ml"
+      },
+      "meat": {
+        "label": "Hellmann's Mayonnaise 5L",
+        "unit": "ml"
+      },
+      "ratio": 0.865,
+      "note": "Same brand and same 5L pack size both sides (the Bidfood twin of the Brakes Hellmann's pair). The non-vegan side is the standard Hellmann's mayonnaise line; Bidfood also lists Light and Professional variants at other prices."
+    },
+    {
+      "pair_id": "bidfood-mayo-heinz",
+      "category": "mayonnaise",
+      "same_brand": true,
+      "plant": {
+        "label": "Heinz Vegan Mayonnaise 5L",
+        "unit": "ml"
+      },
+      "meat": {
+        "label": "Heinz Original Mayonnaise Pail 10L",
+        "unit": "ml"
+      },
+      "ratio": 1.207,
+      "note": "Same brand both sides (mirrors the JJ Heinz pair) but pack sizes differ (5L vs 10L; larger packs are usually cheaper per litre, which inflates the vegan side's per-litre figure). Bidfood lists no 5L Heinz Original; the 5L Heinz Professional is a different recipe tier."
+    },
+    {
+      "pair_id": "bidfood-cheese-applewood",
+      "category": "cheese slices",
+      "same_brand": true,
+      "plant": {
+        "label": "Applewood Vegan Cheese Style Slices 12x200g",
+        "unit": "g"
+      },
+      "meat": {
+        "label": "Applewood Cheese Slices Red Tractor 750g",
+        "unit": "g"
+      },
+      "ratio": 1.061,
+      "note": "Same brand, sliced format both sides (the Bidfood twin of the Brakes Applewood pair). Pack formats differ (12x200g case vs a single 750g pack)."
+    },
+    {
+      "pair_id": "bidfood-ice-magnum",
+      "category": "ice cream sticks",
+      "same_brand": true,
+      "plant": {
+        "label": "Magnum Vegan Almond 20x85ml",
+        "unit": "ml"
+      },
+      "meat": {
+        "label": "Magnum Almond 20x100ml",
+        "unit": "ml"
+      },
+      "ratio": 1.433,
+      "note": "Same brand and same variant (almond), 20-stick catering boxes both sides (the Bidfood twin of the Brakes Magnum pair; the vegan stick is 85ml here vs 90ml at Brakes, so per-100ml is the comparable basis)."
+    }
+  ]
+}

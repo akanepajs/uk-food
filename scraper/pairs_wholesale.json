@@ -1,5 +1,5 @@
 {
-  "comment": "Wholesale (foodservice) pair register, parallel to pairs.json but separate: wholesale rows never enter the retail history. Sources: JJ Foodservice (/product/england/<SKU> pages, schema.org JSON-LD offers per branch; Collection price at the Enfield EN-MW branch is the canonical price, ex-VAT sitewide per its T&Cs 5.4) and Brakes (product pages, ng-state blob; anonymous indicative price, 'average customer discount', nettPrices=false). 'amount' is the hand-verified total pack weight/volume (from the distributor's own pack-size field, cross-checked against its published per-kg unit price on 2026-07-07); per-100 figures are computed from it. Probed and curated 2026-07-07: Booker and Costco UK are bot-blocked at the Akamai edge, Bidfood is account-gated end to end; JJ and Brakes are the two publicly fetchable distributors. Neither JJ nor Brakes lists a vegan coleslaw; JJ lists 28 beef burgers and no beef-style plant burger (its plant burgers are vegetable or coated chicken-style); Brakes lists no vegan mayonnaise. AHDB publishes deadweight (carcase) prices only, no plant-based wholesale series exists.",
+  "comment": "Wholesale (foodservice) pair register, parallel to pairs.json but separate: wholesale rows never enter the retail history. Sources: JJ Foodservice (/product/england/<SKU> pages, schema.org JSON-LD offers per branch; Collection price at the Enfield EN-MW branch is the canonical price, ex-VAT sitewide per its T&Cs 5.4) and Brakes (product pages, ng-state blob; anonymous indicative price, 'average customer discount', nettPrices=false). 'amount' is the hand-verified total pack weight/volume (from the distributor's own pack-size field, cross-checked against its published per-kg unit price on 2026-07-07; same-brand additions cross-checked 2026-07-22 via the Brakes OCC product API and JJ JSON-LD); per-100 figures are computed from it. Probed and curated 2026-07-07: Booker and Costco UK are bot-blocked at the Akamai edge; Bidfood is account-gated (a static snapshot from a trade account lives in pairs_bidfood_static.json, rendered separately, never scraped). Same-brand sweep 2026-07-22: pairs where one brand sells both the animal and the plant-based line carry same_brand=true. CORRECTION to the 07-07 note: Brakes NOW lists vegan mayonnaise (Hellmann's Vegan 2L/5L, Sysco Classic Vegan 1/2.2/5/10L; new listings since curation). Still true at 07-22: neither JJ nor Brakes lists a vegan coleslaw; JJ lists 28 beef burgers and no beef-style plant burger; no Richmond and no Ginsters at Brakes; no vegan Pukka pie, no Magnum, no plant milk-brand overlap at JJ. xcheck='skip' on a product side disables the scraper's per-100 cross-check against the distributor's own unit price: Brakes' published per-litre figures for bulk mayonnaise are computed from net MASS (kg) on some lines and pack VOLUME (litres) on others (verified 2026-07-22: Hellmann's Real 22.94/4.695kg=4.89 vs Vegan 17.70/5L=3.54), so a volume-consistent pair legitimately disagrees with one side's published unit price. AHDB publishes deadweight (carcase) prices only, no plant-based wholesale series exists.",
   "jj_branch": "EN-MW",
   "pairs": [
     {
@@ -27,16 +27,28 @@
       "note": "Coated chicken-style burger pair (buttermilk-coated mycoprotein vs battered whole-muscle chicken breast), both fully cooked frozen catering patties. JJ lists no beef-style plant burger against its 28 beef burger lines."
     },
     {
-      "pair_id": "jj-mayo-heinz", "category": "mayonnaise", "distributor": "JJ Foodservice",
+      "pair_id": "jj-mayo-heinz", "category": "mayonnaise", "distributor": "JJ Foodservice", "same_brand": true,
       "plant": { "source": "jj", "sku": "SAU972", "label": "Heinz Vegan Mayonnaise 1x5L", "amount": 5000, "unit": "ml" },
       "meat": { "source": "jj", "sku": "SAU043", "label": "Heinz Real Mayonnaise Bucket 1x10L", "amount": 10000, "unit": "ml" },
       "note": "Same brand both sides (mirrors the retail Heinz pair) but pack sizes differ (5L vs 10L; larger packs are usually cheaper per litre, which inflates the vegan side's per-litre figure)."
     },
     {
-      "pair_id": "jj-mayo-sasco", "category": "mayonnaise", "distributor": "JJ Foodservice",
+      "pair_id": "jj-mayo-sasco", "category": "mayonnaise", "distributor": "JJ Foodservice", "same_brand": true,
       "plant": { "source": "jj", "sku": "SAU996", "label": "Sasco Vegan Mayonnaise 1x5L", "amount": 5000, "unit": "ml" },
       "meat": { "source": "jj", "sku": "SAU044", "label": "Sasco Real Mayonnaise Bucket 1x10L", "amount": 10000, "unit": "ml" },
       "note": "Same brand both sides; pack sizes differ (5L vs 10L), same caveat as the Heinz pair."
+    },
+    {
+      "pair_id": "jj-mayo-lion", "category": "mayonnaise", "distributor": "JJ Foodservice", "same_brand": true,
+      "plant": { "source": "jj", "sku": "SAU631", "label": "Lion Premium Vegan Mayo 1x1L", "amount": 1000, "unit": "ml" },
+      "meat": { "source": "jj", "sku": "SAU586", "label": "Lion Thick & Creamy Mayonnaise 2x2.27L", "amount": 4540, "unit": "ml" },
+      "note": "Same brand both sides (added 2026-07-22). Pack sizes differ strongly (1L vs 2x2.27L; bulk pricing flatters the non-vegan side) and the vegan line is badged Premium while Thick & Creamy is the standard line."
+    },
+    {
+      "pair_id": "jj-sausroll", "category": "sausage rolls", "distributor": "JJ Foodservice", "same_brand": true,
+      "plant": { "source": "jj", "sku": "ROL046", "label": "KaterVeg 6\" Vegan Unbaked Sausage Rolls 40x100g", "amount": 4000, "unit": "g" },
+      "meat": { "source": "jj", "sku": "ROL029", "label": "JJ 7\" Side Seal Sausage Rolls 40x138g", "amount": 5520, "unit": "g" },
+      "note": "Own-label both sides (KaterVeg is JJ Foodservice's plant-based own brand, the same pairing tier as the jj-mince pair; added 2026-07-22). Both frozen 40-count catering packs; roll sizes differ (100g vs 138g), so compare per 100g, not per roll."
     },
     {
       "pair_id": "brakes-saus-chilled", "category": "sausages", "distributor": "Brakes",
@@ -67,6 +79,36 @@
       "plant": { "source": "brakes", "code": "150296", "path": "/meal-solutions/meat-free-vegetarian/burgers-grills-other/burgers/quorn-vegan-burger/p/150296", "label": "Quorn Vegan Burger 18x109g", "amount": 1962, "unit": "g" },
       "meat": { "source": "brakes", "code": "3808", "path": "/meat-poultry/frozen-processed-meat/burgers-grills/fast-food-burgers/sysco-classic-90-beef-burger/p/3808", "label": "Sysco Classic 90% Beef Burger 24x113g", "amount": 2712, "unit": "g" },
       "note": "Comparable patty sizes (109g vs 113g), both frozen fast-food tier (own/foodservice brands both sides)."
+    },
+    {
+      "pair_id": "brakes-mayo-hellmanns", "category": "mayonnaise", "distributor": "Brakes", "same_brand": true,
+      "plant": { "source": "brakes", "code": "150305", "path": "/dry-store/condiments-pickles/bulk-condiments/mayonnaise/hellmann-s-vegan-mayonnaise-5ltr/p/150305", "label": "Hellmann's Vegan Mayonnaise 5L", "amount": 5000, "unit": "ml", "xcheck": "skip" },
+      "meat": { "source": "brakes", "code": "1282", "path": "/dry-store/condiments-pickles/bulk-condiments/mayonnaise/hellmann-s-real-mayonnaise-5l/p/1282", "label": "Hellmann's Real Mayonnaise 5L", "amount": 5000, "unit": "ml", "xcheck": "skip" },
+      "note": "Same brand AND same 5L pack size both sides (added 2026-07-22; the cleanest same-brand pair at any distributor). Both amounts are the stated 5L pack volume; Brakes' own published per-litre figures mix a net-mass basis (Real: 22.94/4.695kg) with a volume basis (Vegan: 17.70/5L), so the register cross-check is disabled on both sides and the volume basis is used consistently."
+    },
+    {
+      "pair_id": "brakes-mayo-sysco", "category": "mayonnaise", "distributor": "Brakes", "same_brand": true,
+      "plant": { "source": "brakes", "code": "134323", "path": "/dry-store/condiments-pickles/bulk-condiments/mayonnaise/sysco-classic-vegan-mayonnaise-5ltr/p/134323", "label": "Sysco Classic Vegan Mayonnaise 5L", "amount": 5000, "unit": "ml", "xcheck": "skip" },
+      "meat": { "source": "brakes", "code": "6894", "path": "/dry-store/condiments-pickles/bulk-condiments/mayonnaise/sysco-classic-real-mayonnaise/p/6894", "label": "Sysco Classic Real Mayonnaise 5L", "amount": 5000, "unit": "ml", "xcheck": "skip" },
+      "note": "Own-label both sides (Sysco Classic is the house range of Brakes' parent company), same 5L pack size (added 2026-07-22; both listed at 15.19 GBP at curation). Cross-check disabled for the same mass-vs-volume unit-price basis reason as the Hellmann's pair."
+    },
+    {
+      "pair_id": "brakes-pie-pukka", "category": "pies", "distributor": "Brakes", "same_brand": true,
+      "plant": { "source": "brakes", "code": "133813", "path": "/meal-solutions/savoury-products/pies-puddings-tarts/pies/pukka-wrapped-baked-vegan-chicken-mushroom-pie/p/133813", "label": "Pukka Wrapped & Baked Vegan Chicken & Mushroom Pie 12x230g", "amount": 2760, "unit": "g" },
+      "meat": { "source": "brakes", "code": "135743", "path": "/meal-solutions/savoury-products/pies-puddings-tarts/pies/pukka-individually-wrapped-baked-chicken-mushroom-pies/p/135743", "label": "Pukka Individually Wrapped Baked Chicken & Mushroom Pies 36x223g", "amount": 8030, "unit": "g" },
+      "note": "Same brand AND same variety (chicken and mushroom), both wrapped ready-baked frozen pies (added 2026-07-22). Amounts are Brakes' stated net weights (2.76kg/12 = 230g per vegan pie; 8.03kg/36 = 223g per meat pie); the meat side comes in a 3x larger case, which flatters it on bulk pricing."
+    },
+    {
+      "pair_id": "brakes-ice-magnum", "category": "ice cream sticks", "distributor": "Brakes", "same_brand": true,
+      "plant": { "source": "brakes", "code": "152606", "path": "/drinks-snacks/snacks-confectionery/impulse-ice-cream/handheld/magnum-vegan-almond/p/152606", "label": "Magnum Vegan Almond 20x90ml", "amount": 1800, "unit": "ml" },
+      "meat": { "source": "brakes", "code": "32361", "path": "/drinks-snacks/snacks-confectionery/impulse-ice-cream/handheld/magnum-almond-100ml/p/32361", "label": "Magnum Almond 20x100ml", "amount": 2000, "unit": "ml" },
+      "note": "Same brand and same variant (almond), 20-stick catering boxes both sides (added 2026-07-22; the dairy-vs-vegan stick sizes, 100ml vs 90ml, mirror the retail Magnum pair, so per-100ml is the comparable basis)."
+    },
+    {
+      "pair_id": "brakes-cheese-applewood", "category": "cheese slices", "distributor": "Brakes", "same_brand": true,
+      "plant": { "source": "brakes", "code": "132671", "path": "/delicatessen/speciality-cheese/free-from/vegan/applewood-vegan-slices-200g/p/132671", "label": "Applewood Vegan Slices 200g", "amount": 200, "unit": "g" },
+      "meat": { "source": "brakes", "code": "5002020", "path": "/dairy/block-grated-cheese/cheddar/sliced/applewood-smoked-cheddar-cheese/p/5002020", "label": "Applewood Smoked Cheddar Slices 750g", "amount": 750, "unit": "g" },
+      "note": "Same brand, smoke-flavour slices both sides (added 2026-07-22). Pack sizes differ strongly (200g vs 750g; bulk pricing flatters the dairy side)."
     }
   ]
 }

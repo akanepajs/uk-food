@@ -15,12 +15,6 @@ try {
   wreg = JSON.parse(await readFile(new URL("../scraper/pairs_wholesale.json", import.meta.url), "utf8"));
   whist = JSON.parse(await readFile(new URL("../scraper/data/history/history_wholesale.json", import.meta.url), "utf8"));
 } catch { /* wholesale layer optional: section is omitted if data absent */ }
-// Bidfood is account-gated, so its prices are a hand-curated static snapshot
-// (see pairs_bidfood_static.json), rendered as its own table; never scraped.
-let bidreg = null;
-try {
-  bidreg = JSON.parse(await readFile(new URL("../scraper/pairs_bidfood_static.json", import.meta.url), "utf8"));
-} catch { /* Bidfood snapshot optional */ }
 
 // Research-page numbers come ONLY from research_data.json, written by the procurement
 // project's verify_research_data.py after asserting every value against the Springmann
@@ -320,18 +314,7 @@ function wKeyMessage() {
   if (burg.length) seg.push(`Burgers run ${rng(burg)} (see the pair notes: the JJ pair compares coated chicken formats).`);
   const mayo = by("mayo");
   if (mayo.length) seg.push(`Same-brand vegan mayonnaise runs ${rng(mayo)}.`);
-  const otherSB = rows.filter(r => r.pair.same_brand && !r.pair.category.toLowerCase().includes("mayo"));
-  if (otherSB.length) seg.push(`The other same-brand pairs (${[...new Set(otherSB.map(r => r.pair.category))].join(", ")}) run ${rng(otherSB)}.`);
   return seg.join(" ");
-}
-
-// Bidfood static snapshot rows (account-gated portal; hand-curated, not scraped).
-// RATIOS ONLY: Bidfood's trading terms treat specific pricing as confidential,
-// so the public register carries no prices; the price-bearing source register
-// lives in the private procurement project.
-function bidfoodRows() {
-  if (!bidreg) return [];
-  return bidreg.pairs.map(pair => ({ pair, ratio: pair.ratio }));
 }
 
 function wholesaleSection() {
@@ -345,7 +328,7 @@ function wholesaleSection() {
     const units = new Set(drows.map(r => r.p.unit));
     const mixed = units.size > 1;
     const unitHead = mixed ? "&pound;/100g or &pound;/100ml" : (units.has("ml") ? "&pound;/100ml" : "&pound;/100g");
-    const catCell = r => esc(r.pair.category) + (r.pair.same_brand ? " &middot; same brand" : "") + (mixed && r.p.unit === "ml" ? " (per 100ml)" : "");
+    const catCell = r => esc(r.pair.category) + (mixed && r.p.unit === "ml" ? " (per 100ml)" : "");
     const body = drows.map(r =>
       `    <tr><td class="txt">${catCell(r)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td>${priceCell(r.p)}</td><td>${f2(r.p.per100)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td>${priceCell(r.m)}</td><td>${f2(r.m.per100)}</td><td class="ratio">${fr(r.ratio)}</td>${avgCol ? `<td>${fr(r.avg)}</td>` : ""}</tr>`).join("\n");
     return `<h2>${esc(dist)}</h2>
@@ -358,7 +341,6 @@ ${body}
 </table>
 </div>`;
   };
-  const brows = bidfoodRows();
   const chart = [];
   for (const dist of ["JJ Foodservice", "Brakes"]) {
     const drows = rows.filter(r => r.pair.distributor === dist);
@@ -368,35 +350,11 @@ ${body}
       chart.push(lollipop(r.pair.category, r.avg ?? r.ratio, fr(r.avg ?? r.ratio)));
     }
   }
-  if (brows.length) {
-    chart.push(`  <div class="grp">Bidfood (snapshot)</div>`);
-    for (const r of [...brows].sort((a, b) => b.ratio - a.ratio)) {
-      chart.push(lollipop(r.pair.category, r.ratio, fr(r.ratio)));
-    }
-  }
   chart.push(axisRow);
-  const bidTable = () => {
-    if (!brows.length) return "";
-    const catCell = r => esc(r.pair.category) + (r.pair.same_brand ? " &middot; same brand" : "");
-    const body = brows.map(r =>
-      `    <tr><td class="txt">${catCell(r)}</td><td class="txt plant">${esc(r.pair.plant.label)}</td><td class="txt meat">${esc(r.pair.meat.label)}</td><td class="ratio">${fr(r.ratio)}</td></tr>`).join("\n");
-    return `<h2>Bidfood (account-gated: one-day snapshot, ${esc(fmtD(bidreg.snapshot_date))})</h2>
-<p>Bidfood's ordering portal requires a trade account, so unlike JJ and Brakes its prices cannot be tracked daily, and its trading terms treat specific pricing as confidential, so the rows below show only the price ratio of each pair, not the underlying prices. Ratios come from a hand-curated snapshot taken through a trade account on ${esc(fmtD(bidreg.snapshot_date))}: ex-VAT wholesale list prices as shown to a new account, not the negotiated prices a contract caterer pays.</p>
-<div class="tablewrap">
-<table class="data">
-  <thead><tr><th class="txt">Category</th><th class="txt">Plant-based product</th><th class="txt">Meat or standard product</th><th>Ratio, plant / meat per 100g or 100ml</th></tr></thead>
-  <tbody>
-${body}
-  </tbody>
-</table>
-</div>`;
-  };
   const noteRows = wreg.pairs.filter(pr => rows.some(r => r.pair.pair_id === pr.pair_id) && pr.note)
     .map(pr => `<li><strong>${esc(pr.pair_id)}</strong> (${esc(pr.distributor)}, ${esc(pr.category)}): ${esc(pr.note)}</li>`).join("\n  ");
-  const bidNoteRows = brows.filter(r => r.pair.note)
-    .map(r => `<li><strong>${esc(r.pair.pair_id)}</strong> (Bidfood, ${esc(r.pair.category)}): ${esc(r.pair.note)}</li>`).join("\n  ");
-  return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at UK foodservice distributors: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution), whose product prices are publicly visible without an account and scraped daily, plus <a href="https://www.bidfood.co.uk">Bidfood</a> (contract-catering distribution), whose account-gated prices appear only as ratios in a one-day snapshot below. Rows marked "same brand" compare a brand's own plant-based line against its animal-product line.</p>
-<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent, averaged (Bidfood: single-day snapshot).
+  return `<p>Public-sector and contract caterers buy at wholesale, not retail, so this page tracks the same plant-vs-meat comparison at the two UK foodservice distributors whose product prices are publicly visible without an account: <a href="https://www.jjfoodservice.com">JJ Foodservice</a> (cash-and-carry and delivered wholesale) and <a href="https://www.brake.co.uk">Brakes</a> (contract-catering distribution).</p>
+<div class="legend">Dot = ratio of plant-based price per 100g/100ml to the meat or standard equivalent, averaged.
   <span class="swatch" style="background: var(--pink);"></span>plant-based costs more
   <span class="swatch" style="background: var(--sage);"></span>plant-based cheaper or equal
 </div>
@@ -406,19 +364,17 @@ ${chart.join("\n")}
 ${distTable("JJ Foodservice")}
 ${distTable("Brakes")}
 <p class="tablenote">Prices marked * were on promotion at scrape time (the regular price is recorded in the data as was_price).</p>
-${bidTable()}
 <h2>Wholesale method notes</h2>
 <ul class="checklist">
-  <li><strong>Price basis differs from retail and between distributors.</strong> JJ Foodservice prices are ex-VAT Collection prices at the Enfield branch (its product pages publish every branch's price; the data records the min-max across branches). Brakes shows an anonymous indicative price based on an "average customer discount": a real caterer's negotiated contract price can differ, so treat Brakes figures as indicative list-level prices, not transaction prices. Bidfood ratios are computed from ex-VAT list prices shown to a new trade account on the snapshot date; the specific prices are withheld because Bidfood's trading terms treat them as confidential. Ratios within a distributor are internally consistent.</li>
-  <li><strong>Catering pack formats:</strong> per-100g/100ml figures are computed from each product's stated pack weight or volume (recorded in the register and cross-checked against the distributor's own per-kg unit price where published and where its basis is consistent; the register documents one Brakes bulk-mayonnaise case where the published per-litre figures mix a mass and a volume basis). Pack sizes differ within some pairs; the pair notes flag where that matters.</li>
-  <li><strong>Range gaps are themselves a finding.</strong> JJ lists 28 beef burger lines and no beef-style plant burger (its plant burgers are vegetable or coated chicken-style, so the JJ burger pair compares coated chicken formats). Neither JJ nor Brakes lists a vegan coleslaw. At the July 2026 same-brand sweep, JJ carried no Richmond, no vegan Pukka pie and no Magnum; Brakes carried no Richmond and no Ginsters; and no brand sells both cow milk and a plant drink at either. The wholesale plant-based assortment is far thinner than retail.</li>
+  <li><strong>Price basis differs from retail and between distributors.</strong> JJ Foodservice prices are ex-VAT Collection prices at the Enfield branch (its product pages publish every branch's price; the data records the min-max across branches). Brakes shows an anonymous indicative price based on an "average customer discount": a real caterer's negotiated contract price can differ, so treat Brakes figures as indicative list-level prices, not transaction prices. Ratios within a distributor are internally consistent.</li>
+  <li><strong>Catering pack formats:</strong> per-100g/100ml figures are computed from each product's stated pack weight or volume (recorded in the register and cross-checked against the distributor's own per-kg unit price where published). Pack sizes differ within some pairs; the pair notes flag where that matters.</li>
+  <li><strong>Range gaps are themselves a finding.</strong> JJ lists 28 beef burger lines and no beef-style plant burger (its plant burgers are vegetable or coated chicken-style, so the JJ burger pair compares coated chicken formats). Neither distributor lists a vegan coleslaw, and Brakes lists no vegan mayonnaise. The wholesale plant-based assortment is far thinner than retail.</li>
   <li><strong>No published wholesale benchmark exists for plant-based products.</strong> AHDB publishes weekly GB deadweight (carcase) price series for <a href="https://ahdb.org.uk/beef/gb-deadweight-cattle-prices">cattle</a> and <a href="https://ahdb.org.uk/pork/gb-deadweight-pig-prices-eu-spec">pigs</a>, but a carcase price is a farm-gate commodity price, not comparable to a catering product, and no plant-based equivalent series exists anywhere in its taxonomy.</li>
-  <li><strong>Scrape conduct:</strong> JJ and Brakes are scraped as anonymous visitors from their server-rendered product pages, within each site's robots.txt (Brakes sets a 10-second crawl delay and a 04:00-08:45 UTC visit window; the daily run is paced and scheduled accordingly). Bidfood is not scraped: its snapshot was curated by hand through a trade account.</li>
+  <li><strong>Scrape conduct:</strong> both sites are scraped as anonymous visitors from their server-rendered product pages, within each site's robots.txt (Brakes sets a 10-second crawl delay and a 04:00-08:45 UTC visit window; the daily run is paced and scheduled accordingly).</li>
 </ul>
 <h2>Pair matching notes (wholesale)</h2>
 <ul class="checklist">
   ${noteRows}
-  ${bidNoteRows}
 </ul>`;
 }
 
@@ -599,13 +555,13 @@ const whtml = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UK plant-based vs meat wholesale price check</title>
-<meta name="description" content="Wholesale (foodservice) price comparison of plant-based products and their meat equivalents at UK distributors JJ Foodservice, Brakes and Bidfood, including same-brand pairs, per 100g, updated daily.">
+<meta name="description" content="Wholesale (foodservice) price comparison of plant-based products and their meat equivalents at UK distributors JJ Foodservice and Brakes, per 100g, updated daily.">
 <style>${STYLE}</style>
 </head>
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK wholesale (foodservice) price check</h1>
-<div class="subtitle">Catering pairs at UK foodservice distributors JJ Foodservice, Brakes and Bidfood, including same-brand pairs, per 100g/100ml</div>
+<div class="subtitle">Catering pairs at the two UK foodservice distributors with publicly visible prices, per 100g/100ml</div>
 ${tabs("wholesale")}
 ${wLatest.length ? `<div class="proto-banner">Updated daily. Series since ${fmtD(wdates[0])}; latest prices ${fmtD(wLast)} (${wnDates} day${wnDates === 1 ? "" : "s"} of data)${wnDates >= 2 ? ". Ratios are averages of daily prices over the series" : ""}.</div>` : ""}
 
@@ -619,12 +575,12 @@ ${wbody}
 <h2>Data</h2>
 <ul>
   <li>Wholesale daily history: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.json">history_wholesale.json</a> / <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/data/history/history_wholesale.csv">history_wholesale.csv</a> (one row per product, distributor and date, with price basis, branch range, stock and promo fields).</li>
-  <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_wholesale.json">pairs_wholesale.json</a>; Bidfood snapshot register: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_bidfood_static.json">pairs_bidfood_static.json</a>.</li>
+  <li>Pair register with matching decisions: <a href="https://github.com/akanepajs/uk-food/blob/main/scraper/pairs_wholesale.json">pairs_wholesale.json</a>.</li>
   <li>Retail comparison: <a href="retail.html">retail page</a>; code: <a href="https://github.com/akanepajs/uk-food">github.com/akanepajs/uk-food</a>.</li>
 </ul>
 
 <div class="disclosure">
-  Site prepared with Claude Code (data collection, verification and page build). Prices are list/shelf prices and may have changed. Sources: JJ Foodservice and Brakes product pages and a Bidfood Direct trade-account snapshot (wholesale); AHDB (context links).
+  Site prepared with Claude Code (data collection, verification and page build). Prices are list/shelf prices and may have changed. Sources: JJ Foodservice and Brakes product pages (wholesale); AHDB (context links).
   Page generated ${fmtD(wLast || lastDate)}.
   © 2026 Artūrs (Art) Kaņepājs. Contact: hello@kanepajs.eu
 </div>

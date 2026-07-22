@@ -135,7 +135,12 @@ async function fetchBrakes(pair, side, attempt = 1) {
   if (!Number.isFinite(price)) { failures.push(`${pair.pair_id}/${side}: no price in ng-state ${prod.code}`); return; }
   const p100 = per100(price, prod.amount);
   // Cross-check our per-100 against the retailer's own per-kg/ltr unit price.
-  const um = String(d.unitPriceStr || "").match(/£\s?(\d+(?:\.\d+)?)\s*\/\s*(kg|ltr|l)\b/i);
+  // Register override xcheck:"skip": Brakes computes its published per-litre
+  // figure from net MASS (kg) on some bulk-liquid lines and pack VOLUME on
+  // others (verified 2026-07-22 on the Hellmann's mayo pair), so a volume-
+  // consistent pair legitimately disagrees with one side's published figure.
+  const um = prod.xcheck === "skip" ? null
+    : String(d.unitPriceStr || "").match(/£\s?(\d+(?:\.\d+)?)\s*\/\s*(kg|ltr|l)\b/i);
   if (um) {
     const theirsPer100 = Number(um[1]) / 10;
     if (Math.abs(theirsPer100 - p100) / theirsPer100 > 0.01) {

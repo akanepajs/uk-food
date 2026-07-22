@@ -300,8 +300,18 @@ date,pair_id,category,distributor,side,label,price_gbp,per100,unit,amount,pack_s
 2026-07-22,brakes-balls,meatballs,Brakes,plant,Meatless Farm Plant-Based Meatballs 63x15g,10.99,1.163,g,945,63 x 15g,anonymous indicative (nettPrices=false),,,true,22.99,zero-rated,brakes_ngstate,130516
 2026-07-22,brakes-burger,burgers,Brakes,meat,Sysco Classic 90% Beef Burger 24x113g,36.32,1.3392,g,2712,24 x 113g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3808
 2026-07-22,brakes-burger,burgers,Brakes,plant,Quorn Vegan Burger 18x109g,14.99,0.764,g,1962,18 x 109g,anonymous indicative (nettPrices=false),,,true,26.09,zero-rated,brakes_ngstate,150296
+2026-07-22,brakes-cheese-applewood,cheese slices,Brakes,meat,Applewood Smoked Cheddar Slices 750g,9.19,1.2253,g,750,1 x 750g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,5002020
+2026-07-22,brakes-cheese-applewood,cheese slices,Brakes,plant,Applewood Vegan Slices 200g,3.41,1.705,g,200,1 x 200g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,132671
+2026-07-22,brakes-ice-magnum,ice cream sticks,Brakes,meat,Magnum Almond 20x100ml,28.79,1.4395,ml,2000,1 x 20,anonymous indicative (nettPrices=false),,,true,,subject to VAT,brakes_ngstate,32361
+2026-07-22,brakes-ice-magnum,ice cream sticks,Brakes,plant,Magnum Vegan Almond 20x90ml,27.49,1.5272,ml,1800,20  x  90ml,anonymous indicative (nettPrices=false),,,true,,subject to VAT,brakes_ngstate,152606
+2026-07-22,brakes-mayo-hellmanns,mayonnaise,Brakes,meat,Hellmann's Real Mayonnaise 5L,22.94,0.4588,ml,5000,1 x 5ltr,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,1282
+2026-07-22,brakes-mayo-hellmanns,mayonnaise,Brakes,plant,Hellmann's Vegan Mayonnaise 5L,17.7,0.354,ml,5000,1 x 5ltr,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,150305
+2026-07-22,brakes-mayo-sysco,mayonnaise,Brakes,meat,Sysco Classic Real Mayonnaise 5L,15.19,0.3038,ml,5000,1 x 5ltr,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,6894
+2026-07-22,brakes-mayo-sysco,mayonnaise,Brakes,plant,Sysco Classic Vegan Mayonnaise 5L,15.19,0.3038,ml,5000,1 x 5ltr,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,134323
 2026-07-22,brakes-mince,mince,Brakes,meat,Brakes 20% Fat Beef Mince 1x2.5kg,22.79,0.9116,g,2500,1 x 2.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,3103
 2026-07-22,brakes-mince,mince,Brakes,plant,QuornPro Mince 1x1.5kg,11.09,0.7393,g,1500,1 x 1.5kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,136990
+2026-07-22,brakes-pie-pukka,pies,Brakes,meat,Pukka Individually Wrapped Baked Chicken & Mushroom Pies 36x223g,64.79,0.8068,g,8030,1 x 36,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,135743
+2026-07-22,brakes-pie-pukka,pies,Brakes,plant,Pukka Wrapped & Baked Vegan Chicken & Mushroom Pie 12x230g,32.29,1.1699,g,2760,1 x 12,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,133813
 2026-07-22,brakes-saus-chilled,sausages,Brakes,meat,Prime Meats British 80% Old English Pork Sausage 6s 36x76g,28.19,1.0303,g,2736,36 x 76g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,16687
 2026-07-22,brakes-saus-chilled,sausages,Brakes,plant,THIS Vegan Pork Sausages 1x3kg,32.98,1.0993,g,3000,1 x 3kg,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,135570
 2026-07-22,brakes-saus-frozen,sausages,Brakes,meat,Brakes Pork Sausage Eights 80x57g,14.05,0.3081,g,4560,80 x 57g,anonymous indicative (nettPrices=false),,,true,,zero-rated,brakes_ngstate,129194
@@ -312,9 +322,13 @@ date,pair_id,category,distributor,side,label,price_gbp,per100,unit,amount,pack_s
 2026-07-22,jj-chickburger,coated chicken burgers,JJ Foodservice,plant,Quorn Vegan ChiQin Buttermilk Burger 100g 1x2kg,27.99,1.3995,g,2000,1x2kg,collection EN-MW,27.99,27.99,true,,ex-VAT,jj_jsonld,VEG988
 2026-07-22,jj-mayo-heinz,mayonnaise,JJ Foodservice,meat,Heinz Real Mayonnaise Bucket 1x10L,29.99,0.2999,ml,10000,1x10l,collection EN-MW,29.99,29.99,true,,ex-VAT,jj_jsonld,SAU043
 2026-07-22,jj-mayo-heinz,mayonnaise,JJ Foodservice,plant,Heinz Vegan Mayonnaise 1x5L,16.99,0.3398,ml,5000,1x5l,collection EN-MW,16.99,16.99,true,,ex-VAT,jj_jsonld,SAU972
+2026-07-22,jj-mayo-lion,mayonnaise,JJ Foodservice,meat,Lion Thick & Creamy Mayonnaise 2x2.27L,12.29,0.2707,ml,4540,2x2.27l,collection EN-MW,12.29,12.29,true,,ex-VAT,jj_jsonld,SAU586
+2026-07-22,jj-mayo-lion,mayonnaise,JJ Foodservice,plant,Lion Premium Vegan Mayo 1x1L,3.49,0.349,ml,1000,1x1l,collection EN-MW,3.49,3.49,true,,ex-VAT,jj_jsonld,SAU631
 2026-07-22,jj-mayo-sasco,mayonnaise,JJ Foodservice,meat,Sasco Real Mayonnaise Bucket 1x10L,20.49,0.2049,ml,10000,1x10l,collection EN-MW,20.49,20.49,true,,ex-VAT,jj_jsonld,SAU044
 2026-07-22,jj-mayo-sasco,mayonnaise,JJ Foodservice,plant,Sasco Vegan Mayonnaise 1x5L,8.99,0.1798,ml,5000,1x5l,collection EN-MW,8.99,8.99,true,,ex-VAT,jj_jsonld,SAU996
 2026-07-22,jj-mince,mince,JJ Foodservice,meat,JJ Frozen UK Halal Minced Beef 10% Fat 2x1kg,14.99,0.7495,g,2000,1x2kg,collection EN-MW,14.99,14.99,true,,ex-VAT,jj_jsonld,MEA379
 2026-07-22,jj-mince,mince,JJ Foodservice,plant,KaterVeg Vegan Mince 1x1kg,6.99,0.699,g,1000,1x1kg,collection EN-MW,6.99,6.99,true,,ex-VAT,jj_jsonld,VEG913
-2026-07-22,jj-saus,sausages,JJ Foodservice,meat,JJ Butchers Pork Sausages 8s 1x64 (3.63kg),15.49,0.4268,g,3629,1x64,delivery EN-MW,15.49,15.49,false,,ex-VAT,jj_jsonld,SGS103
+2026-07-22,jj-saus,sausages,JJ Foodservice,meat,Blakemans Premier Sausages 8s 1x80 (4.54kg),19.99,0.4403,g,4540,1x80,collection EN-MW,19.99,19.99,true,,ex-VAT,jj_jsonld,SGS131
 2026-07-22,jj-saus,sausages,JJ Foodservice,plant,Quorn Vegan Sausages 1x2kg,15.99,0.7995,g,2000,1x2kg,collection EN-MW,15.99,15.99,true,,ex-VAT,jj_jsonld,VEG965
+2026-07-22,jj-sausroll,sausage rolls,JJ Foodservice,meat,"JJ 7"" Side Seal Sausage Rolls 40x138g",19.29,0.3495,g,5520,40x125g,collection EN-MW,19.29,19.29,true,,ex-VAT,jj_jsonld,ROL029
+2026-07-22,jj-sausroll,sausage rolls,JJ Foodservice,plant,"KaterVeg 6"" Vegan Unbaked Sausage Rolls 40x100g",15.29,0.3822,g,4000,40x100g,collection EN-MW,15.29,15.29,true,,ex-VAT,jj_jsonld,ROL046
