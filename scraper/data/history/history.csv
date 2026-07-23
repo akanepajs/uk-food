@@ -1461,3 +1461,33 @@ date,pair_id,category,chain,side,store,label,price_gbp,per100,unit,offer,source,
 2026-07-22,wait-saus,sausages,Waitrose,plant,Waitrose,Plant Living No Chorizo Sausages,3,1.0714,g,,trolley,280,register
 2026-07-22,wait-slaw,coleslaw,Waitrose,meat,Waitrose,Deli Style Coleslaw,2.75,0.55,g,,trolley,500,register
 2026-07-22,wait-slaw,coleslaw,Waitrose,plant,Waitrose,PlantLiving Deli Style Coleslaw,2.1,0.7,g,,trolley,300,register
+2026-07-23,ginsters-pasty,branded,branded,meat,Morrisons,Ginsters Original Cornish Pasty   ,2.25,0.9912,g,,morrisons_page,227,register
+2026-07-23,ginsters-pasty,branded,branded,meat,Sainsbury's,"Ginsters Cornish Pasty, 227g",1.5,0.6608,g,,sainsburys_api,227,register
+2026-07-23,ginsters-pasty,branded,branded,plant,Morrisons,Ginsters Vegan Quorn Pasty 180g,2.25,1.25,g,,morrisons_page,180,register
+2026-07-23,ginsters-pasty,branded,branded,plant,Sainsbury's,Ginsters Vegan Quorn Pasty 180g,2.25,1.25,g,,sainsburys_api,180,register
+2026-07-23,heinz-mayo,branded,branded,meat,Morrisons,Heinz Seriously Good Mayonnaise 775g,3.9,0.5032,g,,morrisons_page,775,register
+2026-07-23,heinz-mayo,branded,branded,meat,Sainsbury's,Heinz Seriously Good Mayonnaise 775g,3.9,0.5032,g,,sainsburys_api,775,register
+2026-07-23,heinz-mayo,branded,branded,plant,Morrisons,Heinz Seriously Good Vegan Mayo,3.9,0.4875,ml,,morrisons_page,800,register
+2026-07-23,heinz-mayo,branded,branded,plant,Sainsbury's,Heinz Vegan Mayo 775g,3.9,0.5032,g,,sainsburys_api,775,register
+2026-07-23,hellmanns-mayo,branded,branded,meat,Morrisons,Hellmann's Real Squeezy Mayonnaise 750ml,3,0.4,ml,,morrisons_page,750,register
+2026-07-23,hellmanns-mayo,branded,branded,meat,Sainsbury's,Hellmann's Real Squeezy Mayonnaise 430ml,2.45,0.5698,ml,,sainsburys_api,430,register
+2026-07-23,hellmanns-mayo,branded,branded,plant,Morrisons,Hellmann's Plant Based Mayo 750ml,3.5,0.4667,ml,,morrisons_page,750,register
+2026-07-23,hellmanns-mayo,branded,branded,plant,Sainsbury's,Hellmann's Mayo 100% Plant Based 430ml,3.75,0.8721,ml,,sainsburys_api,430,register
+2026-07-23,magnum-ice,branded,branded,meat,Morrisons,Magnum Classic Ice Cream Sticks 3 x 100ml,3.5,1.1667,ml,,morrisons_page,300,register
+2026-07-23,magnum-ice,branded,branded,meat,Sainsbury's,Magnum Classic 3 x 100ml Ice Cream Sticks,2.5,0.8333,ml,,sainsburys_api,300,register
+2026-07-23,magnum-ice,branded,branded,plant,Morrisons,Magnum Collection Classic Vegan Ice Cream Sticks 3x90ml,4.25,1.5741,ml,,morrisons_page,270,register
+2026-07-23,magnum-ice,branded,branded,plant,Sainsbury's,Magnum 3 x 90ml Collection Vegan Classic Ice Cream Sticks,3.25,1.2037,ml,,sainsburys_api,270,register
+2026-07-23,richmond-saus,branded,branded,meat,Morrisons,Richmond 8 Thick Pork Sausages 410g,1.5,0.3659,g,,morrisons_page,410,register
+2026-07-23,richmond-saus,branded,branded,meat,Sainsbury's,Richmond Thick Pork Sausages x8 410g,2.3,0.561,g,,sainsburys_api,410,register
+2026-07-23,richmond-saus,branded,branded,plant,Morrisons,Richmond 8 Frozen Meat Free Vegan Sausages 304g,2.15,0.7072,g,,morrisons_page,304,register
+2026-07-23,richmond-saus,branded,branded,plant,Sainsbury's,Richmond Meat Free Vegan & Vegetarian Sausages x8 304g,2.4,0.7895,g,,sainsburys_api,304,register
+2026-07-23,sains-balls,meatballs,Sainsbury's,meat,Sainsbury's,Sainsbury's British or Irish 10% Fat 12 Beef Meatballs 350g,4,1.1429,g,,sainsburys_api,350,register
+2026-07-23,sains-balls,meatballs,Sainsbury's,plant,Sainsbury's,Plant Pioneers Meat Free Meatballs 380g,1.32,0.3474,g,,sainsburys_api,380,register
+2026-07-23,sains-burg,burgers,Sainsbury's,meat,Sainsbury's,Sainsbury's 4 Quarter Pounder British Beef Burgers 454g,4,0.8811,g,,sainsburys_api,454,register
+2026-07-23,sains-burg,burgers,Sainsbury's,plant,Sainsbury's,Plant Pioneers 226g Meat Free Burgers,2,0.885,g,,sainsburys_api,226,register
+2026-07-23,sains-lasagne,ready meals,Sainsbury's,meat,Sainsbury's,Sainsbury's Beef Lasagne Ready Meal For 1 400g,2.1,0.525,g,,sainsburys_api,400,register
+2026-07-23,sains-lasagne,ready meals,Sainsbury's,plant,Sainsbury's,Plant Pioneers Vegan Meat Free Lasagne 400g,2,0.5,g,,sainsburys_api,400,register
+2026-07-23,sains-saus,sausages,Sainsbury's,meat,Sainsbury's,Sainsbury's Butcher's choice Cumberland British Pork Sausage x8 454g,1.79,0.3943,g,,sainsburys_api,454,register
+2026-07-23,sains-saus,sausages,Sainsbury's,plant,Sainsbury's,Plant Pioneers Cumberland Shroomdogs x6 300g,2.3,0.7667,g,,sainsburys_api,300,register
+2026-07-23,sains-slaw,coleslaw,Sainsbury's,meat,Sainsbury's,Sainsbury's Deli-Style Traditional Coleslaw 300g,1.4,0.4667,g,,sainsburys_api,300,register
+2026-07-23,sains-slaw,coleslaw,Sainsbury's,plant,Sainsbury's,Plant Pioneers Coleslaw 300g,1.9,0.6333,g,,sainsburys_api,300,register
