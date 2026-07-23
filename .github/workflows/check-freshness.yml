@@ -1,0 +1,34 @@
+name: check-freshness
+
+# Alerting replacement for the removed daily-scrape cron (2026-07-23): the
+# retail scrape runs on Art's PC (scraper/run_daily_local.ps1, 09:00 local),
+# so GitHub no longer emails when a scrape fails. This check runs at 10:00 UTC
+# (hours after the local task) and goes red, triggering the failure email, if
+# the retail history has no rows for today's UTC date. Wholesale still scrapes
+# in Actions and alerts through its own workflow.
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # every day 10:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retail history must contain today's UTC date
+        run: |
+          node -e "
+          const h = require('./scraper/data/history/history.json');
+          const today = new Date().toISOString().slice(0, 10);
+          const latest = h.map(r => r.date).sort().at(-1);
+          console.log('latest retail date:', latest, '| today (UTC):', today);
+          if (latest !== today) {
+            console.error('STALE: no retail rows for ' + today + '. The local scheduled scrape on the PC likely did not run or failed; check %LOCALAPPDATA%/uk-food-scrape/scrape.log and run scraper/run_daily_local.ps1 by hand.');
+            process.exit(1);
+          }
+          "

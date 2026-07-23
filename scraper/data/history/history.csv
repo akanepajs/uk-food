@@ -1472,7 +1472,6 @@ date,pair_id,category,chain,side,store,label,price_gbp,per100,unit,offer,source,
 2026-07-23,hellmanns-mayo,branded,branded,meat,Morrisons,Hellmann's Real Squeezy Mayonnaise 750ml,3,0.4,ml,,morrisons_page,750,register
 2026-07-23,hellmanns-mayo,branded,branded,meat,Sainsbury's,Hellmann's Real Squeezy Mayonnaise 430ml,2.45,0.5698,ml,,sainsburys_api,430,register
 2026-07-23,hellmanns-mayo,branded,branded,plant,Morrisons,Hellmann's Plant Based Mayo 750ml,3.5,0.4667,ml,,morrisons_page,750,register
-2026-07-23,hellmanns-mayo,branded,branded,plant,Sainsbury's,Hellmann's Mayo 100% Plant Based 430ml,3.75,0.8721,ml,,sainsburys_api,430,register
 2026-07-23,magnum-ice,branded,branded,meat,Morrisons,Magnum Classic Ice Cream Sticks 3 x 100ml,3.5,1.1667,ml,,morrisons_page,300,register
 2026-07-23,magnum-ice,branded,branded,meat,Sainsbury's,Magnum Classic 3 x 100ml Ice Cream Sticks,2.5,0.8333,ml,,sainsburys_api,300,register
 2026-07-23,magnum-ice,branded,branded,plant,Morrisons,Magnum Collection Classic Vegan Ice Cream Sticks 3x90ml,4.25,1.5741,ml,,morrisons_page,270,register

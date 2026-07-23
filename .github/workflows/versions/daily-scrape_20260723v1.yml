@@ -1,17 +1,13 @@
 name: daily-scrape
 
-# Re-scrape the pair register, rebuild the page, append the dated rows to the
-# history series, and commit back. The scraper is fail-loud: a bot-block or 3+
-# product failures exits non-zero, nothing is written, this run goes red, and
-# the prior committed page stays live. Mirrors the olas daily-scrape setup.
-#
-# SCHEDULE REMOVED 2026-07-23: Sainsbury's returns HTTP 403 to GitHub-hosted
-# runner IPs (confirmed in two Azure regions), so the daily retail scrape now
-# runs on Art's PC via Windows Task Scheduler (scraper/run_daily_local.ps1)
-# and pushes; deploy-pages deploys on push. Manual dispatch kept in case the
-# block lifts. The check-freshness workflow emails if a day's data is missing.
+# Re-scrape the pair register each day, rebuild the page, append the dated rows
+# to the history series, and commit back. The scraper is fail-loud: a bot-block
+# or 3+ product failures exits non-zero, nothing is written, this run goes red,
+# and the prior committed page stays live. Mirrors the olas daily-scrape setup.
 
 on:
+  schedule:
+    - cron: '40 5 * * *'   # every day 05:40 UTC
   workflow_dispatch: {}
 
 permissions:
