@@ -1,2 +1,10 @@
 CLAUDE.md
 versions/CLAUDE*
+
+# Working state, never publish (per-project next-actions split, 2026-07-30).
+# The SessionStart hook writes these into the project folder; this repo is public
+# and run_daily_local.ps1 does `git add -A`, so they must stay ignored.
+next-actions.md
+backlog.md
+.backlog-state.txt
+versions/next-actions*
