@@ -11,19 +11,11 @@
 //   Delivery price (seen on SGS103 from 2026-07-15, out of stock at every
 //   branch): the scraper then falls back to Delivery offers, with the basis
 //   recorded in price_basis so the switch is visible in the data.
-// - Brakes: the anonymous OCC API endpoint /occ/v2/brakes/products/<code>
-//   returns an anonymous indicative price ("average customer discount",
-//   nettPrices=false), pack size and the retailer's own per-kg unit price.
-//   robots.txt sets Crawl-delay 10 and Visit-time 0400-0845 UTC: requests are
-//   paced 11s apart and the cron must run inside that window.
-//   SOURCE SWITCHED 2026-08-06: this previously parsed the ng-state JSON blob
-//   out of the server-rendered product page, but Brakes' SSR is stochastic per
-//   request (any page can return a bare SPA shell with no ng-state) and the
-//   miss rate from GitHub runners rose far enough to trip the 3-failure abort
-//   on 3 of 4 days (08-03/05/06), each time on DIFFERENT SKUs that were all
-//   verified alive and in stock. The OCC endpoint is the same data without the
-//   SSR lottery, and it carries isDiscontinued/isOutOfStock, so a real delisting
-//   is now distinguishable from a fetch failure instead of being guessed at.
+// - Brakes: product pages server-render an ng-state JSON blob with an
+//   anonymous indicative price ("average customer discount", nettPrices=false),
+//   pack size and the retailer's own per-kg unit price. robots.txt sets
+//   Crawl-delay 10 and Visit-time 0400-0845 UTC: requests are paced 11s apart
+//   and the cron must run inside that window.
 //
 // Wholesale rows go to their own history (data/history/history_wholesale.json
 // + CSV mirror), never into the retail history. per-100 figures come from the
@@ -108,44 +100,39 @@ async function fetchJJ(pair, side) {
   });
 }
 
-// ---- Brakes: anonymous OCC product API ----
+// ---- Brakes: ng-state entity ----
+function brakesParseDetails(html, code) {
+  const m = html.match(/<script id="ng-state" type="application\/json">([\s\S]*?)<\/script>/);
+  if (!m) return null;
+  let state;
+  try { state = JSON.parse(m[1]); } catch { return null; }
+  const cx = state["cx-state"] || state;
+  const ent = cx.product?.details?.entities?.[code];
+  return ent?.default?.value || ent?.variants?.value || ent?.value?.details?.value || null;
+}
+
 async function fetchBrakes(pair, side, attempt = 1) {
   const prod = pair[side];
-  const url = `https://www.brake.co.uk/occ/v2/brakes/products/${prod.code}`;
-  let r;
-  try {
-    r = await fetch(url, { headers: { ...H, Accept: "application/json" } });
-  } catch (e) {
-    // Network-level blip: retry inside the crawl-delay pacing before failing.
-    if (attempt < 3) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
-    failures.push(`${pair.pair_id}/${side}: Brakes fetch error ${e.message} ${prod.code}`);
-    return;
-  }
+  const url = "https://www.brake.co.uk" + prod.path;
+  const r = await fetch(url, { headers: H });
   if (r.status === 403 || r.status === 429) { blocked = `Brakes HTTP ${r.status} on ${prod.code}`; return; }
-  if (r.status === 404) { failures.push(`${pair.pair_id}/${side}: Brakes 404, SKU gone ${prod.code}`); return; }
-  if (!r.ok) {
-    if (attempt < 3) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
-    failures.push(`${pair.pair_id}/${side}: Brakes HTTP ${r.status} ${prod.code}`);
-    return;
+  if (!r.ok) { failures.push(`${pair.pair_id}/${side}: Brakes HTTP ${r.status}`); return; }
+  const html = await r.text();
+  if (/cf-challenge|Attention Required!|just a moment/i.test(html.slice(0, 3000))) {
+    blocked = `Brakes challenge page on ${prod.code}`; return;
   }
-  let d;
-  try { d = JSON.parse(await r.text()); } catch {
-    if (attempt < 3) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
-    failures.push(`${pair.pair_id}/${side}: Brakes response not JSON ${prod.code}`);
-    return;
-  }
-  // The endpoint echoes the code it served; guard against a redirect to another SKU.
-  if (d.code && String(d.code) !== String(prod.code)) {
-    failures.push(`${pair.pair_id}/${side}: Brakes served code ${d.code}, expected ${prod.code}`);
-    return;
-  }
-  // Real delisting is now an explicit flag rather than an inference from a failed fetch.
-  if (d.isDiscontinued) {
-    failures.push(`${pair.pair_id}/${side}: Brakes isDiscontinued ${prod.code}`);
+  const d = brakesParseDetails(html, prod.code);
+  if (!d) {
+    // Bare SPA shell: Brakes' SSR is stochastic per request (a page that renders
+    // fine one minute can return the shell the next, seen from GitHub runners on
+    // 2026-07-07; two products lost 3-in-a-row on 2026-07-21), so retry up to
+    // 5 attempts before treating as delisted/failed.
+    if (attempt < 5) { await sleep(11000); return fetchBrakes(pair, side, attempt + 1); }
+    failures.push(`${pair.pair_id}/${side}: no ng-state after ${attempt} attempts (delisted?) ${prod.code}`);
     return;
   }
   const price = d.price?.value;
-  if (!Number.isFinite(price)) { failures.push(`${pair.pair_id}/${side}: no price in OCC response ${prod.code}`); return; }
+  if (!Number.isFinite(price)) { failures.push(`${pair.pair_id}/${side}: no price in ng-state ${prod.code}`); return; }
   const p100 = per100(price, prod.amount);
   // Cross-check our per-100 against the retailer's own per-kg/ltr unit price.
   // Register override xcheck:"skip": Brakes computes its published per-litre
@@ -170,7 +157,7 @@ async function fetchBrakes(pair, side, attempt = 1) {
     branch_min: null, branch_max: null,
     in_stock: d.stock?.stockLevelStatus ? d.stock.stockLevelStatus === "inStock" : null,
     was_price: Number.isFinite(d.wasPrice?.value) ? d.wasPrice.value : null,
-    vat: d.subjectToVAT ? "subject to VAT" : "zero-rated", source: "brakes_occ", ref: prod.code,
+    vat: d.subjectToVAT ? "subject to VAT" : "zero-rated", source: "brakes_ngstate", ref: prod.code,
   });
 }
 
