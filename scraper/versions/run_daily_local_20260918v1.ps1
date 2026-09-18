@@ -6,9 +6,7 @@
 #   pull -> scrape (fail-loud preserved) -> build pages -> em-dash guard ->
 #   commit (only if changed) -> push (deploy-pages workflow deploys on push).
 # Log: %LOCALAPPDATA%\uk-food-scrape\scrape.log
-# Task: "uk-food daily retail scrape", daily 09:00 local, StartWhenAvailable,
-# allowed to start and keep running on battery (since 2026-09-18: a missed run
-# on battery was dropped, not caught up, so the 18 Sep freshness check failed).
+# Task: "uk-food daily retail scrape", daily 09:00 local, StartWhenAvailable.
 
 $RepoDir = 'C:\Users\akane\OneDrive\Dokumenti\Claude\Projects\uk-food_site'
 $Node = 'C:\Program Files\nodejs\node.exe'
@@ -41,18 +39,9 @@ Write-Log "--- run start (UTC date $date) ---"
 if (-not (Invoke-Step 'pull' $Git 'pull --rebase --autostash origin main')) { exit 1 }
 
 # Scraper is fail-loud: exit 2 = retailer block, exit 1 = 3+ product failures.
-# Either way nothing was written. Retry up to 3 attempts, 3 min apart: a
-# catch-up run just after wake can start before the network is up (13 Sep:
-# ConnectTimeoutError). The scrape only reads, so a retry is safe. If all
-# attempts fail we stop here; check-freshness will email.
+# Either way nothing was written and we stop here; check-freshness will email.
 Set-Location (Join-Path $RepoDir 'scraper')
-$maxAttempts = 3
-for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
-    if (Invoke-Step 'scrape' $Node "run_scrape_uk.mjs $date") { break }
-    if ($attempt -eq $maxAttempts) { Write-Log "FAIL: scrape failed $maxAttempts times; giving up"; exit 1 }
-    Write-Log "  scrape attempt $attempt of $maxAttempts failed; retrying in 3 min"
-    Start-Sleep -Seconds 180
-}
+if (-not (Invoke-Step 'scrape' $Node "run_scrape_uk.mjs $date")) { exit 1 }
 Set-Location $RepoDir
 
 if (-not (Invoke-Step 'build' $Node 'scripts\build_page.mjs')) { exit 1 }
