@@ -73,13 +73,14 @@
   .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
   .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
   .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
+  .tab.tab-disabled { cursor: default; opacity: 0.55; }
 </style>
 </head>
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK supermarket price check</h1>
 <div class="subtitle">Own-brand and branded pairs at the big UK chains, per 100g/100ml, following and extending the basket in Which? (2022). Shelf prices only: loyalty-card prices (Nectar, Clubcard) and multibuy offers are recorded but excluded from all figures, matching the Which? approach.</div>
-<div class="tabs"><a href="./" class="tab">Research</a><a href="retail.html" class="tab active">Retail (supermarkets)</a><a href="wholesale.html" class="tab">Wholesale (foodservice)</a></div>
+<div class="tabs"><a href="./" class="tab">Research</a><span class="tab tab-disabled active" aria-disabled="true">Retail (supermarkets)</span><span class="tab tab-disabled" aria-disabled="true">Wholesale (foodservice)</span></div>
 <div class="proto-banner">Sainsbury's and Morrisons prices update daily (retailer-direct); other chains are a frozen series to 22 Jul 2026, marked &dagger;. Series since 7 Jul 2026; latest prices 25 Sep 2026 (77 days of data). Ratios are averages of daily prices over the series.</div>
 
 <div class="key-message">

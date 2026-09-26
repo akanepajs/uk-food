@@ -460,9 +460,7 @@ ${bidTable()}
 // ---- shared page chrome ----
 // Research is the landing page (Art, 07-07): index.html = research, retail.html = retail;
 // research.html is kept as a redirect stub so earlier links do not break.
-// Retail and Wholesale tabs are shown but not clickable (Art, 26 Sep 2026: lower visibility);
-// the two pages still build and stay reachable by direct URL.
-const tabs = active => `<div class="tabs"><a href="./" class="tab${active === "research" ? " active" : ""}">Research</a><span class="tab tab-disabled${active === "retail" ? " active" : ""}" aria-disabled="true">Retail (supermarkets)</span><span class="tab tab-disabled${active === "wholesale" ? " active" : ""}" aria-disabled="true">Wholesale (foodservice)</span></div>`;
+const tabs = active => `<div class="tabs"><a href="./" class="tab${active === "research" ? " active" : ""}">Research</a><a href="retail.html" class="tab${active === "retail" ? " active" : ""}">Retail (supermarkets)</a><a href="wholesale.html" class="tab${active === "wholesale" ? " active" : ""}">Wholesale (foodservice)</a></div>`;
 
 const STYLE = `
   :root {
@@ -532,7 +530,6 @@ const STYLE = `
   .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
   .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
   .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
-  .tab.tab-disabled { cursor: default; opacity: 0.55; }
 `;
 
 // ---- page ----

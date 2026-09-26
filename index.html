@@ -73,13 +73,14 @@
   .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
   .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
   .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
+  .tab.tab-disabled { cursor: default; opacity: 0.55; }
 </style>
 </head>
 <body>
 
 <h1>Plant-based vs animal-product food costs: what the research says</h1>
 <div class="subtitle">Findings from a review of the published cost-comparison literature (compiled June to July 2026)</div>
-<div class="tabs"><a href="./" class="tab active">Research</a><a href="retail.html" class="tab">Retail (supermarkets)</a><a href="wholesale.html" class="tab">Wholesale (foodservice)</a></div>
+<div class="tabs"><a href="./" class="tab active">Research</a><span class="tab tab-disabled" aria-disabled="true">Retail (supermarkets)</span><span class="tab tab-disabled" aria-disabled="true">Wholesale (foodservice)</span></div>
 
 <p>This page shows findings from published studies and reports. Sources are cited below each chart;
 full references are at the bottom of the page.</p>
