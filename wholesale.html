@@ -73,13 +73,14 @@
   .tabs { margin: 0.9rem 0 1.1rem; border-bottom: 2px solid var(--teal); }
   .tab { display: inline-block; padding: 0.35rem 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--muted); text-decoration: none; border: 1px solid var(--grid); border-bottom: none; border-radius: 6px 6px 0 0; background: #f1f1ee; margin-right: 0.3rem; }
   .tab.active { color: var(--text); background: var(--card); border-color: var(--teal); }
+  .tab.tab-disabled { cursor: default; opacity: 0.55; }
 </style>
 </head>
 <body>
 
 <h1>Plant-based products vs their meat equivalents: UK wholesale (foodservice) price check</h1>
 <div class="subtitle">Catering pairs at UK foodservice distributors JJ Foodservice, Brakes and Bidfood, including same-brand pairs, per 100g/100ml</div>
-<div class="tabs"><a href="./" class="tab">Research</a><a href="retail.html" class="tab">Retail (supermarkets)</a><a href="wholesale.html" class="tab active">Wholesale (foodservice)</a></div>
+<div class="tabs"><a href="./" class="tab">Research</a><span class="tab tab-disabled" aria-disabled="true">Retail (supermarkets)</span><span class="tab tab-disabled active" aria-disabled="true">Wholesale (foodservice)</span></div>
 <div class="proto-banner">Updated daily. Series since 7 Jul 2026; latest prices 25 Sep 2026 (77 days of data). Ratios are averages of daily prices over the series.</div>
 
 <div class="key-message">
