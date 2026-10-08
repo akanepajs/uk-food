@@ -6,7 +6,7 @@
 #   pull -> scrape (fail-loud preserved) -> build pages -> em-dash guard ->
 #   commit (only if changed) -> push (deploy-pages workflow deploys on push).
 # Log: %LOCALAPPDATA%\uk-food-scrape\scrape.log
-# Task: "uk-food daily retail scrape", daily 06:00 UTC, StartWhenAvailable,
+# Task: "uk-food daily retail scrape", daily 09:00 local, StartWhenAvailable,
 # allowed to start and keep running on battery (since 2026-09-18: a missed run
 # on battery was dropped, not caught up, so the 18 Sep freshness check failed).
 
@@ -38,16 +38,7 @@ Set-Location $RepoDir
 $date = (Get-Date).ToUniversalTime().ToString('yyyy-MM-dd')
 Write-Log "--- run start (UTC date $date) ---"
 
-# Pull with the same retry as the scrape below: a catch-up run just after wake
-# from standby can start before DNS is up (5 and 8 Oct: "Could not resolve
-# host: github.com"), and one failed pull used to lose the whole day.
-$maxAttempts = 3
-for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
-    if (Invoke-Step 'pull' $Git 'pull --rebase --autostash origin main') { break }
-    if ($attempt -eq $maxAttempts) { Write-Log "FAIL: pull failed $maxAttempts times; giving up"; exit 1 }
-    Write-Log "  pull attempt $attempt of $maxAttempts failed; retrying in 3 min"
-    Start-Sleep -Seconds 180
-}
+if (-not (Invoke-Step 'pull' $Git 'pull --rebase --autostash origin main')) { exit 1 }
 
 # Scraper is fail-loud: exit 2 = retailer block, exit 1 = 3+ product failures.
 # Either way nothing was written. Retry up to 3 attempts, 3 min apart: a
