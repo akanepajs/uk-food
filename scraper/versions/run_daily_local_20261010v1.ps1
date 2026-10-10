@@ -6,12 +6,9 @@
 #   pull -> scrape (fail-loud preserved) -> build pages -> em-dash guard ->
 #   commit (only if changed) -> push (deploy-pages workflow deploys on push).
 # Log: %LOCALAPPDATA%\uk-food-scrape\scrape.log
-# Task: "uk-food daily retail scrape", daily 06:00 UTC plus a 14:00 UTC
-# catch-up, StartWhenAvailable, allowed to start and keep running on battery
-# (since 2026-09-18: a missed run on battery was dropped, not caught up, so the
-# 18 Sep freshness check failed). The action is `conhost.exe --headless
-# powershell.exe -File <this script>` (since 2026-10-10): a plain powershell.exe
-# action got a Windows Terminal window, and closing it killed the 9 Oct run.
+# Task: "uk-food daily retail scrape", daily 06:00 UTC, StartWhenAvailable,
+# allowed to start and keep running on battery (since 2026-09-18: a missed run
+# on battery was dropped, not caught up, so the 18 Sep freshness check failed).
 
 $RepoDir = 'C:\Users\akane\OneDrive\Dokumenti\Claude\Projects\uk-food_site'
 $Node = 'C:\Program Files\nodejs\node.exe'
@@ -52,34 +49,20 @@ for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
     Start-Sleep -Seconds 180
 }
 
-# The task has a second, 14:00 UTC catch-up trigger (since 2026-10-10: on 9 Oct
-# the morning run was killed one second in, exit 0xC000013A, and nothing ran
-# again that day). If this date's retail rows are already in the history, skip
-# the scrape so the catch-up run neither overwrites the morning prices nor
-# makes a second commit; build/commit/push below still run, which pushes a
-# morning scrape whose push failed and is a no-op otherwise.
-$histFile = Join-Path $RepoDir 'scraper\data\history\history.json'
-& $Node -e "const h=require(process.argv[1]);process.exit(h.some(r=>r.date===process.argv[2]&&(r.source==='sainsburys_api'||r.source==='morrisons_page'))?0:1)" $histFile $date
-$alreadyScraped = ($LASTEXITCODE -eq 0)
-
 # Scraper is fail-loud: exit 2 = retailer block, exit 1 = 3+ product failures.
 # Either way nothing was written. Retry up to 3 attempts, 3 min apart: a
 # catch-up run just after wake can start before the network is up (13 Sep:
 # ConnectTimeoutError). The scrape only reads, so a retry is safe. If all
 # attempts fail we stop here; check-freshness will email.
-if ($alreadyScraped) {
-    Write-Log "  retail rows for $date already in history; skipping scrape"
-} else {
-    Set-Location (Join-Path $RepoDir 'scraper')
-    $maxAttempts = 3
-    for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
-        if (Invoke-Step 'scrape' $Node "run_scrape_uk.mjs $date") { break }
-        if ($attempt -eq $maxAttempts) { Write-Log "FAIL: scrape failed $maxAttempts times; giving up"; exit 1 }
-        Write-Log "  scrape attempt $attempt of $maxAttempts failed; retrying in 3 min"
-        Start-Sleep -Seconds 180
-    }
-    Set-Location $RepoDir
+Set-Location (Join-Path $RepoDir 'scraper')
+$maxAttempts = 3
+for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+    if (Invoke-Step 'scrape' $Node "run_scrape_uk.mjs $date") { break }
+    if ($attempt -eq $maxAttempts) { Write-Log "FAIL: scrape failed $maxAttempts times; giving up"; exit 1 }
+    Write-Log "  scrape attempt $attempt of $maxAttempts failed; retrying in 3 min"
+    Start-Sleep -Seconds 180
 }
+Set-Location $RepoDir
 
 if (-not (Invoke-Step 'build' $Node 'scripts\build_page.mjs')) { exit 1 }
 
