@@ -3832,7 +3832,9 @@ date,pair_id,category,chain,side,store,label,price_gbp,per100,unit,offer,source,
 2026-10-18,ginsters-pasty,branded,branded,meat,Sainsbury's,"Ginsters Cornish Pasty, 227g",1.5,0.6608,g,,sainsburys_api,227,register
 2026-10-18,ginsters-pasty,branded,branded,plant,Morrisons,Ginsters Vegan Quorn Pasty 180g,2.25,1.25,g,,morrisons_page,180,register
 2026-10-18,ginsters-pasty,branded,branded,plant,Sainsbury's,Ginsters Vegan Quorn Pasty 180g,2.25,1.25,g,,sainsburys_api,180,register
+2026-10-18,heinz-mayo,branded,branded,meat,Morrisons,Heinz Seriously Good Mayonnaise 800ml,3.9,0.4875,ml,,morrisons_page,800,register
 2026-10-18,heinz-mayo,branded,branded,meat,Sainsbury's,Heinz Seriously Good Mayonnaise 775g,3.9,0.5032,g,,sainsburys_api,775,register
+2026-10-18,heinz-mayo,branded,branded,plant,Morrisons,Heinz Seriously Good Vegan Mayo 775g,3.9,0.5032,g,,morrisons_page,775,register
 2026-10-18,heinz-mayo,branded,branded,plant,Sainsbury's,Heinz Vegan Mayo 775g,3.9,0.5032,g,,sainsburys_api,775,register
 2026-10-18,hellmanns-mayo,branded,branded,meat,Morrisons,Hellmann's Real Squeezy Mayonnaise 750ml,3.25,0.4333,ml,,morrisons_page,750,register
 2026-10-18,hellmanns-mayo,branded,branded,meat,Sainsbury's,Hellmann's Real Squeezy Mayonnaise 430ml,2.45,0.5698,ml,,sainsburys_api,430,register

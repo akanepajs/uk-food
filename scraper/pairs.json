@@ -128,16 +128,16 @@
     },
     {
       "pair_id": "heinz-mayo", "category": "branded", "chain": "branded", "exclude_stores": ["Waitrose"],
-      "pair_note": "Sainsbury's sells both versions at 775g (mass basis). At Morrisons the vegan version is listed in ml (800ml) and the standard in g (775g), so the Morrisons ratio compares per-100ml with per-100g; treat it as approximate.",
+      "pair_note": "Sainsbury's sells both versions at 775g (mass basis). At Morrisons the vegan version is listed in g (775g) and the standard in ml (800ml) since 18 Oct 2026; up to 17 Oct 2026 Morrisons listed them the other way round (vegan 800ml, standard 775g). Either way the Morrisons ratio compares per-100g with per-100ml; treat it as approximate.",
       "plant": {
         "slug": "/product/heinz-seriously-good-vegan-mayonnaise/OGD694", "label": "Heinz Seriously Good Vegan Mayo", "amount": 775, "unit": "g",
         "sains_api": { "query": "heinz vegan mayo", "name": "Heinz Vegan Mayo 775g", "amount": 775, "unit": "g" },
-        "morr": { "path": "/products/heinz-seriously-good-vegan-mayo/112538518", "name": "Heinz Seriously Good Vegan Mayo", "amount": 800, "unit": "ml" }
+        "morr": { "path": "/products/heinz-seriously-good-vegan-mayo/112538518", "name": "Heinz Seriously Good Vegan Mayo 775g", "amount": 775, "unit": "g" }
       },
       "meat": {
         "slug": "/product/heinz-seriously-good-mayonnaise/SFX180", "label": "Heinz Seriously Good Mayonnaise (775g)", "amount": 775, "unit": "g",
         "sains_api": { "query": "heinz seriously good mayonnaise 775", "name": "Heinz Seriously Good Mayonnaise 775g", "amount": 775, "unit": "g" },
-        "morr": { "path": "/products/heinz-seriously-good-mayonnaise-775g/108208532", "name": "Heinz Seriously Good Mayonnaise 775g", "amount": 775, "unit": "g" }
+        "morr": { "path": "/products/heinz-seriously-good-mayonnaise-775g/108208532", "name": "Heinz Seriously Good Mayonnaise 800ml", "amount": 800, "unit": "ml" }
       }
     },
     {
