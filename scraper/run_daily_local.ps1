@@ -13,7 +13,7 @@
 # powershell.exe -File <this script>` (since 2026-10-10): a plain powershell.exe
 # action got a Windows Terminal window, and closing it killed the 9 Oct run.
 
-$RepoDir = 'C:\Users\akane\OneDrive\Dokumenti\Claude\Projects\uk-food_site'
+$RepoDir = 'C:\w\hwfa-food\site'
 $Node = 'C:\Program Files\nodejs\node.exe'
 $Git = 'C:\Program Files\Git\cmd\git.exe'
 $GitName = 'Arturs Kanepajs'
