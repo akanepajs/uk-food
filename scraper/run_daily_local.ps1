@@ -12,6 +12,11 @@
 # 18 Sep freshness check failed). The action is `conhost.exe --headless
 # powershell.exe -File <this script>` (since 2026-10-10): a plain powershell.exe
 # action got a Windows Terminal window, and closing it killed the 9 Oct run.
+# Since 2026-10-22 the task runs launch_local.ps1 (installed at
+# %LOCALAPPDATA%\uk-food-scrape\launch.ps1), which runs this script and
+# raises a Windows toast if it is missing or exits non-zero: conhost
+# --headless reports 0 to Task Scheduler whatever this script returns.
+# Note: `git add -A` below commits ANY uncommitted change in the repo.
 
 $RepoDir = 'C:\w\hwfa-food\site'
 $Node = 'C:\Program Files\nodejs\node.exe'
