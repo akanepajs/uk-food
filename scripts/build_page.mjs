@@ -117,7 +117,7 @@ function brandedRange(pairId, side) {
 }
 function ratioRange(rows) {
   if (!rows.length) return "-";
-  const v = rows.map(r => r.ratio);
+  const v = rows.map(r => r.avg ?? r.ratio);
   const lo = fr(Math.min(...v)), hi = fr(Math.max(...v));
   return lo === hi ? lo : `${lo}-${hi}`;
 }
@@ -128,7 +128,7 @@ const TREND = [
     { pair_id: "tesco-saus", label: "Tesco", p22: 0.56, m22: 0.33, flag: false, tlabel: "Tesco sausages: Plant Chef Cumberland bangers vs pork sausages" },
     { pair_id: "sains-saus", label: "Sainsbury's", p22: 0.81, m22: 0.42, flag: false, tlabel: "Sainsbury's sausages: Shroomdogs vs Butcher's Choice Cumberland" },
     { pair_id: "wait-saus", label: "Waitrose", p22: 1.08, m22: 0.45, flag: true, tlabel: "Waitrose sausages *" },
-    { pair_id: "coop-saus", label: "Co-op", p22: 0.53, m22: 0.54, flag: false, tlabel: "Co-op sausages: Sizzlin' vs Co-op pork sausages" },
+    { pair_id: "coop-saus", label: "Co-op", p22: 0.53, m22: 0.54, flag: true, tlabel: "Co-op sausages: Sizzlin' vs Co-op pork sausages *" },
   ]},
   { key: "burgers", pairs: [
     { pair_id: "tesco-burg", label: "Tesco", p22: 0.65, m22: 0.44, flag: true, tlabel: "Tesco burgers *" },
@@ -598,7 +598,7 @@ ${trendTable()}
   </tbody>
 </table>
 </div>
-<p class="tablenote">2022 figures are Which? three-month averages (Co-op: point prices supplied 5 Dec 2022); "now" figures are the latest scrape with ratios averaged over the series. Product-change flags (*): Waitrose sausages compared Mushroom &amp; Leek vs British pork in 2022 but chorizo vs no-chorizo now; Tesco's 2022 Meat &amp; Veg burger comparator and Asda's 2022 meat-imitation burger are no longer listed (the current Asda plant product is a vegetable burger); Waitrose's current beef comparator is a premium-tier product; Hellmann's pack sizes changed (430ml squeezy both sides in 2022, 750ml vegan vs 580ml real now). The 2022 Co-op comparator was a gluten-free pork sausage, and Co-op had just price-matched its vegan range.</p>
+<p class="tablenote">2022 figures are Which? three-month averages (Co-op: point prices supplied 5 Dec 2022); "now" figures are the latest scrape with ratios averaged over the series. Product-change flags (*): Waitrose sausages compared Mushroom &amp; Leek vs British pork in 2022 but chorizo vs no-chorizo now; Tesco's 2022 Meat &amp; Veg burger comparator and Asda's 2022 meat-imitation burger are no longer listed (the current Asda plant product is a vegetable burger); Waitrose's current beef comparator is a premium-tier product; Hellmann's pack sizes changed (430ml squeezy both sides in 2022, 750ml vegan vs 580ml real now); Co-op's 2022 comparator was a gluten-free pork sausage, now a standard pork sausage. In December 2022 Co-op had just price-matched its vegan range.</p>
 
 <h2>Method and caveats</h2>
 <ul class="checklist">
