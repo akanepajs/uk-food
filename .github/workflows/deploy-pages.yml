@@ -23,7 +23,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,5 +31,20 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-      - id: deployment
+      # Retry: since ~24 Nov 2026 the uploaded artifact can take up to ~46 s
+      # to become visible, and deploy-pages fails with "No artifacts named
+      # github-pages" (actions/deploy-pages#451). Re-running the job does not
+      # help (it then finds two artifacts), so wait and retry in the same job.
+      - name: Wait for artifact listing
+        run: sleep 10
+      - name: Deploy to Pages
+        id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Wait before deploy retry
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 60
+      - name: Deploy to Pages (retry)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
