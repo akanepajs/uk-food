@@ -97,10 +97,19 @@ if ($emDashes -gt 0) { Write-Log "FAIL: $emDashes em dash(es) in generated HTML;
 
 if (-not (Invoke-Step 'add' $Git 'add -A')) { exit 1 }
 & cmd /c "`"$Git`" diff --staged --quiet 2>&1"
-if ($LASTEXITCODE -eq 0) { Write-Log 'No changes this run; done.'; exit 0 }
-
-$commitArgs = "-c user.name=`"$GitName`" -c user.email=`"$GitEmail`" commit -m `"Daily price update $date (local scheduled task)`""
-if (-not (Invoke-Step 'commit' $Git $commitArgs)) { exit 1 }
+if ($LASTEXITCODE -eq 0) {
+    # Nothing new to commit, but an earlier run may have committed and then
+    # failed or been killed before pushing (27 Nov: the 08:43 commit sat
+    # unpushed, the catch-up run said "No changes" and exited, and
+    # check-freshness emailed STALE). Push any unpushed commits.
+    $ahead = "$(& $Git rev-list --count origin/main..HEAD | Select-Object -Last 1)".Trim()
+    if ($ahead -notmatch '^\d+$') { Write-Log "FAIL: could not count unpushed commits ($ahead)"; exit 1 }
+    if ([int]$ahead -eq 0) { Write-Log 'No changes this run; done.'; exit 0 }
+    Write-Log "  no new changes, but $ahead unpushed commit(s) from an earlier run; pushing"
+} else {
+    $commitArgs = "-c user.name=`"$GitName`" -c user.email=`"$GitEmail`" commit -m `"Daily price update $date (local scheduled task)`""
+    if (-not (Invoke-Step 'commit' $Git $commitArgs)) { exit 1 }
+}
 
 # Push; on rejection (e.g. the wholesale workflow pushed meanwhile) rebase and
 # retry once.
