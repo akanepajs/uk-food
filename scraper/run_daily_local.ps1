@@ -3,7 +3,8 @@
 # hosted daily-scrape workflow can no longer scrape (its cron was removed; the
 # check-freshness workflow emails if a day's data goes missing). This script
 # does what the workflow's scrape/build/commit steps did, from a residential IP:
-#   pull -> scrape (fail-loud preserved) -> build pages -> em-dash guard ->
+#   pull -> scrape (fail-loud preserved) -> wholesale scrape (since
+#   2026-11-28, only when starting 04:00-08:30 UTC) -> build pages -> em-dash guard ->
 #   commit (only if changed) -> push (deploy-pages workflow deploys on push).
 # Log: %LOCALAPPDATA%\uk-food-scrape\scrape.log
 # Task: "uk-food daily retail scrape", daily 06:00 UTC plus a 14:00 UTC
@@ -17,6 +18,8 @@
 # raises a Windows toast if it is missing or exits non-zero: conhost
 # --headless reports 0 to Task Scheduler whatever this script returns.
 # Note: `git add -A` below commits ANY uncommitted change in the repo.
+
+param([switch]$ForceWholesale)
 
 $RepoDir = 'C:\w\hwfa-food\site'
 $Node = 'C:\Program Files\nodejs\node.exe'
@@ -86,6 +89,35 @@ if ($alreadyScraped) {
     Set-Location $RepoDir
 }
 
+# Wholesale scrape (JJ and Brakes), moved here from the GitHub workflow on
+# 2026-11-28: GitHub started the 05:10 UTC cron at 13:14 to 15:52 UTC
+# (17 to 27 Nov), outside the 04:00-08:45 UTC visit window Brakes' robots.txt
+# sets. The run takes about 4.5 min (11 s pacing), so it starts only between
+# 04:00 and 08:30 UTC; the 14:00 UTC catch-up run never scrapes wholesale. If
+# the morning run is missed, that day has no wholesale rows (logged, no toast).
+# A wholesale failure does not block the retail commit and push below; the
+# script then exits 3 at the end so the launcher raises a toast.
+# -ForceWholesale re-scrapes a date that already has wholesale rows (manual
+# test runs); the window check still applies.
+$wholesaleFailed = $false
+$whFile = Join-Path $RepoDir 'scraper\data\history\history_wholesale.json'
+$utcNow = (Get-Date).ToUniversalTime()
+$utcMin = $utcNow.Hour * 60 + $utcNow.Minute
+& $Node -e "const h=require(process.argv[1]);process.exit(h.some(r=>r.date===process.argv[2])?0:1)" $whFile $date
+$whDone = ($LASTEXITCODE -eq 0)
+if ($whDone -and -not $ForceWholesale) {
+    Write-Log "  wholesale rows for $date already in history; skipping wholesale scrape"
+} elseif ($utcMin -lt 240 -or $utcMin -ge 510) {
+    Write-Log "  wholesale: $($utcNow.ToString('HH:mm')) UTC is outside the 04:00-08:30 UTC start window; skipping wholesale scrape"
+} else {
+    Set-Location (Join-Path $RepoDir 'scraper')
+    if (-not (Invoke-Step 'wholesale' $Node "run_scrape_wholesale.mjs $date")) {
+        $wholesaleFailed = $true
+        Write-Log "FAIL: wholesale scrape failed; nothing written, continuing with retail"
+    }
+    Set-Location $RepoDir
+}
+
 if (-not (Invoke-Step 'build' $Node 'scripts\build_page.mjs')) { exit 1 }
 
 # Em-dash guard (hard rule: none in outward-facing pages).
@@ -104,18 +136,23 @@ if ($LASTEXITCODE -eq 0) {
     # check-freshness emailed STALE). Push any unpushed commits.
     $ahead = "$(& $Git rev-list --count origin/main..HEAD | Select-Object -Last 1)".Trim()
     if ($ahead -notmatch '^\d+$') { Write-Log "FAIL: could not count unpushed commits ($ahead)"; exit 1 }
-    if ([int]$ahead -eq 0) { Write-Log 'No changes this run; done.'; exit 0 }
+    if ([int]$ahead -eq 0) {
+        Write-Log 'No changes this run; done.'
+        if ($wholesaleFailed) { exit 3 }
+        exit 0
+    }
     Write-Log "  no new changes, but $ahead unpushed commit(s) from an earlier run; pushing"
 } else {
     $commitArgs = "-c user.name=`"$GitName`" -c user.email=`"$GitEmail`" commit -m `"Daily price update $date (local scheduled task)`""
     if (-not (Invoke-Step 'commit' $Git $commitArgs)) { exit 1 }
 }
 
-# Push; on rejection (e.g. the wholesale workflow pushed meanwhile) rebase and
+# Push; on rejection (e.g. a manual wholesale workflow run pushed meanwhile) rebase and
 # retry once.
 if (-not (Invoke-Step 'push' $Git 'push origin main')) {
     if (-not (Invoke-Step 'pull-retry' $Git 'pull --rebase --autostash origin main')) { exit 1 }
     if (-not (Invoke-Step 'push-retry' $Git 'push origin main')) { exit 1 }
 }
 Write-Log 'OK: pushed; deploy-pages will publish.'
+if ($wholesaleFailed) { Write-Log 'FAIL: retail pushed, but the wholesale scrape failed (see above)'; exit 3 }
 exit 0

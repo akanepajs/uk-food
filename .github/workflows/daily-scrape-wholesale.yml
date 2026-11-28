@@ -3,14 +3,20 @@ name: daily-scrape-wholesale
 # Re-scrape the wholesale (foodservice) pair register each day, rebuild the
 # page, append to the wholesale history series, and commit back. Separate from
 # daily-scrape.yml so a wholesale failure never blocks the retail update (and
-# vice versa). Scheduled 05:10 UTC: inside the 04:00-08:45 UTC visit window
-# Brakes' robots.txt requests, and before the 05:40 retail run. The scraper is
-# fail-loud: a bot-block or 3+ product failures exits non-zero, nothing is
-# written, this run goes red, and the prior committed page stays live.
+# vice versa). The scraper is fail-loud: a bot-block or 3+ product failures
+# exits non-zero, nothing is written, this run goes red, and the prior
+# committed page stays live.
+#
+# Manual runs only since 2026-11-28. The old `10 5 * * *` cron (05:10 UTC)
+# actually started at 13:14 to 15:52 UTC on 17 to 27 Nov 2026 (GitHub delays
+# scheduled runs), outside the 04:00-08:45 UTC visit window Brakes' robots.txt
+# sets. The daily wholesale scrape now runs on Art's PC inside
+# scraper/run_daily_local.ps1 (task "uk-food daily retail scrape", 08:00
+# Latvian time = 06:00 UTC in winter, 05:00 UTC in summer; it starts the
+# wholesale scrape only between 04:00 and 08:30 UTC). Dispatch this workflow
+# by hand only inside that window.
 
 on:
-  schedule:
-    - cron: '10 5 * * *'   # every day 05:10 UTC
   workflow_dispatch: {}
 
 permissions:
